@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cyc6j4lhnrjkg"
+path="res://.godot/imported/model.obj-f89387a331594fb879ebe02dc3d281ee.mesh"
+
+[deps]
+
+files=["res://.godot/imported/model.obj-f89387a331594fb879ebe02dc3d281ee.mesh"]
+
+source_file="res://assets/mesh/timber/model.obj"
+dest_files=["res://.godot/imported/model.obj-f89387a331594fb879ebe02dc3d281ee.mesh", "res://.godot/imported/model.obj-f89387a331594fb879ebe02dc3d281ee.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

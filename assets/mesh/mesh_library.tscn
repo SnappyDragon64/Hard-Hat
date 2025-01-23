@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4y05kjhuwe4e"]
+
+[ext_resource type="ArrayMesh" uid="uid://dpa0r4soh1dh5" path="res://assets/mesh/scaffolding/model.obj" id="1_hyp7u"]
+[ext_resource type="ArrayMesh" uid="uid://ihs73gkeo28t" path="res://assets/mesh/bricks/model.obj" id="2_02g24"]
+[ext_resource type="ArrayMesh" uid="uid://ck1m508oub773" path="res://assets/mesh/girder_vertical/model.obj" id="3_bxal3"]
+[ext_resource type="ArrayMesh" uid="uid://cl7rnf4prtnau" path="res://assets/mesh/girder_horizontal/model.obj" id="4_3jbwe"]
+[ext_resource type="ArrayMesh" uid="uid://cyc6j4lhnrjkg" path="res://assets/mesh/timber/model.obj" id="6_beqww"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a641h"]
+
+[node name="MeshLibrary" type="Node3D"]
+
+[node name="Bricks" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_02g24")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bricks"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bricks/StaticBody3D"]
+shape = SubResource("BoxShape3D_a641h")
+
+[node name="Timber" type="MeshInstance3D" parent="."]
+mesh = ExtResource("6_beqww")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Timber"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Timber/StaticBody3D"]
+shape = SubResource("BoxShape3D_a641h")
+
+[node name="GirderVertical" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_bxal3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="GirderVertical"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GirderVertical/StaticBody3D"]
+shape = SubResource("BoxShape3D_a641h")
+
+[node name="GirderHorizontal" type="MeshInstance3D" parent="."]
+mesh = ExtResource("4_3jbwe")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="GirderHorizontal"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GirderHorizontal/StaticBody3D"]
+shape = SubResource("BoxShape3D_a641h")
+
+[node name="Scaffolding" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_hyp7u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Scaffolding"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scaffolding/StaticBody3D"]
+shape = SubResource("BoxShape3D_a641h")
