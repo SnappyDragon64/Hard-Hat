@@ -21,7 +21,7 @@ scale_curve = SubResource("CurveTexture_kw46u")
 color = Color(0.682353, 0.454902, 0.168627, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fnnn"]
-shading_mode = 2
+shading_mode = 0
 diffuse_mode = 3
 specular_mode = 1
 vertex_color_use_as_albedo = true
