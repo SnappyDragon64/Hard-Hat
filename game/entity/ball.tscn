@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://cdjcl5dow8yg3"]
+
+[ext_resource type="Script" path="res://game/entity/ball.gd" id="1_mgs0w"]
+[ext_resource type="PackedScene" uid="uid://bvw080d5hrglu" path="res://game/particle/ScaffoldingBreakParticles.tscn" id="2_3n27a"]
+[ext_resource type="PackedScene" uid="uid://dljghajwlcrd6" path="res://game/particle/TimberBreakParticles.tscn" id="3_bv2k7"]
+[ext_resource type="PackedScene" uid="uid://6u4to1kmop0e" path="res://game/particle/BricksBreakParticle.tscn" id="4_wp5cy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nto12"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.14, 0.14, 1)
+rim_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_7tc8x"]
+material = SubResource("StandardMaterial3D_nto12")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0ncey"]
+points = PackedVector3Array(0.213184, 0.121617, 0.0458794, -0.244394, -0.0458482, -0.0225957, -0.235753, -0.0685128, -0.0453504, 0.0381797, -0.166638, 0.18209, 0.105885, -0.113145, -0.195799, -0.098597, 0.228232, 0.0230806, -0.0224624, 0.129243, -0.212554, -0.0680421, 0.0759164, 0.228005, 0.0990941, -0.22807, -0.0224645, -0.105478, -0.181336, -0.135664, -0.135556, -0.181178, 0.105931, 0.220803, -0.0455878, 0.106698, 0.213118, 0.0151914, -0.128921, 0.0990973, 0.228078, -0.0224652, 0.0914859, 0.12161, 0.197866, -0.158804, 0.0378813, -0.189069, -0.219777, 0.0758856, 0.0913354, -0.188602, 0.136032, -0.0903546, -0.151048, -0.060555, 0.189468, 0.0232579, -0.0458558, -0.24436, 0.0611408, -0.0532144, 0.235979, 0.136145, 0.12828, -0.165679, 0.228081, -0.0910574, -0.0452198, -0.0376937, 0.205208, 0.137094, -0.0303007, -0.24507, 0.0385787, -0.0300663, 0.220388, -0.113657, 0.135994, -0.180941, 0.105793, 0.0231076, -0.212735, -0.12882, 0.0760745, 0.219765, 0.0911983, -0.151493, -0.19737, -0.0224288, -0.12881, -0.0834983, -0.197107, -0.21952, -0.0909469, 0.0760821)
+
+[sub_resource type="Curve" id="Curve_7whtp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lg07e"]
+curve = SubResource("Curve_7whtp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8s5m3"]
+lifetime_randomness = 1.0
+emission_shape_scale = Vector3(0.3, 0.3, 0)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 2.4, 0)
+damping_max = 1.0
+scale_curve = SubResource("CurveTexture_lg07e")
+color = Color(1, 0.701961, 0, 1)
+alpha_curve = SubResource("CurveTexture_lg07e")
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjwfg"]
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_u107r"]
+material = SubResource("StandardMaterial3D_yjwfg")
+radius = 0.1
+height = 0.2
+
+[node name="Ball" type="CharacterBody3D"]
+collision_layer = 4
+script = ExtResource("1_mgs0w")
+scaffolding_break_particles = ExtResource("2_3n27a")
+timber_break_particles = ExtResource("3_bv2k7")
+bricks_break_particles = ExtResource("4_wp5cy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = SubResource("SphereMesh_7tc8x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_0ncey")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 800
+lifetime = 0.2
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_8s5m3")
+draw_pass_1 = SubResource("SphereMesh_u107r")

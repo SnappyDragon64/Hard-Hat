@@ -52,14 +52,14 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 
-func _idle_physics_process(delta) -> void:
+func _idle_physics_process(_delta) -> void:
 	if input_direction:
 		movement_state = MovementState.RUN
 	
 	_handle_jump()
 	_handle_coyote_time()
 
-func _run_physics_process(delta) -> void:
+func _run_physics_process(_delta) -> void:
 	if not input_direction:
 		movement_state = MovementState.IDLE
 	
