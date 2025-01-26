@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvw080d5hrglu"]
+
+[ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_ngyh3"]
+
+[sub_resource type="Curve" id="Curve_kwvb4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_e3dwm"]
+curve = SubResource("Curve_kwvb4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0hipe"]
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 3.2
+initial_velocity_max = 6.4
+scale_curve = SubResource("CurveTexture_e3dwm")
+color = Color(0.54902, 0.564706, 0.698039, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fnnn"]
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_c7stt"]
+material = SubResource("StandardMaterial3D_3fnnn")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="ScaffoldingBreakParticles" type="Node3D"]
+script = ExtResource("1_ngyh3")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 16
+lifetime = 0.8
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_0hipe")
+draw_pass_1 = SubResource("BoxMesh_c7stt")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
