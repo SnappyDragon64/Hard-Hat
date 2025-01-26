@@ -16,7 +16,7 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_linear_mipmap;
 
-uniform float thickness = 1.6;
+uniform float thickness = 2.0;
 uniform float normal_threshold = 0.1;
 uniform float depth_threshold = 0.05;
 uniform float depth_artifact_correction_coef = 3;
