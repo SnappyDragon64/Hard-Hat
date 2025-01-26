@@ -17,8 +17,13 @@ sky_material = SubResource("ProceduralSkyMaterial_fyu6n")
 [sub_resource type="Environment" id="Environment_2xo8f"]
 background_mode = 2
 sky = SubResource("Sky_lmqdu")
-tonemap_mode = 2
-fog_density = 0.0205
+ambient_light_source = 3
+ambient_light_color = Color(0, 1, 1, 1)
+reflected_light_source = 2
+tonemap_exposure = 1.2
+fog_mode = 1
+fog_depth_begin = 0.0
+fog_depth_end = 16.0
 volumetric_fog_temporal_reprojection_enabled = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xhwlx"]
