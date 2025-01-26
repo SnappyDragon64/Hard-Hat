@@ -13,6 +13,7 @@ ground_horizon_color = Color(0.572434, 0.6909, 0.8075, 1)
 
 [sub_resource type="Sky" id="Sky_lmqdu"]
 sky_material = SubResource("ProceduralSkyMaterial_fyu6n")
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_2xo8f"]
 background_mode = 2
@@ -22,6 +23,7 @@ ambient_light_color = Color(0, 1, 1, 1)
 reflected_light_source = 2
 tonemap_exposure = 1.2
 fog_mode = 1
+fog_density = 1.0
 fog_depth_begin = 0.0
 fog_depth_end = 16.0
 volumetric_fog_temporal_reprojection_enabled = false
@@ -57,6 +59,7 @@ environment = SubResource("Environment_2xo8f")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 shadow_enabled = true
+shadow_blur = 0.0
 
 [node name="Ball" parent="." instance=ExtResource("1_v7oy1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
