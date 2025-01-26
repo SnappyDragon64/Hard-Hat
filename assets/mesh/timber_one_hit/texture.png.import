@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8auu1kco27gg"
-path="res://.godot/imported/texture.png-3b7d635d310c8c10405d71ec455f1743.ctex"
+uid="uid://dw818p5tptxfq"
+path="res://.godot/imported/texture.png-27cc53fde32677a468686c85a67e8101.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mesh/girder_vertical/texture.png"
-dest_files=["res://.godot/imported/texture.png-3b7d635d310c8c10405d71ec455f1743.ctex"]
+source_file="res://assets/mesh/timber_one_hit/texture.png"
+dest_files=["res://.godot/imported/texture.png-27cc53fde32677a468686c85a67e8101.ctex"]
 
 [params]
 
