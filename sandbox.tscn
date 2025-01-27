@@ -31,14 +31,14 @@ volumetric_fog_temporal_reprojection_enabled = false
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xhwlx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ufsub"]
-render_priority = 0
+render_priority = 1
 next_pass = SubResource("ShaderMaterial_xhwlx")
 shader = ExtResource("2_lfcdd")
 shader_parameter/outlineColor = Color(0, 0, 0, 0.878431)
-shader_parameter/depth_threshold = 0.042
+shader_parameter/depth_threshold = 0.04
 shader_parameter/normal_threshold = 1.5
 shader_parameter/normal_smoothing = 0.25
-shader_parameter/max_thickness = 0.8
+shader_parameter/max_thickness = 1.0
 shader_parameter/min_thickness = 0.8
 shader_parameter/max_distance = 75.0
 shader_parameter/min_distance = 30.0
