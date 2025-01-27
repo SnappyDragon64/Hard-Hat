@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody3D
 
 
@@ -71,6 +72,9 @@ func _run_physics_process(_delta) -> void:
 func _jump_physics_process(delta) -> void:
 	_handle_gravity(delta)
 	_handle_x_movement()
+	
+	if Input.is_action_just_released("jump"):
+		velocity.y = 0.0
 	
 	if velocity.y <= 0.0:
 		movement_state = MovementState.FALL
