@@ -34,16 +34,16 @@ volumetric_fog_temporal_reprojection_enabled = false
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_xhwlx")
 shader = ExtResource("2_lfcdd")
-shader_parameter/outlineColor = Color(0, 0, 0, 1)
-shader_parameter/depth_threshold = 0.015
-shader_parameter/normal_threshold = 0.5
-shader_parameter/normal_smoothing = 1.0
+shader_parameter/outlineColor = Color(0, 0, 0, 0.878431)
+shader_parameter/depth_threshold = 0.042
+shader_parameter/normal_threshold = 1.5
+shader_parameter/normal_smoothing = 0.25
 shader_parameter/max_thickness = 0.8
 shader_parameter/min_thickness = 0.8
-shader_parameter/max_distance = 50.0
-shader_parameter/min_distance = 8.0
-shader_parameter/grazing_fresnel_power = 5.0
-shader_parameter/grazing_angle_mask_power = 10.0
+shader_parameter/max_distance = 75.0
+shader_parameter/min_distance = 30.0
+shader_parameter/grazing_fresnel_power = 0.0
+shader_parameter/grazing_angle_mask_power = 0.0
 shader_parameter/grazing_angle_modulation_factor = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_m5ebi"]
@@ -68,8 +68,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0.5)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 31)
 current = true
+fov = 24.0
 size = 16.0
 
 [node name="Sprite3D" type="Sprite3D" parent="Camera3D"]
