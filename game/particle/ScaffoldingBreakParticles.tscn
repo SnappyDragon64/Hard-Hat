@@ -18,7 +18,7 @@ spread = 180.0
 initial_velocity_min = 3.2
 initial_velocity_max = 6.4
 scale_curve = SubResource("CurveTexture_e3dwm")
-color = Color(0.54902, 0.564706, 0.698039, 1)
+color = Color(0.643137, 0.678431, 0.768627, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fnnn"]
 shading_mode = 0
