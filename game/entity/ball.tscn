@@ -76,6 +76,5 @@ cast_shadow = 0
 amount = 800
 lifetime = 0.2
 randomness = 1.0
-trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_8s5m3")
 draw_pass_1 = SubResource("SphereMesh_u107r")

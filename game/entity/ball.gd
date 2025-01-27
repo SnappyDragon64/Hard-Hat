@@ -1,7 +1,8 @@
+class_name Ball
 extends CharacterBody3D
 
 
-@export var speed: float = 4.0
+@export var speed: float = 8.0
 
 @export var scaffolding_break_particles: PackedScene
 @export var timber_break_particles: PackedScene
