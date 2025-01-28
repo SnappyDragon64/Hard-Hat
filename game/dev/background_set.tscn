@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=3 uid="uid://dfhqau5f5bs3v"]
+
+[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/background.png" id="1_70p4k"]
+[ext_resource type="Shader" path="res://assets/shader/outline.gdshader" id="2_4ppwc"]
+[ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="3_h4sn2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyu6n"]
+sky_top_color = Color(0.137936, 0.584432, 1, 1)
+sky_horizon_color = Color(0.572434, 0.6909, 0.8075, 1)
+ground_bottom_color = Color(0.1518, 0.17917, 0.23, 1)
+ground_horizon_color = Color(0.572434, 0.6909, 0.8075, 1)
+
+[sub_resource type="Sky" id="Sky_lmqdu"]
+sky_material = SubResource("ProceduralSkyMaterial_fyu6n")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_2xo8f"]
+sky = SubResource("Sky_lmqdu")
+ambient_light_source = 3
+ambient_light_color = Color(0, 1, 1, 1)
+reflected_light_source = 2
+tonemap_exposure = 1.2
+fog_mode = 1
+fog_density = 1.0
+fog_depth_begin = 0.0
+fog_depth_end = 16.0
+volumetric_fog_temporal_reprojection_enabled = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhwlx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ufsub"]
+render_priority = 1
+next_pass = SubResource("ShaderMaterial_xhwlx")
+shader = ExtResource("2_4ppwc")
+shader_parameter/outlineColor = Color(0, 0, 0, 0.878431)
+shader_parameter/depth_threshold = 0.04
+shader_parameter/normal_threshold = 1.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 1.0
+shader_parameter/min_thickness = 0.8
+shader_parameter/max_distance = 75.0
+shader_parameter/min_distance = 30.0
+shader_parameter/grazing_fresnel_power = 0.0
+shader_parameter/grazing_angle_mask_power = 0.0
+shader_parameter/grazing_angle_modulation_factor = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_m5ebi"]
+material = SubResource("ShaderMaterial_ufsub")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_niv2b"]
+shading_mode = 0
+albedo_texture = ExtResource("1_70p4k")
+uv1_scale = Vector3(4, 2, 4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yds8b"]
+material = SubResource("StandardMaterial3D_niv2b")
+flip_faces = true
+top_radius = 50.0
+bottom_radius = 50.0
+height = 40.0
+cap_top = false
+cap_bottom = false
+
+[node name="BackgroundSet" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2xo8f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_blur = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.994521, 0.104528, 0, -0.104528, 0.994521, 0, 4, 31)
+current = true
+fov = 24.0
+size = 16.0
+
+[node name="Sprite3D" type="Sprite3D" parent="Camera3D"]
+transform = Transform3D(4.56773, 1.38923e-07, 2.03368, -8.9407e-08, 5, -1.40743e-07, -2.03368, 9.221e-08, 4.56773, 1.95525, 1.48819, -63.7072)
+visible = false
+texture = ExtResource("1_70p4k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_m5ebi")
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(1.82709, 0, 0.813473, 0, 2, 0, -0.813473, 0, 1.82709, 0, -3.6, 0)
+mesh_library = ExtResource("3_h4sn2")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(-6, 65531, 851974, 65530, 65531, 6, 196602, 65531, 6, 262138, 65531, 6, 327674, 65531, 6, -5, 65531, 589830, -4, 65531, 589830, -3, 65531, 589830, -2, 65531, 589830, -1, 65531, 589830, -65536, 65531, 589830, -65535, 65531, 589830, -65534, 65531, 589830, -65533, 65531, 589830, -65532, 65531, 589830, -6, 65532, 851974, -6, 65533, 851974, -6, 65534, 851974, -6, 65535, 851974, -6, 0, 851974, -6, 1, 851974, -6, 2, 851974, -6, 3, 851974, -6, 4, 196614, -5, 4, 196614, -4, 4, 196614, -3, 4, 196614, -2, 4, 196614, -1, 4, 196614, -65536, 4, 196614, -65535, 4, 196614, -65534, 4, 196614, -65533, 4, 196614, -65532, 4, 196614, 131066, 65531, 6, -65532, 3, 786432, -65533, 3, 786432, -65534, 3, 786432, -65535, 3, 786432, -65536, 3, 786432, -65536, 2, 786432, -65535, 2, 786432, -65534, 2, 786432, -65533, 2, 786432, -65532, 2, 786432, -65532, 1, 786432, -65533, 1, 786432, -65534, 1, 786432, -65535, 1, 786432, -65536, 1, 786432, 4, 65531, 3, 3, 65531, 3, 2, 65531, 3, 65540, 65531, 3, 65539, 65531, 3, 393210, 65531, 6, 458746, 65531, 6, 327675, 65531, 1376257, 327676, 65531, 1376257, 327679, 65531, 1376257, 262145, 65531, 1376257, 327677, 65531, 1376257, 327678, 65531, 1376257, 262144, 65531, 1376257, 262146, 65531, 1376257, 262147, 65531, 1376257, 262148, 65531, 1376257, -65531, 65531, 196614, -65531, 4, 196614, -65530, 4, 196614, -65530, 65531, 196614, -65530, 65534, 327686, -65530, 65535, 327686, -65530, 0, 327686, -65530, 1, 327686, -65530, 2, 327686, -65530, 3, 327686, 6, 65531, 6, 65542, 65531, 6, 131078, 65531, 6, 196614, 65531, 6, 262150, 65531, 6, 327686, 65531, 6, 393222, 65531, 6, 6, 4, 6, 65542, 4, 6, 131078, 4, 6, 262150, 4, 6, 196614, 4, 6, 327686, 4, 6, 393222, 4, 6, 262149, 65531, 196609, 5, 65531, 3, 65541, 65531, 3, -65531, 1, 786432, -65531, 2, 786432, -65531, 3, 786432, -65530, 65533, 327686, -65530, 65532, 327686)
+}
+metadata/_editor_floor_ = Vector3(6, 4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+mesh = SubResource("CylinderMesh_yds8b")
