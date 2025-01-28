@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Hard Hat"
+config/name="Hard Hat Havoc"
 run/main_scene="res://sandbox.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/image="res://assets/sprite/splash.png"
+config/icon="res://assets/sprite/icon.png"
+boot_splash/minimum_display_time=2000
 
 [display]
 
