@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://btx2vr3g068xy"]
+[gd_scene load_steps=14 format=3 uid="uid://btx2vr3g068xy"]
 
 [ext_resource type="PackedScene" uid="uid://cdjcl5dow8yg3" path="res://game/entity/ball.tscn" id="1_v7oy1"]
 [ext_resource type="PackedScene" uid="uid://rjxa7edahnbb" path="res://game/entity/player.tscn" id="2_86asx"]
@@ -51,6 +51,20 @@ material = SubResource("ShaderMaterial_ufsub")
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxpgk"]
+shading_mode = 0
+albedo_texture = ExtResource("5_fjvi5")
+uv1_scale = Vector3(8, 2, 8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pptjh"]
+material = SubResource("StandardMaterial3D_fxpgk")
+flip_faces = true
+top_radius = 50.0
+bottom_radius = 50.0
+height = 20.0
+cap_top = false
+cap_bottom = false
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -73,13 +87,13 @@ current = true
 fov = 24.0
 size = 16.0
 
-[node name="Sprite3D" type="Sprite3D" parent="Camera3D"]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, -39)
-texture = ExtResource("5_fjvi5")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+[node name="BackgroundCylinder" type="MeshInstance3D" parent="Camera3D"]
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_m5ebi")
+
+[node name="OutlinePass" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
+mesh = SubResource("CylinderMesh_pptjh")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("4_gfjsh")
