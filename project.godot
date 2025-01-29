@@ -11,11 +11,15 @@ config_version=5
 [application]
 
 config/name="Hard Hat Havoc"
-run/main_scene="res://sandbox.tscn"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/image="res://assets/sprite/splash.png"
 config/icon="res://assets/sprite/icon.png"
 boot_splash/minimum_display_time=2000
+
+[autoload]
+
+Signals="*res://game/core/signals.gd"
 
 [display]
 
@@ -80,6 +84,7 @@ lights_and_shadows/directional_shadow/16_bits=false
 shading/overrides/force_vertex_shading=true
 anti_aliasing/screen_space_roughness_limiter/amount=0.5
 anti_aliasing/screen_space_roughness_limiter/limit=0.05
+anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/msaa_3d=2
 anti_aliasing/quality/screen_space_aa=1
 lights_and_shadows/positional_shadow/atlas_16_bits=false

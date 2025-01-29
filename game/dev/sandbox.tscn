@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://btx2vr3g068xy"]
+
+[ext_resource type="Script" path="res://game/dev/sandbox.gd" id="1_m5c6q"]
+[ext_resource type="PackedScene" uid="uid://cdjcl5dow8yg3" path="res://game/entity/ball.tscn" id="1_oety2"]
+[ext_resource type="PackedScene" uid="uid://rjxa7edahnbb" path="res://game/entity/player.tscn" id="2_7cs4f"]
+[ext_resource type="Shader" path="res://assets/shader/outline.gdshader" id="3_065wr"]
+[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/background.png" id="4_pwykv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyu6n"]
+sky_top_color = Color(0.137936, 0.584432, 1, 1)
+sky_horizon_color = Color(0.572434, 0.6909, 0.8075, 1)
+ground_bottom_color = Color(0.1518, 0.17917, 0.23, 1)
+ground_horizon_color = Color(0.572434, 0.6909, 0.8075, 1)
+
+[sub_resource type="Sky" id="Sky_lmqdu"]
+sky_material = SubResource("ProceduralSkyMaterial_fyu6n")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_2xo8f"]
+sky = SubResource("Sky_lmqdu")
+ambient_light_source = 3
+ambient_light_color = Color(0, 1, 1, 1)
+reflected_light_source = 2
+tonemap_exposure = 1.2
+fog_mode = 1
+fog_density = 1.0
+fog_depth_begin = 0.0
+fog_depth_end = 16.0
+volumetric_fog_temporal_reprojection_enabled = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhwlx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ufsub"]
+render_priority = 1
+next_pass = SubResource("ShaderMaterial_xhwlx")
+shader = ExtResource("3_065wr")
+shader_parameter/outlineColor = Color(0, 0, 0, 0.878431)
+shader_parameter/depth_threshold = 0.04
+shader_parameter/normal_threshold = 1.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 1.0
+shader_parameter/min_thickness = 0.8
+shader_parameter/max_distance = 75.0
+shader_parameter/min_distance = 30.0
+shader_parameter/grazing_fresnel_power = 0.0
+shader_parameter/grazing_angle_mask_power = 0.0
+shader_parameter/grazing_angle_modulation_factor = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_m5ebi"]
+material = SubResource("ShaderMaterial_ufsub")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxpgk"]
+shading_mode = 0
+albedo_texture = ExtResource("4_pwykv")
+uv1_scale = Vector3(8, 2, 8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pptjh"]
+material = SubResource("StandardMaterial3D_fxpgk")
+flip_faces = true
+top_radius = 50.0
+bottom_radius = 50.0
+height = 20.0
+cap_top = false
+cap_bottom = false
+
+[node name="Sandbox" type="Node3D"]
+script = ExtResource("1_m5c6q")
+player = ExtResource("2_7cs4f")
+ball = ExtResource("1_oety2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2xo8f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_blur = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 31)
+current = true
+fov = 24.0
+size = 16.0
+
+[node name="BackgroundCylinder" type="MeshInstance3D" parent="Camera3D"]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_m5ebi")
+
+[node name="OutlinePass" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
+mesh = SubResource("CylinderMesh_pptjh")
+
+[node name="Level" type="Node3D" parent="."]

@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn2m0dp8mxgou"]
+[gd_scene load_steps=7 format=3 uid="uid://dn2m0dp8mxgou"]
 
 [ext_resource type="PackedScene" uid="uid://dfhqau5f5bs3v" path="res://game/dev/background_set.tscn" id="1_ljgr5"]
-[ext_resource type="Texture2D" uid="uid://n6m0awh3lxgj" path="res://assets/sprite/logo.png" id="2_5xk5d"]
+[ext_resource type="Texture2D" uid="uid://1ioqlghc70eb" path="res://assets/sprite/play.png" id="2_83i8v"]
+[ext_resource type="Script" path="res://game/menu/title_screen_ui.gd" id="2_vvch5"]
+[ext_resource type="Texture2D" uid="uid://gv85o3wdxvjq" path="res://assets/sprite/config.png" id="3_bcc1u"]
+[ext_resource type="Texture2D" uid="uid://bs7d5hepdyeco" path="res://assets/sprite/exit.png" id="4_qag82"]
+[ext_resource type="Texture2D" uid="uid://x6gxsxxy1bdi" path="res://assets/sprite/bar.png" id="5_7tplr"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -11,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="BackgroundHolder" type="SubViewportContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,16 +24,16 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="BackgroundHolder"]
 handle_input_locally = false
 msaa_3d = 2
 screen_space_aa = 1
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="BackgroundSet" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_ljgr5")]
+[node name="BackgroundSet" parent="BackgroundHolder/SubViewport" instance=ExtResource("1_ljgr5")]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TitleScreenUI" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,42 +41,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 160
-theme_override_constants/margin_top = 160
-theme_override_constants/margin_right = 160
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 160
+script = ExtResource("2_vvch5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TitleScreenUI"]
+z_index = 1
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleScreenUI/HBoxContainer"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 8
+alignment = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="PlayButton" type="TextureButton" parent="TitleScreenUI/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-stretch_mode = 1
+texture_normal = ExtResource("2_83i8v")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/AspectRatioContainer"]
+[node name="ConfigButton" type="TextureButton" parent="TitleScreenUI/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("2_5xk5d")
+texture_normal = ExtResource("3_bcc1u")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="ExitButton" type="TextureButton" parent="TitleScreenUI/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_right = 80
+texture_normal = ExtResource("4_qag82")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
+[node name="Bar" type="Sprite2D" parent="TitleScreenUI"]
+position = Vector2(0, 688)
+scale = Vector2(1, 56)
+texture = ExtResource("5_7tplr")
+centered = false
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "PLAY"
-
-[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "SETTINGS"
-
-[node name="Button3" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "EXIT
-"
+[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="TitleScreenUI" method="_on_play_button_mouse_entered"]
+[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="TitleScreenUI" method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="TitleScreenUI" method="_on_config_button_mouse_entered"]
+[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="TitleScreenUI" method="_on_config_button_pressed"]
+[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/ExitButton" to="TitleScreenUI" method="_on_exit_button_mouse_entered"]
+[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/ExitButton" to="TitleScreenUI" method="_on_exit_button_pressed"]
