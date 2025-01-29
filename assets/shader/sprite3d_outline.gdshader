@@ -14,6 +14,8 @@ uniform float alphaThreshold: hint_range(0.0, 1.0) =  0.2; // Alpha level a pixe
 void fragment() {
 	vec4 col = texture(sprite_texture, UV); // Gets color at uv position of pixel
 	
+	float base_alpha = ALPHA;
+	
 	// Sets source image as default pixel
 	ALBEDO = col.rgb;
 	ALPHA = col.a;
@@ -49,4 +51,5 @@ void fragment() {
 	// Enabling this line will cut out the image and leave the outline
 	//ALPHA -= col.a * 10.0; 
 	// if you set blend to add, and set this as a second pass, you'll get a better glow effect
+	ALPHA *= base_alpha;
 }

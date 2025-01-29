@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://rjxa7edahnbb"]
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
-[ext_resource type="Shader" path="res://assets/shader/player_outline.gdshader" id="2_gu5be"]
+[ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
 [ext_resource type="Texture2D" uid="uid://diwwf1h2i8mxe" path="res://assets/sprite/test.png" id="2_tt3cq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
@@ -51,7 +51,7 @@ one_shot = true
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2, 0)
 material_overlay = SubResource("ShaderMaterial_ynmrm")
-render_priority = 1
+render_priority = 2
 texture = ExtResource("2_tt3cq")
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
