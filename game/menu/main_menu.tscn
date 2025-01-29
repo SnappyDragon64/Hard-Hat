@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dn2m0dp8mxgou"]
 
+[ext_resource type="Script" path="res://game/menu/main_menu.gd" id="1_dblhm"]
 [ext_resource type="PackedScene" uid="uid://dfhqau5f5bs3v" path="res://game/dev/background_set.tscn" id="1_ljgr5"]
 [ext_resource type="Texture2D" uid="uid://1ioqlghc70eb" path="res://assets/sprite/play.png" id="2_83i8v"]
-[ext_resource type="Script" path="res://game/menu/title_screen_ui.gd" id="2_vvch5"]
 [ext_resource type="Texture2D" uid="uid://gv85o3wdxvjq" path="res://assets/sprite/config.png" id="3_bcc1u"]
 [ext_resource type="Texture2D" uid="uid://bs7d5hepdyeco" path="res://assets/sprite/exit.png" id="4_qag82"]
 [ext_resource type="Texture2D" uid="uid://x6gxsxxy1bdi" path="res://assets/sprite/bar.png" id="5_7tplr"]
@@ -14,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dblhm")
 
 [node name="BackgroundHolder" type="SubViewportContainer" parent="."]
 layout_mode = 1
@@ -32,6 +33,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="BackgroundSet" parent="BackgroundHolder/SubViewport" instance=ExtResource("1_ljgr5")]
+unique_name_in_owner = true
 
 [node name="TitleScreenUI" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -44,7 +46,6 @@ theme_override_constants/margin_left = 160
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 160
-script = ExtResource("2_vvch5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TitleScreenUI"]
 z_index = 1
@@ -71,14 +72,15 @@ layout_mode = 2
 texture_normal = ExtResource("4_qag82")
 
 [node name="Bar" type="Sprite2D" parent="TitleScreenUI"]
+unique_name_in_owner = true
 position = Vector2(0, 688)
 scale = Vector2(1, 56)
 texture = ExtResource("5_7tplr")
 centered = false
 
-[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="TitleScreenUI" method="_on_play_button_mouse_entered"]
-[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="TitleScreenUI" method="_on_play_button_pressed"]
-[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="TitleScreenUI" method="_on_config_button_mouse_entered"]
-[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="TitleScreenUI" method="_on_config_button_pressed"]
-[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/ExitButton" to="TitleScreenUI" method="_on_exit_button_mouse_entered"]
-[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/ExitButton" to="TitleScreenUI" method="_on_exit_button_pressed"]
+[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_title_play_button_mouse_entered"]
+[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_title_screen_play_button_pressed"]
+[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="." method="_on_title_config_button_mouse_entered"]
+[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="." method="_on_title_screen_config_button_pressed"]
+[connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/ExitButton" to="." method="_on_title_exit_button_mouse_entered"]
+[connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/ExitButton" to="." method="_on_title_screen_exit_button_pressed"]
