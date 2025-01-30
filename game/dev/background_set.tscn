@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dfhqau5f5bs3v"]
+[gd_scene load_steps=19 format=3 uid="uid://dfhqau5f5bs3v"]
 
 [ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/background.png" id="1_5momw"]
 [ext_resource type="Script" path="res://game/dev/background_set.gd" id="1_r420n"]
@@ -6,6 +6,8 @@
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="3_h4sn2"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="4_qa3vf"]
 [ext_resource type="Texture2D" uid="uid://n6m0awh3lxgj" path="res://assets/sprite/logo.png" id="4_trdpi"]
+[ext_resource type="PackedScene" uid="uid://vkch7qlinq81" path="res://game/dev/title_screen.tscn" id="4_wubj8"]
+[ext_resource type="PackedScene" uid="uid://3gggt0w2rjyi" path="res://game/dev/config.tscn" id="5_0yp2g"]
 [ext_resource type="Texture2D" uid="uid://dbeuhqvosbnyy" path="res://assets/sprite/silhouette.png" id="6_m45cr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyu6n"]
@@ -73,7 +75,7 @@ shader_parameter/glowDensity = 3
 shader_parameter/glowRadialCoverage = 4
 shader_parameter/glowAngle = 0.0
 shader_parameter/glowSharpness = 0.0
-shader_parameter/alphaThreshold = 1.0
+shader_parameter/alphaThreshold = 0.9
 shader_parameter/sprite_texture = ExtResource("4_trdpi")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_epndh"]
@@ -94,11 +96,6 @@ script = ExtResource("1_r420n")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2xo8f")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
-shadow_enabled = true
-shadow_blur = 0.0
-
 [node name="BackgroundCylinder" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
 mesh = SubResource("CylinderMesh_yds8b")
@@ -112,28 +109,21 @@ size = 16.0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_m5ebi")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_blur = 0.0
+
 [node name="Holder1" type="Node3D" parent="."]
 
-[node name="TitleScreen" type="GridMap" parent="Holder1"]
+[node name="TitleScreen" parent="Holder1" instance=ExtResource("4_wubj8")]
 transform = Transform3D(1.82709, 0, 0.813473, 0, 2, 0, -0.813473, 0, 1.82709, 0, -4, -30)
-mesh_library = ExtResource("3_h4sn2")
-cell_size = Vector3(1, 1, 1)
-data = {
-"cells": PackedInt32Array(-6, 65531, 851974, 65530, 65531, 6, 196602, 65531, 6, 262138, 65531, 6, 327674, 65531, 6, -5, 65531, 589830, -4, 65531, 589830, -3, 65531, 589830, -2, 65531, 589830, -1, 65531, 589830, -65536, 65531, 589830, -65535, 65531, 589830, -65534, 65531, 589830, -65533, 65531, 589830, -65532, 65531, 589830, -6, 65532, 851974, -6, 65533, 851974, -6, 65534, 851974, -6, 65535, 851974, -6, 0, 851974, -6, 1, 851974, -6, 2, 851974, -6, 3, 851974, -6, 4, 196614, -5, 4, 196614, -4, 4, 196614, -3, 4, 196614, -2, 4, 196614, -1, 4, 196614, -65536, 4, 196614, -65535, 4, 196614, -65534, 4, 196614, -65533, 4, 196614, -65532, 4, 196614, 131066, 65531, 6, -65532, 3, 786432, -65533, 3, 786432, -65534, 3, 786432, -65535, 3, 786432, -65536, 3, 786432, -65536, 2, 786432, -65535, 2, 786432, -65534, 2, 786432, -65533, 2, 786432, -65532, 2, 786432, -65532, 1, 786432, -65533, 1, 786432, -65534, 1, 786432, -65535, 1, 786432, -65536, 1, 786432, 4, 65531, 3, 3, 65531, 3, 2, 65531, 3, 65540, 65531, 3, 65539, 65531, 3, 393210, 65531, 6, 458746, 65531, 6, 327675, 65531, 1376257, 327676, 65531, 1376257, 327679, 65531, 1376257, 262145, 65531, 1376257, 327677, 65531, 1376257, 327678, 65531, 1376257, 262144, 65531, 1376257, 262146, 65531, 1376257, 262147, 65531, 1376257, 262148, 65531, 1376257, -65531, 65531, 196614, -65531, 4, 196614, -65530, 4, 196614, -65530, 65531, 196614, -65530, 65534, 327686, -65530, 65535, 327686, -65530, 0, 327686, -65530, 1, 327686, -65530, 2, 327686, -65530, 3, 327686, 6, 65531, 6, 65542, 65531, 6, 131078, 65531, 6, 196614, 65531, 6, 262150, 65531, 6, 327686, 65531, 6, 393222, 65531, 6, 6, 4, 6, 65542, 4, 6, 131078, 4, 6, 262150, 4, 6, 196614, 4, 6, 327686, 4, 6, 393222, 4, 6, 262149, 65531, 196609, 5, 65531, 3, 65541, 65531, 3, -65531, 1, 786432, -65531, 2, 786432, -65531, 3, 786432, -65530, 65533, 327686, -65530, 65532, 327686)
-}
-metadata/_editor_floor_ = Vector3(6, 4, 0)
 
 [node name="Holder2" type="Node3D" parent="."]
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0, 0, 0)
 
-[node name="Config" type="GridMap" parent="Holder2"]
-transform = Transform3D(1.82709, 0, 0.813473, 0, 2, 0, -0.813473, 0, 1.82709, 0, -4, -30)
-mesh_library = ExtResource("3_h4sn2")
-cell_size = Vector3(1, 1, 1)
-data = {
-"cells": PackedInt32Array(-6, 65531, 851974, 65530, 65531, 6, 196602, 65531, 6, 262138, 65531, 6, 327674, 65531, 6, -5, 65531, 589830, -4, 65531, 589830, -3, 65531, 589830, -2, 65531, 589830, -1, 65531, 589830, -65536, 65531, 589830, -65535, 65531, 589830, -65534, 65531, 589830, -65533, 65531, 589830, -65532, 65531, 589830, -6, 65532, 851974, -6, 65533, 851974, -6, 65534, 851974, -6, 65535, 851974, -6, 0, 851974, -6, 1, 851974, -6, 2, 851974, -6, 3, 851974, -6, 4, 196614, -5, 4, 196614, -4, 4, 196614, -3, 4, 196614, -2, 4, 196614, -1, 4, 196614, -65536, 4, 196614, -65535, 4, 196614, -65534, 4, 196614, -65533, 4, 196614, -65532, 4, 196614, 131066, 65531, 6, -65532, 3, 786432, -65533, 3, 786432, -65534, 3, 786432, -65535, 3, 786432, -65536, 3, 786432, -65536, 2, 786432, -65535, 2, 786432, -65534, 2, 786432, -65533, 2, 786432, -65532, 2, 786432, -65532, 1, 786432, -65533, 1, 786432, -65534, 1, 786432, -65535, 1, 786432, -65536, 1, 786432, 4, 65531, 3, 3, 65531, 3, 2, 65531, 3, 65540, 65531, 3, 65539, 65531, 3, 393210, 65531, 6, 458746, 65531, 6, 327675, 65531, 1376257, 327676, 65531, 1376257, 327679, 65531, 1376257, 262145, 65531, 1376257, 327677, 65531, 1376257, 327678, 65531, 1376257, 262144, 65531, 1376257, 262146, 65531, 1376257, 262147, 65531, 1376257, 262148, 65531, 1376257, -65531, 65531, 196614, -65531, 4, 196614, -65530, 4, 196614, -65530, 65531, 196614, -65530, 65534, 327686, -65530, 65535, 327686, -65530, 0, 327686, -65530, 1, 327686, -65530, 2, 327686, -65530, 3, 327686, 6, 65531, 6, 65542, 65531, 6, 131078, 65531, 6, 196614, 65531, 6, 262150, 65531, 6, 327686, 65531, 6, 393222, 65531, 6, 6, 4, 6, 65542, 4, 6, 131078, 4, 6, 262150, 4, 6, 196614, 4, 6, 327686, 4, 6, 393222, 4, 6, 262149, 65531, 196609, 5, 65531, 3, 65541, 65531, 3, -65531, 1, 786432, -65531, 2, 786432, -65531, 3, 786432, -65530, 65533, 327686, -65530, 65532, 327686)
-}
-metadata/_editor_floor_ = Vector3(6, 4, 0)
+[node name="Config" parent="Holder2" instance=ExtResource("5_0yp2g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 1, -4, -32)
 
 [node name="Holder3" type="Node3D" parent="."]
 transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0, 0, 0)
