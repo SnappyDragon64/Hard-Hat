@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://i2p75ghwy86o"]
+
+[ext_resource type="Texture2D" uid="uid://df6th4gvqni3q" path="res://assets/sprite/star_particle.svg" id="1_2dbbe"]
+[ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_e1kpg"]
+
+[sub_resource type="Curve" id="Curve_qt3wm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xxwd4"]
+curve = SubResource("Curve_qt3wm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_obn2n"]
+resource_local_to_scene = true
+spread = 30.0
+initial_velocity_min = 1.2
+initial_velocity_max = 2.4
+angular_velocity_min = 180.0
+angular_velocity_max = 360.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -1.0
+linear_accel_max = -1.0
+tangential_accel_min = -4.0
+tangential_accel_max = 4.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_xxwd4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jy3a1"]
+render_priority = 2
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_2dbbe")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_qvat8"]
+material = SubResource("StandardMaterial3D_jy3a1")
+size = Vector2(0.4, 0.4)
+
+[node name="StarParticles" type="Node3D"]
+script = ExtResource("1_e1kpg")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 0.8
+preprocess = 0.4
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_obn2n")
+draw_pass_1 = SubResource("QuadMesh_qvat8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

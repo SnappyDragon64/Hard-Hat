@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdjcl5dow8yg3"]
+[gd_scene load_steps=14 format=3 uid="uid://cdjcl5dow8yg3"]
 
 [ext_resource type="Script" path="res://game/entity/ball.gd" id="1_mgs0w"]
 [ext_resource type="PackedScene" uid="uid://bvw080d5hrglu" path="res://game/particle/ScaffoldingBreakParticles.tscn" id="2_3n27a"]
 [ext_resource type="PackedScene" uid="uid://dljghajwlcrd6" path="res://game/particle/TimberBreakParticles.tscn" id="3_bv2k7"]
 [ext_resource type="PackedScene" uid="uid://6u4to1kmop0e" path="res://game/particle/BricksBreakParticles.tscn" id="4_wp5cy"]
+[ext_resource type="PackedScene" uid="uid://i2p75ghwy86o" path="res://game/particle/StarParticles.tscn" id="5_0fnd2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nto12"]
 shading_mode = 2
@@ -63,6 +64,7 @@ script = ExtResource("1_mgs0w")
 scaffolding_break_particles = ExtResource("2_3n27a")
 timber_break_particles = ExtResource("3_bv2k7")
 bricks_break_particles = ExtResource("4_wp5cy")
+star_particles = ExtResource("5_0fnd2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 layers = 2
