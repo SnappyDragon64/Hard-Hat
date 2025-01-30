@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game/entity/ball.gd" id="1_mgs0w"]
 [ext_resource type="PackedScene" uid="uid://bvw080d5hrglu" path="res://game/particle/ScaffoldingBreakParticles.tscn" id="2_3n27a"]
 [ext_resource type="PackedScene" uid="uid://dljghajwlcrd6" path="res://game/particle/TimberBreakParticles.tscn" id="3_bv2k7"]
-[ext_resource type="PackedScene" uid="uid://6u4to1kmop0e" path="res://game/particle/BricksBreakParticle.tscn" id="4_wp5cy"]
+[ext_resource type="PackedScene" uid="uid://6u4to1kmop0e" path="res://game/particle/BricksBreakParticles.tscn" id="4_wp5cy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nto12"]
 shading_mode = 2
