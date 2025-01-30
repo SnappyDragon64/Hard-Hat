@@ -9,9 +9,27 @@ extends CharacterBody3D
 @export var bricks_break_particles: PackedScene
 @export var star_particles: PackedScene
 
+var init = true
+var tracking = false: set = _set_tracking
+var direction_vector = Vector3(0, 0, 0)
 
-func _ready() -> void:
-	velocity = Vector3(1, 1, 0).normalized() * speed
+func _set_tracking(new_tracking):
+	tracking = new_tracking
+	$PointerAnchor.set_visible(tracking)
+	
+	if tracking:
+		$IdleParticles.set_visible(true)
+		$IdleParticles.restart()
+		$ActiveParticles.set_visible(false)
+
+
+func _process(_delta: float) -> void:
+	if init:
+		init = false
+		$IdleParticles.set_visible(true)
+		$IdleParticles.restart()
+		$ActiveParticles.set_visible(false)
+
 
 
 func _physics_process(delta: float) -> void:
@@ -27,6 +45,23 @@ func _physics_process(delta: float) -> void:
 			handle_brick_hit(collider, collision)
 		
 		velocity = velocity.bounce(collision.get_normal())
+	
+	if tracking:
+		var camera: Camera3D = get_viewport().get_camera_3d()
+		var ball_screen_pos = camera.unproject_position(global_position)
+		var cursor_position = get_viewport().get_mouse_position()
+		var direction_vector_2d = (cursor_position - ball_screen_pos).normalized()
+		direction_vector = Vector3(direction_vector_2d.x, -direction_vector_2d.y, 0)
+		var angle = direction_vector_2d.angle_to(Vector2.RIGHT)
+		var pointer_angle = Vector3(0.0, 0.0, angle)
+		$PointerAnchor.set_rotation(pointer_angle)
+
+
+func shoot():
+	velocity = direction_vector.normalized() * speed
+	$IdleParticles.set_visible(false)
+	$ActiveParticles.set_visible(true)
+	$ActiveParticles.restart()
 
 
 func handle_brick_hit(gridmap: GridMap, collision: KinematicCollision3D) -> void:

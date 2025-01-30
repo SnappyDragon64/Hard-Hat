@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://cdjcl5dow8yg3"]
+[gd_scene load_steps=17 format=3 uid="uid://cdjcl5dow8yg3"]
 
 [ext_resource type="Script" path="res://game/entity/ball.gd" id="1_mgs0w"]
 [ext_resource type="PackedScene" uid="uid://bvw080d5hrglu" path="res://game/particle/ScaffoldingBreakParticles.tscn" id="2_3n27a"]
 [ext_resource type="PackedScene" uid="uid://dljghajwlcrd6" path="res://game/particle/TimberBreakParticles.tscn" id="3_bv2k7"]
 [ext_resource type="PackedScene" uid="uid://6u4to1kmop0e" path="res://game/particle/BricksBreakParticles.tscn" id="4_wp5cy"]
 [ext_resource type="PackedScene" uid="uid://i2p75ghwy86o" path="res://game/particle/StarParticles.tscn" id="5_0fnd2"]
+[ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="6_qwspo"]
+[ext_resource type="Texture2D" uid="uid://bcfpj1le478cv" path="res://assets/sprite/arrow.svg" id="6_w4y3a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nto12"]
 shading_mode = 2
@@ -58,6 +60,18 @@ material = SubResource("StandardMaterial3D_yjwfg")
 radius = 0.1
 height = 0.2
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uli15"]
+render_priority = 2
+shader = ExtResource("6_qwspo")
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/glowSize = 2.0
+shader_parameter/glowDensity = 10
+shader_parameter/glowRadialCoverage = 4
+shader_parameter/glowAngle = 0.0
+shader_parameter/glowSharpness = 1.0
+shader_parameter/alphaThreshold = 0.8
+shader_parameter/sprite_texture = ExtResource("6_w4y3a")
+
 [node name="Ball" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_mgs0w")
@@ -73,10 +87,31 @@ mesh = SubResource("SphereMesh_7tc8x")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_0ncey")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="ActiveParticles" type="GPUParticles3D" parent="."]
+visible = false
 cast_shadow = 0
 amount = 800
 lifetime = 0.2
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_8s5m3")
 draw_pass_1 = SubResource("SphereMesh_u107r")
+
+[node name="IdleParticles" type="GPUParticles3D" parent="."]
+visible = false
+cast_shadow = 0
+amount = 800
+preprocess = 0.2
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8s5m3")
+draw_pass_1 = SubResource("SphereMesh_u107r")
+
+[node name="PointerAnchor" type="Node3D" parent="."]
+visible = false
+
+[node name="Pointer" type="Sprite3D" parent="PointerAnchor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1, 0, 0)
+material_override = SubResource("ShaderMaterial_uli15")
+cast_shadow = 0
+no_depth_test = true
+render_priority = 2
+texture = ExtResource("6_w4y3a")
