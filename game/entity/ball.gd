@@ -21,6 +21,7 @@ func _set_tracking(new_tracking):
 		$IdleParticles.set_visible(true)
 		$IdleParticles.restart()
 		$ActiveParticles.set_visible(false)
+		$ActiveParticles.set_emitting(false)
 
 
 func _process(_delta: float) -> void:
@@ -29,6 +30,7 @@ func _process(_delta: float) -> void:
 		$IdleParticles.set_visible(true)
 		$IdleParticles.restart()
 		$ActiveParticles.set_visible(false)
+		$ActiveParticles.set_emitting(false)
 
 
 
@@ -60,6 +62,7 @@ func _physics_process(delta: float) -> void:
 func shoot():
 	velocity = direction_vector.normalized() * speed
 	$IdleParticles.set_visible(false)
+	$IdleParticles.set_emitting(false)
 	$ActiveParticles.set_visible(true)
 	$ActiveParticles.restart()
 

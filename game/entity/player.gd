@@ -178,13 +178,14 @@ func _handle_coyote_time() -> void:
 
 func _handle_strike() -> void:
 	if Input.is_action_just_pressed("strike") and ball_reference:
-		var ball_global_pos = ball_reference.get_global_position()
-		var relative_x = ball_global_pos.x - global_position.x
-		
-		if signf(relative_x) == player_direction:
-			player_state = PlayerState.AIM
-			ball_reference.velocity = Vector3.ZERO
-			ball_reference.tracking = true
+		if ball_reference in $BallArea3D.get_overlapping_bodies():
+			var ball_global_pos = ball_reference.get_global_position()
+			var relative_x = ball_global_pos.x - global_position.x
+			
+			if signf(relative_x) == player_direction:
+				player_state = PlayerState.AIM
+				ball_reference.velocity = Vector3.ZERO
+				ball_reference.tracking = true
 
 
 func _on_coyote_timer_timeout():

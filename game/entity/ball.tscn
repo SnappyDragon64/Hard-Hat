@@ -64,12 +64,12 @@ height = 0.2
 render_priority = 2
 shader = ExtResource("6_qwspo")
 shader_parameter/line_color = Color(0, 0, 0, 1)
-shader_parameter/glowSize = 2.0
-shader_parameter/glowDensity = 10
+shader_parameter/glowSize = 12.0
+shader_parameter/glowDensity = 8
 shader_parameter/glowRadialCoverage = 4
 shader_parameter/glowAngle = 0.0
-shader_parameter/glowSharpness = 1.0
-shader_parameter/alphaThreshold = 0.8
+shader_parameter/glowSharpness = 5.0
+shader_parameter/alphaThreshold = 1.0
 shader_parameter/sprite_texture = ExtResource("6_w4y3a")
 
 [node name="Ball" type="CharacterBody3D"]
