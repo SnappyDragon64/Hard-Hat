@@ -1,6 +1,8 @@
 extends Control
 
 
+signal init_sandbox()
+
 var title_screen_lock = false
 var title_screen_current_selection = 0
 
@@ -39,7 +41,7 @@ func _on_title_screen_exit_button_pressed():
 
 func title_screen_play():
 	$TitleScreenUI.set_visible(false)
-	Signals.init_sandbox.emit()
+	init_sandbox.emit()
 
 
 func title_screen_config():

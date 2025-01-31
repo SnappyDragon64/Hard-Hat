@@ -17,10 +17,6 @@ boot_splash/image="res://assets/sprite/splash.png"
 config/icon="res://assets/sprite/icon.png"
 boot_splash/minimum_display_time=2000
 
-[autoload]
-
-Signals="*res://game/core/signals.gd"
-
 [display]
 
 window/size/viewport_width=1920

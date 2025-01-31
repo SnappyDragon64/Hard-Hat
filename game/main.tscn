@@ -7,7 +7,6 @@
 [node name="Main" type="Node3D"]
 script = ExtResource("1_3mn24")
 sandbox = ExtResource("2_0yo7a")
+main_menu = ExtResource("2_e67h5")
 
 [node name="UI" type="CanvasLayer" parent="."]
-
-[node name="MainMenu" parent="UI" instance=ExtResource("2_e67h5")]
