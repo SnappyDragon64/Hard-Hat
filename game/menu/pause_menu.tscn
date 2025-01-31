@@ -1,0 +1,140 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcirwvmld7mew"]
+
+[ext_resource type="Texture2D" uid="uid://5vfgfbao4f8v" path="res://assets/sprite/pause_left.png" id="1_hl8jr"]
+[ext_resource type="Script" path="res://game/menu/pause_menu.gd" id="1_xicmp"]
+[ext_resource type="Texture2D" uid="uid://0df057xcjkqy" path="res://assets/sprite/pause_right.png" id="2_0ys4b"]
+[ext_resource type="Texture2D" uid="uid://dwv844fwwotff" path="res://assets/sprite/1.png" id="2_eqfjl"]
+[ext_resource type="Texture2D" uid="uid://dvbwh0s7efrkk" path="res://assets/sprite/pauseed.png" id="2_ys0a8"]
+[ext_resource type="Texture2D" uid="uid://8qc1oweb10e4" path="res://assets/sprite/2.png" id="3_ftn5n"]
+[ext_resource type="Texture2D" uid="uid://dh4ucttkx6s8l" path="res://assets/sprite/resume.png" id="4_q3i2r"]
+[ext_resource type="Texture2D" uid="uid://c52abutnbmg60" path="res://assets/sprite/3.png" id="4_yllrs"]
+[ext_resource type="Texture2D" uid="uid://cwq0g0al0y6d8" path="res://assets/sprite/restart.png" id="5_wt73v"]
+[ext_resource type="Texture2D" uid="uid://d2homtghh5dtk" path="res://assets/sprite/quit.png" id="6_24r71"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xicmp")
+texture_one = ExtResource("2_eqfjl")
+texture_two = ExtResource("3_ftn5n")
+texture_three = ExtResource("4_yllrs")
+
+[node name="Countdown" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Filter" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="PauseLeft" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+offset_left = -500.0
+offset_top = -500.0
+offset_right = 172.0
+offset_bottom = 580.0
+texture = ExtResource("1_hl8jr")
+
+[node name="Paused" type="TextureRect" parent="PauseLeft"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 900.0
+offset_right = 950.0
+offset_bottom = 1123.0
+rotation = -1.309
+texture = ExtResource("2_ys0a8")
+
+[node name="Holder" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PauseRight" type="TextureRect" parent="Holder"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -400.0
+offset_right = 520.0
+offset_bottom = 680.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_0ys4b")
+
+[node name="VHolder" type="VBoxContainer" parent="Holder/PauseRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 2
+
+[node name="ResumeHolder" type="HBoxContainer" parent="Holder/PauseRight/VHolder"]
+layout_mode = 2
+
+[node name="Padding" type="Control" parent="Holder/PauseRight/VHolder/ResumeHolder"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="Resume" type="TextureButton" parent="Holder/PauseRight/VHolder/ResumeHolder"]
+layout_mode = 2
+texture_normal = ExtResource("4_q3i2r")
+
+[node name="RestartHolder" type="HBoxContainer" parent="Holder/PauseRight/VHolder"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Padding" type="Control" parent="Holder/PauseRight/VHolder/RestartHolder"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Restart" type="TextureButton" parent="Holder/PauseRight/VHolder/RestartHolder"]
+layout_mode = 2
+texture_normal = ExtResource("5_wt73v")
+
+[node name="QuitHolder" type="HBoxContainer" parent="Holder/PauseRight/VHolder"]
+layout_mode = 2
+
+[node name="Padding" type="Control" parent="Holder/PauseRight/VHolder/QuitHolder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Quit" type="TextureButton" parent="Holder/PauseRight/VHolder/QuitHolder"]
+layout_mode = 2
+texture_normal = ExtResource("6_24r71")
+
+[node name="Padding" type="Control" parent="Holder/PauseRight/VHolder"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2

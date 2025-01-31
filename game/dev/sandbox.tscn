@@ -92,7 +92,12 @@ mesh = SubResource("QuadMesh_m5ebi")
 
 [node name="BackgroundCylinder" type="MeshInstance3D" parent="Tripod/Camera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_pptjh")
 
 [node name="Level" type="Node3D" parent="."]
+
+[node name="UnpauseTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="UnpauseTimer" to="." method="_on_unpause_timer_timeout"]

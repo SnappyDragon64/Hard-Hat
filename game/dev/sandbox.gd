@@ -1,10 +1,17 @@
 extends Node3D
 
 
+signal pause()
+signal unpause()
+
+enum GameState {DEFAULT, PAUSED, COUNTDOWN}
+
 @export var player: PackedScene
 @export var ball: PackedScene
 
-var initial_level: int = 0
+var level: int = 0
+
+var game_state: GameState = GameState.DEFAULT
 
 var tripod_min_x := -9999.0
 var tripod_max_x := 9999.0
@@ -14,7 +21,33 @@ var shake_tween: Tween
 
 
 func _ready():
-	load_level(initial_level)
+	load_level(level)
+
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed("pause"):
+		match game_state:
+			GameState.DEFAULT:
+				game_state = GameState.PAUSED
+				$Tripod.set_process_mode(PROCESS_MODE_DISABLED)
+				$Level.set_process_mode(PROCESS_MODE_DISABLED)
+				pause.emit()
+			GameState.PAUSED:
+				game_state = GameState.COUNTDOWN
+				$UnpauseTimer.start()
+				unpause.emit()
+			GameState.COUNTDOWN:
+				game_state = GameState.PAUSED
+				$UnpauseTimer.stop()
+				$Tripod.set_process_mode(PROCESS_MODE_DISABLED)
+				$Level.set_process_mode(PROCESS_MODE_DISABLED)
+				pause.emit()
+
+
+func _on_unpause_timer_timeout():
+	game_state = GameState.DEFAULT
+	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
+	$Level.set_process_mode(PROCESS_MODE_INHERIT)
 
 
 func _on_player_x_update(new_x):
@@ -32,7 +65,6 @@ func _on_camera_shake_request(direction):
 	shake_tween = get_tree().create_tween()
 	shake_tween.tween_property($Tripod/Camera3D, "position", direction, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	shake_tween.tween_property($Tripod/Camera3D, "position", Vector3.ZERO, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
 
 
 func load_level(id):

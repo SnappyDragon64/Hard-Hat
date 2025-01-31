@@ -45,8 +45,10 @@ func title_screen_play():
 
 
 func title_screen_config():
+	%BackgroundSet.hide_main_menu_props()
 	$TitleScreenUI.set_visible(false)
 	%BackgroundSet.tween_camera_rotation(120)
+
 
 func title_screen_exit():
 	get_tree().quit()
@@ -64,8 +66,6 @@ func title_screen_move_bar(button):
 
 func title_screen_handle_button_press(callable):
 	if not title_screen_lock:
-		%BackgroundSet.hide_main_menu_props()
-		
 		title_screen_lock = true
 		var bar_pos = %Bar.get_global_position()
 		var bar_final_pos = Vector2(-600, bar_pos.y)
