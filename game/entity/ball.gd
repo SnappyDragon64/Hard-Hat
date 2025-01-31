@@ -2,6 +2,8 @@ class_name Ball
 extends CharacterBody3D
 
 
+signal camera_shake_request(direction)
+
 @export var speed: float = 8.0
 
 @export var scaffolding_break_particles: PackedScene
@@ -46,6 +48,7 @@ func _physics_process(delta: float) -> void:
 		if collider is GridMap:
 			handle_brick_hit(collider, collision)
 		
+		camera_shake_request.emit(velocity)
 		velocity = velocity.bounce(collision.get_normal())
 	
 	if tracking:

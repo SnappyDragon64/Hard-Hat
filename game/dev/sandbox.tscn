@@ -78,18 +78,21 @@ transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 shadow_enabled = true
 shadow_blur = 0.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Tripod" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 31)
+
+[node name="Camera3D" type="Camera3D" parent="Tripod"]
 current = true
 fov = 24.0
 size = 16.0
 
-[node name="BackgroundCylinder" type="MeshInstance3D" parent="Camera3D"]
+[node name="OutlinePass" type="MeshInstance3D" parent="Tripod/Camera3D"]
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_m5ebi")
 
-[node name="OutlinePass" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
+[node name="BackgroundCylinder" type="MeshInstance3D" parent="Tripod/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_pptjh")
 
 [node name="Level" type="Node3D" parent="."]

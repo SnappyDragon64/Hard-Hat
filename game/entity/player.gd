@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody3D
 
 
+signal x_update(new_x)
+
 enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
 
 @export_group("Movement")
@@ -63,6 +65,7 @@ func _physics_process(delta) -> void:
 	#print_debug("Player State: ", PlayerState.keys()[player_state])
 	
 	move_and_slide()
+	x_update.emit(global_position.x)
 
 
 func _idle_physics_process(_delta) -> void:
@@ -130,7 +133,7 @@ func _jump_queued_physics_process(delta) -> void:
 	_handle_strike()
 
 
-func _aim_physics_process(delta) -> void:
+func _aim_physics_process(_delta) -> void:
 	if Input.is_action_just_released("strike"):
 		player_state = PlayerState.STRIKE
 		
@@ -139,7 +142,7 @@ func _aim_physics_process(delta) -> void:
 			ball_reference.tracking = false
 
 
-func _strike_physics_process(delta) -> void:
+func _strike_physics_process(_delta) -> void:
 	if is_on_floor():
 		if input_direction:
 			player_state = PlayerState.RUN
