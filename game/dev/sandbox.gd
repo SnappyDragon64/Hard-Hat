@@ -61,6 +61,7 @@ func setup_player(level_instance):
 	player_spawn.origin.z = 0.5
 	player_instance.set_global_transform(player_spawn)
 	player_instance.x_update.connect(_on_player_x_update)
+	player_instance.ball_reference = ball_instance
 	
 	var ball_spawnpoint = spawnpoints.get_node("Ball")
 	var ball_spawn = ball_spawnpoint.get_global_transform()

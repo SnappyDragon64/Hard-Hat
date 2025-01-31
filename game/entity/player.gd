@@ -137,9 +137,8 @@ func _aim_physics_process(_delta) -> void:
 	if Input.is_action_just_released("strike"):
 		player_state = PlayerState.STRIKE
 		
-		if ball_reference:
-			ball_reference.shoot()
-			ball_reference.tracking = false
+		ball_reference.shoot()
+		ball_reference.tracking = false
 
 
 func _strike_physics_process(_delta) -> void:
@@ -180,15 +179,17 @@ func _handle_coyote_time() -> void:
 
 
 func _handle_strike() -> void:
-	if Input.is_action_just_pressed("strike") and ball_reference:
-		if ball_reference in $BallArea3D.get_overlapping_bodies():
-			var ball_global_pos = ball_reference.get_global_position()
-			var relative_x = ball_global_pos.x - global_position.x
-			
-			if signf(relative_x) == player_direction:
-				player_state = PlayerState.AIM
-				ball_reference.velocity = Vector3.ZERO
-				ball_reference.tracking = true
+	if Input.is_action_just_pressed("strike"):
+		var ball_global_pos = ball_reference.get_global_position()
+		var relative_x = ball_global_pos.x - global_position.x
+		
+		var adjusted_pos = global_position + Vector3(0, 1, 0)
+		var distance_squared = adjusted_pos.distance_squared_to(ball_global_pos)
+		
+		if distance_squared <= 4.0 and signf(relative_x) == player_direction:
+			player_state = PlayerState.AIM
+			ball_reference.velocity = Vector3.ZERO
+			ball_reference.tracking = true
 
 
 func _on_coyote_timer_timeout():
@@ -197,13 +198,3 @@ func _on_coyote_timer_timeout():
 
 func _on_jump_queue_timer_timeout():
 	player_state = PlayerState.FALL
-
-
-func _on_ball_area_3d_body_entered(body):
-	if body is Ball:
-		ball_reference = body
-
-
-func _on_ball_area_3d_body_exited(body):
-	if body is Ball:
-		ball_reference = null
