@@ -134,7 +134,7 @@ func _jump_queued_physics_process(delta) -> void:
 
 
 func _aim_physics_process(_delta) -> void:
-	if Input.is_action_just_released("strike"):
+	if Input.is_action_just_released("strike") and ball_reference:
 		player_state = PlayerState.STRIKE
 		
 		ball_reference.shoot()
@@ -179,7 +179,7 @@ func _handle_coyote_time() -> void:
 
 
 func _handle_strike() -> void:
-	if Input.is_action_just_pressed("strike"):
+	if Input.is_action_just_pressed("strike") and ball_reference:
 		var ball_global_pos = ball_reference.get_global_position()
 		var relative_x = ball_global_pos.x - global_position.x
 		
