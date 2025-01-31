@@ -1,6 +1,7 @@
 extends Node3D
 
 
+signal quit()
 signal pause()
 signal unpause()
 
@@ -22,6 +23,29 @@ var shake_tween: Tween
 
 func _ready():
 	load_level(level)
+
+
+func init(resume_signal, restart_signal, quit_signal):
+	resume_signal.connect(_on_resume)
+	restart_signal.connect(_on_restart)
+	quit_signal.connect(_on_quit)
+
+
+func _on_resume():
+	game_state = GameState.COUNTDOWN
+	$UnpauseTimer.start()
+	unpause.emit()
+
+
+func _on_restart():
+	game_state = GameState.DEFAULT
+	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
+	$Level.set_process_mode(PROCESS_MODE_INHERIT)
+	load_level(level)
+
+
+func _on_quit():
+	quit.emit()
 
 
 func _physics_process(delta):
@@ -68,6 +92,8 @@ func _on_camera_shake_request(direction):
 
 
 func load_level(id):
+	$Tripod.global_position.x = 0
+	
 	for child in $Level.get_children():
 		child.queue_free()
 	

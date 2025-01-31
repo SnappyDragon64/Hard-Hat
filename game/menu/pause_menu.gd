@@ -1,6 +1,10 @@
 extends Control
 
 
+signal resume_pressed()
+signal restart_pressed()
+signal quit_pressed()
+
 @export var texture_one: CompressedTexture2D
 @export var texture_two: CompressedTexture2D
 @export var texture_three: CompressedTexture2D
@@ -44,7 +48,6 @@ func _on_unpause():
 	unpause_tween.tween_callback(_hide_countdown).set_delay(3)
 	unpause_tween.set_parallel(false)
 	unpause_tween.tween_callback(_hide)
-	
 
 
 func _hide():
@@ -63,3 +66,24 @@ func _update_countdown_to_one():
 
 func _hide_countdown():
 	$Countdown.set_visible(false)
+
+
+func _on_resume_pressed():
+	%Resume.release_focus()
+	resume_pressed.emit()
+
+
+func _on_restart_pressed():
+	%Restart.release_focus()
+	$Filter.set_color(Color(0.0, 0.17, 0.29, 0.0))
+	$PauseLeft.set_position(Vector2(-500, -500))
+	$PauseLeft.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
+	$Holder/PauseRight.set_position(Vector2(-200, -400))
+	$Holder/PauseRight.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
+	
+	restart_pressed.emit()
+
+
+func _on_quit_pressed():
+	%Quit.release_focus()
+	quit_pressed.emit()
