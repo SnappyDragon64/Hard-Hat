@@ -48,7 +48,7 @@ func _on_quit():
 	quit.emit()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("pause"):
 		match game_state:
 			GameState.DEFAULT:

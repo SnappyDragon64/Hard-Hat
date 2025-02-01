@@ -11,6 +11,7 @@ signal quit_pressed()
 
 
 var unpause_tween: Tween
+var highlight_tween: Tween
 
 
 func init(pause_signal, unpause_signal):
@@ -23,9 +24,22 @@ func _on_pause():
 		unpause_tween.kill()
 		$Countdown.set_visible(false)
 	
+	var highlight_resume = get_button_highlight(%Resume)
+	highlight_resume.set_modulate(Color(1.0, 1.0, 1.0, 1.0))
+	highlight_resume.set_rotation_degrees(-6.0)
+	
+	var highlight_restart = get_button_highlight(%Restart)
+	highlight_restart.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
+	highlight_restart.set_rotation_degrees(0.0)
+	
+	var highlight_quit = get_button_highlight(%Quit)
+	highlight_quit.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
+	highlight_quit.set_rotation_degrees(0.0)
+	
+	
 	$Filter.set_visible(true)
 	$PauseLeft.set_visible(true)
-	$Holder.set_visible(true)
+	$Holder/PauseRight.set_visible(true)
 	var tween = get_tree().create_tween().set_parallel()
 	tween.tween_property($Filter, "color", Color(0.0, 0.17, 0.29, 0.60), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property($PauseLeft, "position", Vector2(0, 0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -53,7 +67,7 @@ func _on_unpause():
 func _hide():
 	$Filter.set_visible(false)
 	$PauseLeft.set_visible(false)
-	$Holder.set_visible(false)
+	$Holder/PauseRight.set_visible(false)
 
 
 func _update_countdown_to_two():
@@ -87,3 +101,35 @@ func _on_restart_pressed():
 func _on_quit_pressed():
 	%Quit.release_focus()
 	quit_pressed.emit()
+
+
+func _on_resume_mouse_entered():
+	toggle_highlights(%Resume, %Restart, %Quit)
+
+
+func _on_restart_mouse_entered():
+	toggle_highlights(%Restart, %Resume, %Quit)
+
+
+func _on_quit_mouse_entered():
+	toggle_highlights(%Quit, %Resume, %Restart)
+
+
+func toggle_highlights(to_enable, to_disable_1, to_disable_2):
+	var highlight_to_enable = get_button_highlight(to_enable)
+	var highlight_to_disable_1 = get_button_highlight(to_disable_1)
+	var highlight_to_disable_2 = get_button_highlight(to_disable_2)
+	
+	if highlight_tween:
+		highlight_tween.kill()
+	
+	highlight_tween = get_tree().create_tween().set_parallel()
+	highlight_tween.tween_property(highlight_to_enable, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	highlight_tween.tween_property(highlight_to_enable, "rotation_degrees", -6.0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	highlight_tween.tween_property(highlight_to_disable_1, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	highlight_tween.tween_property(highlight_to_disable_1, "rotation_degrees", 0.0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	highlight_tween.tween_property(highlight_to_disable_2, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	highlight_tween.tween_property(highlight_to_disable_2, "rotation_degrees", 0.0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	
+func get_button_highlight(button):
+	return button.get_node("Highlight")

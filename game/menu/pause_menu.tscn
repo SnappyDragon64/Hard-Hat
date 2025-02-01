@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcirwvmld7mew"]
+[gd_scene load_steps=15 format=3 uid="uid://bcirwvmld7mew"]
 
 [ext_resource type="Texture2D" uid="uid://5vfgfbao4f8v" path="res://assets/sprite/pause_menu/pause_left.png" id="1_hl8jr"]
 [ext_resource type="Script" path="res://game/menu/pause_menu.gd" id="1_xicmp"]
@@ -10,6 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://c52abutnbmg60" path="res://assets/sprite/pause_menu/3.png" id="4_yllrs"]
 [ext_resource type="Texture2D" uid="uid://cwq0g0al0y6d8" path="res://assets/sprite/pause_menu/restart.png" id="5_wt73v"]
 [ext_resource type="Texture2D" uid="uid://d2homtghh5dtk" path="res://assets/sprite/pause_menu/quit.png" id="6_24r71"]
+[ext_resource type="Shader" path="res://assets/shader/add.gdshader" id="9_slm55"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dcupv"]
+shader = ExtResource("9_slm55")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ebm6c"]
+shader = ExtResource("9_slm55")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yrkn5"]
+shader = ExtResource("9_slm55")
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -39,6 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Filter" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,6 +59,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
 [node name="PauseLeft" type="TextureRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 offset_left = -500.0
@@ -76,6 +88,7 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="PauseRight" type="TextureRect" parent="Holder"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 6
@@ -113,6 +126,20 @@ unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("4_q3i2r")
 
+[node name="Highlight" type="ColorRect" parent="Holder/PauseRight/VHolder/ResumeHolder/Resume"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_dcupv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(216, 53.5)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
 [node name="RestartHolder" type="HBoxContainer" parent="Holder/PauseRight/VHolder"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
@@ -126,6 +153,20 @@ unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("5_wt73v")
 
+[node name="Highlight" type="ColorRect" parent="Holder/PauseRight/VHolder/RestartHolder/Restart"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_ebm6c")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(237.5, 53.5)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
 [node name="QuitHolder" type="HBoxContainer" parent="Holder/PauseRight/VHolder"]
 layout_mode = 2
 
@@ -138,10 +179,27 @@ unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("6_24r71")
 
+[node name="Highlight" type="ColorRect" parent="Holder/PauseRight/VHolder/QuitHolder/Quit"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_yrkn5")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(118.5, 62)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
 [node name="Padding" type="Control" parent="Holder/PauseRight/VHolder"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
+[connection signal="mouse_entered" from="Holder/PauseRight/VHolder/ResumeHolder/Resume" to="." method="_on_resume_mouse_entered"]
 [connection signal="pressed" from="Holder/PauseRight/VHolder/ResumeHolder/Resume" to="." method="_on_resume_pressed"]
+[connection signal="mouse_entered" from="Holder/PauseRight/VHolder/RestartHolder/Restart" to="." method="_on_restart_mouse_entered"]
 [connection signal="pressed" from="Holder/PauseRight/VHolder/RestartHolder/Restart" to="." method="_on_restart_pressed"]
+[connection signal="mouse_entered" from="Holder/PauseRight/VHolder/QuitHolder/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="Holder/PauseRight/VHolder/QuitHolder/Quit" to="." method="_on_quit_pressed"]
