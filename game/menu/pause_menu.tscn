@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://game/menu/pause_menu.gd" id="1_xicmp"]
 [ext_resource type="Texture2D" uid="uid://0df057xcjkqy" path="res://assets/sprite/pause_menu/pause_right.png" id="2_0ys4b"]
 [ext_resource type="Texture2D" uid="uid://dwv844fwwotff" path="res://assets/sprite/pause_menu/1.png" id="2_eqfjl"]
-[ext_resource type="Texture2D" uid="uid://dvbwh0s7efrkk" path="res://assets/sprite/pause_menu/pauseed.png" id="2_ys0a8"]
+[ext_resource type="Texture2D" uid="uid://dvbwh0s7efrkk" path="res://assets/sprite/pause_menu/paused.png" id="2_ys0a8"]
 [ext_resource type="Texture2D" uid="uid://8qc1oweb10e4" path="res://assets/sprite/pause_menu/2.png" id="3_ftn5n"]
 [ext_resource type="Texture2D" uid="uid://dh4ucttkx6s8l" path="res://assets/sprite/pause_menu/resume.png" id="4_q3i2r"]
 [ext_resource type="Texture2D" uid="uid://c52abutnbmg60" path="res://assets/sprite/pause_menu/3.png" id="4_yllrs"]
