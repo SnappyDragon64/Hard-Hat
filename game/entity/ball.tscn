@@ -90,6 +90,7 @@ shape = SubResource("ConvexPolygonShape3D_0ncey")
 [node name="ActiveParticles" type="GPUParticles3D" parent="."]
 visible = false
 cast_shadow = 0
+extra_cull_margin = 10.0
 amount = 800
 lifetime = 0.2
 randomness = 1.0
@@ -99,6 +100,7 @@ draw_pass_1 = SubResource("SphereMesh_u107r")
 [node name="IdleParticles" type="GPUParticles3D" parent="."]
 visible = false
 cast_shadow = 0
+extra_cull_margin = 10.0
 amount = 800
 preprocess = 0.2
 randomness = 1.0
