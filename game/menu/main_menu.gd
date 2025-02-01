@@ -28,14 +28,17 @@ func _on_title_exit_button_mouse_entered():
 
 
 func _on_title_screen_play_button_pressed():
+	%PlayButton.release_focus()
 	title_screen_handle_button_press(title_screen_play)
 
 
 func _on_title_screen_config_button_pressed():
+	%ConfigButton.release_focus()
 	title_screen_handle_button_press(title_screen_config)
 
 
 func _on_title_screen_exit_button_pressed():
+	%ExitButton.release_focus()
 	title_screen_handle_button_press(title_screen_exit)
 
 
