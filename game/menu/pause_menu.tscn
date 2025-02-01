@@ -70,11 +70,11 @@ texture = ExtResource("1_hl8jr")
 
 [node name="Paused" type="TextureRect" parent="PauseLeft"]
 layout_mode = 0
-offset_left = 76.0
+offset_left = 70.0
 offset_top = 900.0
-offset_right = 950.0
+offset_right = 944.0
 offset_bottom = 1123.0
-rotation = -1.309
+rotation = -1.28107
 texture = ExtResource("2_ys0a8")
 
 [node name="Holder" type="Control" parent="."]
