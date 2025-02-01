@@ -10,7 +10,7 @@ enum GameState {DEFAULT, PAUSED, COUNTDOWN}
 @export var player: PackedScene
 @export var ball: PackedScene
 
-var level: int = 0
+var level_id: int = 0
 
 var game_state: GameState = GameState.DEFAULT
 
@@ -22,7 +22,7 @@ var shake_tween: Tween
 
 
 func _ready():
-	load_level(level)
+	load_level(level_id)
 
 
 func init(resume_signal, restart_signal, quit_signal):
@@ -41,7 +41,7 @@ func _on_restart():
 	game_state = GameState.DEFAULT
 	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
 	$Level.set_process_mode(PROCESS_MODE_INHERIT)
-	load_level(level)
+	load_level(level_id)
 
 
 func _on_quit():
