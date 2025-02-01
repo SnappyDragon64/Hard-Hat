@@ -20,6 +20,9 @@ func _set_tracking(new_tracking):
 	$PointerAnchor.set_visible(tracking)
 	
 	if tracking:
+		velocity = Vector3.ZERO
+		$MeshInstance3D.set_rotation(Vector3.ZERO)
+		$MeshInstance3D.set_scale(Vector3.ONE)
 		$IdleParticles.set_visible(true)
 		$IdleParticles.restart()
 		$ActiveParticles.set_visible(false)
@@ -50,6 +53,7 @@ func _physics_process(delta: float) -> void:
 		
 		camera_shake_request.emit(velocity)
 		velocity = velocity.bounce(collision.get_normal())
+		update_squish()
 	
 	if tracking:
 		var camera: Camera3D = get_viewport().get_camera_3d()
@@ -62,8 +66,13 @@ func _physics_process(delta: float) -> void:
 		$PointerAnchor.set_rotation(pointer_angle)
 
 
+func start_tracking():
+	tracking = true
+
+
 func shoot():
 	velocity = direction_vector.normalized() * speed
+	update_squish()
 	$IdleParticles.set_visible(false)
 	$IdleParticles.set_emitting(false)
 	$ActiveParticles.set_visible(true)
@@ -121,3 +130,10 @@ func spawn_star_particles(collision_position: Vector3, collision_normal: Vector3
 	process_material.set_direction(collision_normal)
 	star_particles_instance.set_global_transform(Transform3D(Basis(), collision_position))
 	call_deferred("add_sibling", star_particles_instance)
+
+
+func update_squish():
+	$MeshInstance3D.set_scale(Vector3(0.9, 1.1, 1.0))
+	var velocity2d = Vector2(velocity.x, velocity.y).normalized()
+	var squish_angle = -velocity2d.angle_to(Vector2.UP)
+	$MeshInstance3D.set_rotation(Vector3(0.0, 0.0, squish_angle))

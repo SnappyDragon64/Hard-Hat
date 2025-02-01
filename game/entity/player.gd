@@ -188,8 +188,7 @@ func _handle_strike() -> void:
 		
 		if distance_squared <= 4.0 and signf(relative_x) == player_direction:
 			player_state = PlayerState.AIM
-			ball_reference.velocity = Vector3.ZERO
-			ball_reference.tracking = true
+			ball_reference.start_tracking()
 
 
 func _on_coyote_timer_timeout():
