@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gv85o3wdxvjq"
-path="res://.godot/imported/config.png-a7704305bc2e9eea1fa16652747ff8e8.ctex"
+uid="uid://df6th4gvqni3q"
+path="res://.godot/imported/star_particle.svg-0c9a7e45b58cffd5bd022409d5a8a63f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/config.png"
-dest_files=["res://.godot/imported/config.png-a7704305bc2e9eea1fa16652747ff8e8.ctex"]
+source_file="res://assets/sprite/game/star_particle.svg"
+dest_files=["res://.godot/imported/star_particle.svg-0c9a7e45b58cffd5bd022409d5a8a63f.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

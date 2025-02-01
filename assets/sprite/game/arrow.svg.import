@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvbwh0s7efrkk"
-path="res://.godot/imported/pauseed.png-95364d3179f0482546d11f36b3956d02.ctex"
+uid="uid://bcfpj1le478cv"
+path="res://.godot/imported/arrow.svg-d1b1e4a749eedcb26fd8dc102b92f755.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/pauseed.png"
-dest_files=["res://.godot/imported/pauseed.png-95364d3179f0482546d11f36b3956d02.ctex"]
+source_file="res://assets/sprite/game/arrow.svg"
+dest_files=["res://.godot/imported/arrow.svg-d1b1e4a749eedcb26fd8dc102b92f755.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

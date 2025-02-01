@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhsyvvjhju841"
-path="res://.godot/imported/restart_hover.png-f4802e58bf4779cfc0d7a6f914f6e606.ctex"
+uid="uid://bs7d5hepdyeco"
+path="res://.godot/imported/exit.png-43890f4cf9822149ff7aadac19b29ad9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/restart_hover.png"
-dest_files=["res://.godot/imported/restart_hover.png-f4802e58bf4779cfc0d7a6f914f6e606.ctex"]
+source_file="res://assets/sprite/main_menu/exit.png"
+dest_files=["res://.godot/imported/exit.png-43890f4cf9822149ff7aadac19b29ad9.ctex"]
 
 [params]
 

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://game/menu/main_menu.gd" id="1_dblhm"]
 [ext_resource type="PackedScene" uid="uid://dfhqau5f5bs3v" path="res://game/dev/background_set.tscn" id="1_ljgr5"]
-[ext_resource type="Texture2D" uid="uid://1ioqlghc70eb" path="res://assets/sprite/play.png" id="2_83i8v"]
-[ext_resource type="Texture2D" uid="uid://gv85o3wdxvjq" path="res://assets/sprite/config.png" id="3_bcc1u"]
-[ext_resource type="Texture2D" uid="uid://bs7d5hepdyeco" path="res://assets/sprite/exit.png" id="4_qag82"]
-[ext_resource type="Texture2D" uid="uid://x6gxsxxy1bdi" path="res://assets/sprite/bar.png" id="5_7tplr"]
+[ext_resource type="Texture2D" uid="uid://1ioqlghc70eb" path="res://assets/sprite/main_menu/play.png" id="2_83i8v"]
+[ext_resource type="Texture2D" uid="uid://gv85o3wdxvjq" path="res://assets/sprite/main_menu/config.png" id="3_bcc1u"]
+[ext_resource type="Texture2D" uid="uid://bs7d5hepdyeco" path="res://assets/sprite/main_menu/exit.png" id="4_qag82"]
+[ext_resource type="Texture2D" uid="uid://x6gxsxxy1bdi" path="res://assets/sprite/main_menu/bar.png" id="5_7tplr"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3

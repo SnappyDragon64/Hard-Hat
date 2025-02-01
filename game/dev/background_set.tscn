@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://dfhqau5f5bs3v"]
 
-[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/background.png" id="1_5momw"]
+[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/game/background.png" id="1_5momw"]
 [ext_resource type="Script" path="res://game/dev/background_set.gd" id="1_r420n"]
 [ext_resource type="Shader" path="res://assets/shader/outline.gdshader" id="2_4ppwc"]
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="3_h4sn2"]

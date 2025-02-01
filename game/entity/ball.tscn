@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dljghajwlcrd6" path="res://game/particle/TimberBreakParticles.tscn" id="3_bv2k7"]
 [ext_resource type="PackedScene" uid="uid://6u4to1kmop0e" path="res://game/particle/BricksBreakParticles.tscn" id="4_wp5cy"]
 [ext_resource type="PackedScene" uid="uid://i2p75ghwy86o" path="res://game/particle/StarParticles.tscn" id="5_0fnd2"]
-[ext_resource type="Texture2D" uid="uid://bcfpj1le478cv" path="res://assets/sprite/arrow.svg" id="6_w4y3a"]
+[ext_resource type="Texture2D" uid="uid://bcfpj1le478cv" path="res://assets/sprite/game/arrow.svg" id="6_w4y3a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nto12"]
 shading_mode = 2

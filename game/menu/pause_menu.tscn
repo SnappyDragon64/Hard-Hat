@@ -1,18 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcirwvmld7mew"]
+[gd_scene load_steps=11 format=3 uid="uid://bcirwvmld7mew"]
 
-[ext_resource type="Texture2D" uid="uid://5vfgfbao4f8v" path="res://assets/sprite/pause_left.png" id="1_hl8jr"]
+[ext_resource type="Texture2D" uid="uid://5vfgfbao4f8v" path="res://assets/sprite/pause_menu/pause_left.png" id="1_hl8jr"]
 [ext_resource type="Script" path="res://game/menu/pause_menu.gd" id="1_xicmp"]
-[ext_resource type="Texture2D" uid="uid://0df057xcjkqy" path="res://assets/sprite/pause_right.png" id="2_0ys4b"]
-[ext_resource type="Texture2D" uid="uid://dwv844fwwotff" path="res://assets/sprite/1.png" id="2_eqfjl"]
-[ext_resource type="Texture2D" uid="uid://dvbwh0s7efrkk" path="res://assets/sprite/pauseed.png" id="2_ys0a8"]
-[ext_resource type="Texture2D" uid="uid://8qc1oweb10e4" path="res://assets/sprite/2.png" id="3_ftn5n"]
-[ext_resource type="Texture2D" uid="uid://dh4ucttkx6s8l" path="res://assets/sprite/resume.png" id="4_q3i2r"]
-[ext_resource type="Texture2D" uid="uid://c52abutnbmg60" path="res://assets/sprite/3.png" id="4_yllrs"]
-[ext_resource type="Texture2D" uid="uid://cwq0g0al0y6d8" path="res://assets/sprite/restart.png" id="5_wt73v"]
-[ext_resource type="Texture2D" uid="uid://d2homtghh5dtk" path="res://assets/sprite/quit.png" id="6_24r71"]
-[ext_resource type="Texture2D" uid="uid://duleiir8s5lrc" path="res://assets/sprite/resume_hover.png" id="9_paynp"]
-[ext_resource type="Texture2D" uid="uid://bhsyvvjhju841" path="res://assets/sprite/restart_hover.png" id="11_btaw8"]
-[ext_resource type="Texture2D" uid="uid://cljo6cjluvfa5" path="res://assets/sprite/quit_hover.png" id="13_g28hh"]
+[ext_resource type="Texture2D" uid="uid://0df057xcjkqy" path="res://assets/sprite/pause_menu/pause_right.png" id="2_0ys4b"]
+[ext_resource type="Texture2D" uid="uid://dwv844fwwotff" path="res://assets/sprite/pause_menu/1.png" id="2_eqfjl"]
+[ext_resource type="Texture2D" uid="uid://dvbwh0s7efrkk" path="res://assets/sprite/pause_menu/pauseed.png" id="2_ys0a8"]
+[ext_resource type="Texture2D" uid="uid://8qc1oweb10e4" path="res://assets/sprite/pause_menu/2.png" id="3_ftn5n"]
+[ext_resource type="Texture2D" uid="uid://dh4ucttkx6s8l" path="res://assets/sprite/pause_menu/resume.png" id="4_q3i2r"]
+[ext_resource type="Texture2D" uid="uid://c52abutnbmg60" path="res://assets/sprite/pause_menu/3.png" id="4_yllrs"]
+[ext_resource type="Texture2D" uid="uid://cwq0g0al0y6d8" path="res://assets/sprite/pause_menu/restart.png" id="5_wt73v"]
+[ext_resource type="Texture2D" uid="uid://d2homtghh5dtk" path="res://assets/sprite/pause_menu/quit.png" id="6_24r71"]
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -115,8 +112,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("4_q3i2r")
-texture_pressed = ExtResource("4_q3i2r")
-texture_hover = ExtResource("9_paynp")
 
 [node name="RestartHolder" type="HBoxContainer" parent="Holder/PauseRight/VHolder"]
 custom_minimum_size = Vector2(120, 0)
@@ -130,8 +125,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("5_wt73v")
-texture_pressed = ExtResource("5_wt73v")
-texture_hover = ExtResource("11_btaw8")
 
 [node name="QuitHolder" type="HBoxContainer" parent="Holder/PauseRight/VHolder"]
 layout_mode = 2
@@ -144,8 +137,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("6_24r71")
-texture_pressed = ExtResource("6_24r71")
-texture_hover = ExtResource("13_g28hh")
 
 [node name="Padding" type="Control" parent="Holder/PauseRight/VHolder"]
 custom_minimum_size = Vector2(0, 120)
