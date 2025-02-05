@@ -8,7 +8,7 @@ signal quit_pressed()
 @export var texture_one: CompressedTexture2D
 @export var texture_two: CompressedTexture2D
 @export var texture_three: CompressedTexture2D
-
+@export var duration := 0.1
 
 var unpause_tween: Tween
 var highlight_tween: Tween
@@ -41,22 +41,22 @@ func _on_pause():
 	$PauseLeft.set_visible(true)
 	$Holder/PauseRight.set_visible(true)
 	var tween = get_tree().create_tween().set_parallel()
-	tween.tween_property($Filter, "color", Color(0.0, 0.17, 0.29, 0.60), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property($PauseLeft, "position", Vector2(0, 0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property($PauseLeft, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property($Holder/PauseRight, "position", Vector2(-720, -1080), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property($Holder/PauseRight, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property($Filter, "color", Color(0.0, 0.17, 0.29, 0.60), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property($PauseLeft, "position", Vector2(0, 0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property($PauseLeft, "modulate", Color(1.0, 1.0, 1.0, 1.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property($Holder/PauseRight, "position", Vector2(-720, -1080), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property($Holder/PauseRight, "modulate", Color(1.0, 1.0, 1.0, 1.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
 func _on_unpause():
 	$Countdown.set_texture(texture_three)
 	$Countdown.set_visible(true)
 	unpause_tween = get_tree().create_tween().set_parallel()
-	unpause_tween.tween_property($Filter, "color", Color(0.0, 0.17, 0.29, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	unpause_tween.tween_property($PauseLeft, "position", Vector2(-500, -500), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	unpause_tween.tween_property($PauseLeft, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	unpause_tween.tween_property($Holder/PauseRight, "position", Vector2(-200, -400), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	unpause_tween.tween_property($Holder/PauseRight, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	unpause_tween.tween_property($Filter, "color", Color(0.0, 0.17, 0.29, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	unpause_tween.tween_property($PauseLeft, "position", Vector2(-500, -500), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	unpause_tween.tween_property($PauseLeft, "modulate", Color(1.0, 1.0, 1.0, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	unpause_tween.tween_property($Holder/PauseRight, "position", Vector2(-200, -400), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	unpause_tween.tween_property($Holder/PauseRight, "modulate", Color(1.0, 1.0, 1.0, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	unpause_tween.tween_callback(_update_countdown_to_two).set_delay(1)
 	unpause_tween.tween_callback(_update_countdown_to_one).set_delay(2)
 	unpause_tween.tween_callback(_hide_countdown).set_delay(3)
@@ -124,12 +124,12 @@ func toggle_highlights(to_enable, to_disable_1, to_disable_2):
 		highlight_tween.kill()
 	
 	highlight_tween = get_tree().create_tween().set_parallel()
-	highlight_tween.tween_property(highlight_to_enable, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	highlight_tween.tween_property(highlight_to_enable, "rotation_degrees", -6.0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	highlight_tween.tween_property(highlight_to_disable_1, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	highlight_tween.tween_property(highlight_to_disable_1, "rotation_degrees", 0.0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	highlight_tween.tween_property(highlight_to_disable_2, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	highlight_tween.tween_property(highlight_to_disable_2, "rotation_degrees", 0.0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	highlight_tween.tween_property(highlight_to_enable, "modulate", Color(1.0, 1.0, 1.0, 1.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	highlight_tween.tween_property(highlight_to_enable, "rotation_degrees", -6.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	highlight_tween.tween_property(highlight_to_disable_1, "modulate", Color(1.0, 1.0, 1.0, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	highlight_tween.tween_property(highlight_to_disable_1, "rotation_degrees", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	highlight_tween.tween_property(highlight_to_disable_2, "modulate", Color(1.0, 1.0, 1.0, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	highlight_tween.tween_property(highlight_to_disable_2, "rotation_degrees", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
 func get_button_highlight(button):
 	return button.get_node("Highlight")
