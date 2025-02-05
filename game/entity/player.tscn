@@ -1,8 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://rjxa7edahnbb"]
+[gd_scene load_steps=12 format=3 uid="uid://rjxa7edahnbb"]
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
 [ext_resource type="Texture2D" uid="uid://diwwf1h2i8mxe" path="res://assets/sprite/test.png" id="2_tt3cq"]
+[ext_resource type="PackedScene" uid="uid://cdjcl5dow8yg3" path="res://game/entity/ball.tscn" id="2_vttbj"]
+[ext_resource type="Texture2D" uid="uid://c0wid1b6r3xqe" path="res://assets/sprite/ball_progress_under.svg" id="5_vlevg"]
+[ext_resource type="Texture2D" uid="uid://xjc0n88uwy7" path="res://assets/sprite/ball_progress_over.svg" id="6_c78mu"]
+[ext_resource type="Texture2D" uid="uid://d06e4wetm5bxv" path="res://assets/sprite/ball_progress.svg" id="6_fqw7o"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
 
@@ -21,16 +25,22 @@ shader_parameter/glowSharpness = 1.0
 shader_parameter/alphaThreshold = 1.0
 shader_parameter/sprite_texture = ExtResource("2_tt3cq")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_htfm2"]
+viewport_path = NodePath("SubViewport")
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 platform_floor_layers = 4294967041
 script = ExtResource("1_vdi80")
+ball = ExtResource("2_vttbj")
 SPEED = 6.0
-JUMP_SPEED = 13.0
+JUMP_SPEED = 14.0
+STRIKE_BOOST = 8.0
 GRAVITY = 4.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_f3jdb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -47,12 +57,41 @@ process_callback = 0
 wait_time = 0.2
 one_shot = true
 
+[node name="BallTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2, 0)
-visible = false
+transform = Transform3D(0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0, 1.6, 0)
 material_overlay = SubResource("ShaderMaterial_ynmrm")
+no_depth_test = true
 render_priority = 2
 texture = ExtResource("2_tt3cq")
 
+[node name="ProgressSprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -1.2, 1.5, 0)
+modulate = Color(1, 1, 1, 0)
+billboard = 1
+no_depth_test = true
+render_priority = 3
+texture = SubResource("ViewportTexture_htfm2")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+msaa_2d = 2
+size = Vector2i(200, 200)
+
+[node name="BallProgress" type="TextureProgressBar" parent="SubViewport"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 40.0
+max_value = 10.0
+step = 0.01
+fill_mode = 4
+texture_under = ExtResource("5_vlevg")
+texture_over = ExtResource("6_c78mu")
+texture_progress = ExtResource("6_fqw7o")
+
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpQueueTimer" to="." method="_on_jump_queue_timer_timeout"]
+[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]

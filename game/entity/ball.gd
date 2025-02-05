@@ -13,7 +13,8 @@ signal camera_shake_request(direction)
 
 var init = true
 var tracking = false: set = _set_tracking
-var direction_vector = Vector3(0, 0, 0)
+var direction_vector := Vector3(0, 0, 0)
+var dead := false
 
 func _set_tracking(new_tracking):
 	tracking = new_tracking
@@ -38,7 +39,6 @@ func _process(_delta: float) -> void:
 		$ActiveParticles.set_emitting(false)
 
 
-
 func _physics_process(delta: float) -> void:
 	position.z = 0.5
 	velocity.z = 0
@@ -46,14 +46,17 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 
 	if collision:
-		var collider = collision.get_collider()
-		
-		if collider is GridMap:
-			handle_brick_hit(collider, collision)
-		
-		camera_shake_request.emit(velocity)
 		velocity = velocity.bounce(collision.get_normal())
 		update_squish()
+		
+		if not dead:
+			camera_shake_request.emit(velocity)
+			
+			var collider = collision.get_collider()
+			
+			if collider is GridMap:
+				handle_brick_hit(collider, collision)
+		
 	
 	if tracking:
 		var camera: Camera3D = get_viewport().get_camera_3d()
@@ -64,6 +67,14 @@ func _physics_process(delta: float) -> void:
 		var angle = direction_vector_2d.angle_to(Vector2.RIGHT)
 		var pointer_angle = Vector3(0.0, 0.0, angle)
 		$PointerAnchor.set_rotation(pointer_angle)
+
+
+func kill():
+	if not dead:
+		dead = true
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "scale", Vector3(0.01, 0.01, 0.01), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_callback(queue_free)
 
 
 func start_tracking():

@@ -8,7 +8,6 @@ signal unpause()
 enum GameState {DEFAULT, PAUSED, COUNTDOWN}
 
 @export var player: PackedScene
-@export var ball: PackedScene
 
 var level_id: int = 0
 
@@ -111,24 +110,15 @@ func setup_player(level_instance):
 	tripod_max_x = camera_anchors.get_node("End").global_position.x
 	
 	var player_instance = player.instantiate()
-	var ball_instance = ball.instantiate()
 	
 	var spawnpoints = level_instance.get_node("Spawnpoints")
-	var player_spawnpoint = spawnpoints.get_node("Player")
+	var player_spawnpoint = spawnpoints.get_node("0")
 	var player_spawn = player_spawnpoint.get_global_transform()
 	player_spawn.origin.z = 0.5
 	player_instance.set_global_transform(player_spawn)
 	player_instance.x_update.connect(_on_player_x_update)
-	player_instance.ball_reference = ball_instance
-	
-	var ball_spawnpoint = spawnpoints.get_node("Ball")
-	var ball_spawn = ball_spawnpoint.get_global_transform()
-	ball_spawn.origin.z = 0.5
-	ball_instance.set_global_transform(ball_spawn)
-	ball_instance.camera_shake_request.connect(_on_camera_shake_request)
 	
 	$Level.call_deferred("add_child", player_instance)
-	$Level.call_deferred("add_child", ball_instance)
 
 
 func get_level_path(id):
