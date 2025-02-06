@@ -120,9 +120,6 @@ func setup_player(level_instance):
 	player_instance.x_update.connect(_on_player_x_update)
 	player_instance.camera_shake_request.connect(_on_camera_shake_request)
 	
-	var gridmap = level_instance.get_node("GridMap")
-	player_instance.gridmap = gridmap
-	
 	$Level.call_deferred("add_child", player_instance)
 
 
