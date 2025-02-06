@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c1l1qi4ei7t83" path="res://assets/mesh/moving_platform/texture.png" id="2_hilkr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oywcr"]
+size = Vector3(1, 1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gog35"]
 resource_name = "m_0d406290-1443-cf93-16f6-4f871e04ee1f"
@@ -22,7 +23,7 @@ remote_path = NodePath("../AnimatableBody3D")
 shape = SubResource("BoxShape3D_oywcr")
 
 [node name="Model" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-8.74228e-08, 0, 1, 0, 1, 0, -2, 0, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("1_1a3sy")
 surface_material_override/0 = SubResource("StandardMaterial3D_gog35")
 surface_material_override/1 = SubResource("StandardMaterial3D_gog35")
