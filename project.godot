@@ -26,6 +26,10 @@ window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
 
+[global_group]
+
+moving_platform=""
+
 [importer_defaults]
 
 texture={

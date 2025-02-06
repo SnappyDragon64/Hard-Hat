@@ -46,17 +46,23 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 
 	if collision:
-		velocity = velocity.bounce(collision.get_normal())
+		var collision_depth = collision.get_depth()
+		var collision_normal = collision.get_normal()
+		var collider = collision.get_collider()
+		
+		if collider.is_in_group("moving_platform"):
+			global_position += collision_depth * collision_normal * 100.0
+		
+		velocity = velocity.bounce(collision_normal)
 		update_squish()
 		
 		if not dead:
+			var collision_position = collision.get_position()
+			spawn_star_particles(collision_position, collision_normal)
 			camera_shake_request.emit(velocity)
 			
-			var collider = collision.get_collider()
-			
 			if collider is GridMap:
-				handle_brick_hit(collider, collision)
-		
+				handle_brick_hit(collider, collision_normal, collision_position)
 	
 	if tracking:
 		var camera: Camera3D = get_viewport().get_camera_3d()
@@ -90,13 +96,10 @@ func shoot():
 	$ActiveParticles.restart()
 
 
-func handle_brick_hit(gridmap: GridMap, collision: KinematicCollision3D) -> void:
-	var collision_normal = collision.get_normal()
-	var collision_position = collision.get_position() - collision_normal * 0.5
+func handle_brick_hit(gridmap: GridMap, collision_normal: Vector3, collision_position: Vector3) -> void:
+	collision_position = collision_position - collision_normal * 0.5
 	var cell_position = global_to_map(gridmap, collision_position)
 	var cell_item = gridmap.get_cell_item(cell_position)
-	
-	spawn_star_particles(collision_position, collision_normal)
 	
 	match cell_item:
 		0: # Scaffolding

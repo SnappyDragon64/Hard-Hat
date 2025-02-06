@@ -1,8 +1,56 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds48d4tp0jgb8"]
+[gd_scene load_steps=8 format=3 uid="uid://ds48d4tp0jgb8"]
 
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_px351"]
+[ext_resource type="Script" path="res://game/level/0.gd" id="1_ub3gh"]
+[ext_resource type="PackedScene" uid="uid://b362tjulo6svc" path="res://game/props/MovingPlatform.tscn" id="2_y0122"]
+
+[sub_resource type="Curve3D" id="Curve3D_rw6sf"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_8hinx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovingPlatform:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wyyhg"]
+resource_name = "move"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovingPlatform:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j7v1d"]
+_data = {
+"RESET": SubResource("Animation_8hinx"),
+"move": SubResource("Animation_wyyhg")
+}
 
 [node name="0" type="Node3D"]
+script = ExtResource("1_ub3gh")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_px351")
@@ -24,3 +72,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="End" type="Marker3D" parent="CameraAnchors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 1, 0)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+curve = SubResource("Curve3D_rw6sf")
+
+[node name="MovingPlatform" parent="Path3D" instance=ExtResource("2_y0122")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+loop = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
