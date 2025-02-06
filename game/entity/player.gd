@@ -205,12 +205,11 @@ func _handle_coyote_time() -> void:
 func _handle_strike() -> void:
 	if Input.is_action_just_pressed("strike") and ball_reference:
 		var ball_global_pos = ball_reference.get_global_position()
-		var relative_x = ball_global_pos.x - global_position.x
 		
 		var adjusted_pos = global_position + Vector3(0, 1, 0)
 		var distance_squared = adjusted_pos.distance_squared_to(ball_global_pos)
 		
-		if distance_squared <= 4.0 and signf(relative_x) == player_direction:
+		if distance_squared <= 9.0:
 			player_state = PlayerState.AIM
 			ball_reference.start_tracking()
 			
