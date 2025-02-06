@@ -65,7 +65,6 @@ func title_screen_move_bar(button):
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(%Bar, "global_position", bar_pos, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		print(bar_pos)
 
 
 func title_screen_handle_button_press(callable):
