@@ -6,6 +6,7 @@ signal init_sandbox()
 var title_screen_lock = false
 var title_screen_current_selection = 0
 
+
 func _on_title_play_button_mouse_entered():
 	if title_screen_current_selection != 0:
 		title_screen_current_selection = 0
@@ -50,7 +51,6 @@ func title_screen_play():
 func title_screen_config():
 	%BackgroundSet.hide_main_menu_props()
 	$TitleScreenUI.set_visible(false)
-	%BackgroundSet.tween_camera_rotation(120)
 
 
 func title_screen_quit():
