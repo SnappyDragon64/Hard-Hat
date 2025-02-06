@@ -83,6 +83,7 @@ size = Vector2i(200, 200)
 
 [node name="BallProgress" type="TextureProgressBar" parent="SubViewport"]
 unique_name_in_owner = true
+modulate = Color(1, 0.760784, 0, 1)
 offset_right = 40.0
 offset_bottom = 40.0
 max_value = 10.0

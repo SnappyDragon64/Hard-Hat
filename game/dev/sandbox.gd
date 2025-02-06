@@ -109,14 +109,19 @@ func setup_player(level_instance):
 	tripod_min_x = camera_anchors.get_node("Start").global_position.x
 	tripod_max_x = camera_anchors.get_node("End").global_position.x
 	
-	var player_instance = player.instantiate()
+	var player_instance: Player = player.instantiate()
 	
 	var spawnpoints = level_instance.get_node("Spawnpoints")
 	var player_spawnpoint = spawnpoints.get_node("0")
 	var player_spawn = player_spawnpoint.get_global_transform()
 	player_spawn.origin.z = 0.5
 	player_instance.set_global_transform(player_spawn)
+	
 	player_instance.x_update.connect(_on_player_x_update)
+	player_instance.camera_shake_request.connect(_on_camera_shake_request)
+	
+	var gridmap = level_instance.get_node("GridMap")
+	player_instance.gridmap = gridmap
 	
 	$Level.call_deferred("add_child", player_instance)
 

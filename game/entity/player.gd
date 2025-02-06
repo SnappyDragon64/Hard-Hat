@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 
 signal x_update(new_x)
+signal camera_shake_request(direction)
 
 enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
 
@@ -14,10 +15,13 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
 @export var GRAVITY := 1.0
 
 var player_state: PlayerState = PlayerState.IDLE: set = _set_player_state
+var gridmap: GridMap
 var input_direction := 0.0
 var player_direction := 1.0
 var ball_reference: Ball
+var ball_moving := false
 var progress_sprite_tween: Tween
+
 
 func _set_player_state(new_player_state: PlayerState):
 	match player_state:
@@ -42,7 +46,7 @@ func _set_player_state(new_player_state: PlayerState):
 
 
 func _process(_delta) -> void:
-	if ball_reference:
+	if ball_reference and ball_moving:
 		var remaining_time = $BallTimer.get_time_left()
 		%BallProgress.set_value(remaining_time)
 
@@ -156,6 +160,8 @@ func _aim_physics_process(_delta) -> void:
 		
 		ball_reference.shoot()
 		ball_reference.tracking = false
+		ball_moving = true
+		
 		$BallTimer.start()
 
 
@@ -211,7 +217,6 @@ func _handle_strike() -> void:
 			if progress_sprite_tween:
 				progress_sprite_tween.kill()
 			
-			%BallProgress.set_value(10.0)
 			progress_sprite_tween = get_tree().create_tween()
 			progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
 
@@ -219,12 +224,23 @@ func _handle_strike() -> void:
 
 func _handle_place_ball() -> void:
 	if Input.is_action_just_pressed("place_ball") and not ball_reference:
-		ball_reference = ball.instantiate()
 		var ball_position = global_position
 		ball_position += Vector3(1.0 * player_direction, 1.0, 0.0)
-		ball_reference.set_global_transform(Transform3D(Basis(), ball_position))
-		call_deferred("add_sibling", ball_reference)
+		var cell_position = global_to_map(gridmap, ball_position)
+		var cell_item = gridmap.get_cell_item(cell_position)
 		
+		if cell_item == -1:
+			ball_reference = ball.instantiate()
+			ball_reference.camera_shake_request.connect(_on_ball_camera_shake_request)
+			ball_reference.set_global_transform(Transform3D(Basis(), ball_position))
+			call_deferred("add_sibling", ball_reference)
+			%BallProgress.set_value(10.0)
+
+
+func global_to_map(gridmap: GridMap, global: Vector3) -> Vector3i:
+	var local_position = gridmap.to_local(global)
+	var cell_position = gridmap.local_to_map(local_position)
+	return cell_position
 
 
 func _on_coyote_timer_timeout():
@@ -238,9 +254,22 @@ func _on_jump_queue_timer_timeout():
 func _on_ball_timer_timeout():
 	ball_reference.kill()
 	ball_reference = null
+	ball_moving = false
 	
 	if progress_sprite_tween:
 		progress_sprite_tween.kill()
 	
 	progress_sprite_tween = get_tree().create_tween()
 	progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1)
+	
+	if player_state == PlayerState.AIM:
+		if is_on_floor():
+			if input_direction:
+				player_state = PlayerState.RUN
+			else:
+				player_state = PlayerState.IDLE
+		else:
+			player_state = PlayerState.FALL
+
+func _on_ball_camera_shake_request(direction):
+	camera_shake_request.emit(direction)

@@ -5,5 +5,5 @@
       <circle cx="2" cy="2" r="1" fill="black"/>
     </mask>
   </defs>
-  <circle cx="2" cy="2" r="2" fill="#ff2424" mask="url(#hole)"/>
+  <circle cx="2" cy="2" r="2" fill="white" mask="url(#hole)"/>
 </svg>
