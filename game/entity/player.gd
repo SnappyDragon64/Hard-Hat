@@ -13,6 +13,8 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
 @export var JUMP_SPEED := 4.5
 @export var STRIKE_BOOST := 2.0
 @export var GRAVITY := 1.0
+@export var can_strike := true
+@export var strike_queued := false
 
 var player_state: PlayerState = PlayerState.IDLE: set = _set_player_state
 var input_direction := 0.0
@@ -20,7 +22,9 @@ var player_direction := 1.0
 var ball_reference: Ball
 var progress_sprite_tween: Tween
 
+
 func _set_player_state(new_player_state: PlayerState):
+
 	match player_state:
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
@@ -29,10 +33,16 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.AIM:
 			platform_floor_layers = 4294967295
 			axis_lock_linear_y = false
+			$AnimationHolder/AnimatedSprite3D.play()
 	
 	match new_player_state:
+		PlayerState.IDLE:
+			$AnimationHolder/AnimatedSprite3D.animation = 'idle'
+		PlayerState.RUN:
+			$AnimationHolder/AnimatedSprite3D.animation = 'run'
 		PlayerState.JUMP:
-			velocity.y = JUMP_SPEED
+			velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
+			$AnimationHolder/AnimatedSprite3D.animation = 'jump'
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.start()
 		PlayerState.JUMP_QUEUED:
@@ -41,8 +51,12 @@ func _set_player_state(new_player_state: PlayerState):
 			platform_floor_layers = 0
 			axis_lock_linear_y = true
 			velocity = Vector3.ZERO
+			$AnimationHolder/AnimatedSprite3D.animation = 'aim'
 		PlayerState.STRIKE:
+			$StrikeCooldown.start()
+			can_strike = false
 			velocity.y = STRIKE_BOOST
+			$AnimationHolder/AnimatedSprite3D.animation = 'strike'
 	
 	player_state = new_player_state
 
@@ -60,6 +74,13 @@ func _physics_process(delta) -> void:
 		player_direction = 1.0
 	elif input_direction < 0.0:
 		player_direction = -1.0
+	
+	$AnimationHolder.rotation.y = 0 if player_direction > 0 else PI
+	
+	if strike_queued and Input.is_action_pressed("strike"):
+		_check_strike_condition()
+	else:
+		strike_queued = false
 	
 	match player_state:
 		PlayerState.IDLE:
@@ -211,22 +232,12 @@ func _handle_coyote_time() -> void:
 
 
 func _handle_strike() -> void:
-	if Input.is_action_just_pressed("strike"):
+	if Input.is_action_just_pressed("strike") and can_strike:
 		if ball_reference:
-			var ball_global_pos = ball_reference.get_global_position()
-			
-			var adjusted_pos = global_position + Vector3(0, 1, 0)
-			var distance_squared = adjusted_pos.distance_squared_to(ball_global_pos)
-			
-			if distance_squared <= 9.0:
-				player_state = PlayerState.AIM
-				ball_reference.start_tracking()
-				
-				if progress_sprite_tween:
-					progress_sprite_tween.kill()
-				
-				progress_sprite_tween = get_tree().create_tween()
-				progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
+			strike_queued = true
+			$StrikeQueueTimer.start()
+			_check_strike_condition()
+
 		else:
 			$RayCast3D.set_target_position(Vector3(1.25 * player_direction, 0.0, 0.0))
 			$RayCast3D.force_raycast_update()
@@ -249,6 +260,25 @@ func _handle_strike() -> void:
 				
 				progress_sprite_tween = get_tree().create_tween()
 				progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
+
+func _check_strike_condition():
+	if ball_reference:
+		var ball_global_pos = ball_reference.get_global_position()
+	
+		var adjusted_pos = global_position + Vector3(0, 1, 0)
+		var distance_squared = adjusted_pos.distance_squared_to(ball_global_pos)
+		
+		if distance_squared <= 6.0:
+			strike_queued = false
+			$StrikeQueueTimer.stop()
+			player_state = PlayerState.AIM
+			ball_reference.start_tracking()
+			
+			if progress_sprite_tween:
+				progress_sprite_tween.kill()
+			
+			progress_sprite_tween = get_tree().create_tween()
+			progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
 
 
 func _on_coyote_timer_timeout():
@@ -277,6 +307,14 @@ func _on_ball_timer_timeout():
 				player_state = PlayerState.IDLE
 		else:
 			player_state = PlayerState.FALL
+
+
+func _on_strike_cooldown_timeout() -> void:
+	can_strike = true
+
+
+func _on_strike_queue_timer_timeout() -> void:
+	player_state = PlayerState.FALL
 
 
 func _on_ball_camera_shake_request(direction):
