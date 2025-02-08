@@ -20,13 +20,15 @@ var player_direction := 1.0
 var ball_reference: Ball
 var progress_sprite_tween: Tween
 
-
 func _set_player_state(new_player_state: PlayerState):
 	match player_state:
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
 		PlayerState.JUMP_QUEUED:
 			$JumpQueueTimer.stop()
+		PlayerState.AIM:
+			platform_floor_layers = 4294967295
+			axis_lock_linear_y = false
 	
 	match new_player_state:
 		PlayerState.JUMP:
@@ -36,6 +38,8 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.JUMP_QUEUED:
 			$JumpQueueTimer.start()
 		PlayerState.AIM:
+			platform_floor_layers = 0
+			axis_lock_linear_y = true
 			velocity = Vector3.ZERO
 		PlayerState.STRIKE:
 			velocity.y = STRIKE_BOOST
@@ -147,7 +151,20 @@ func _jump_queued_physics_process(delta) -> void:
 
 
 func _aim_physics_process(_delta) -> void:
-	if Input.is_action_just_released("strike") and ball_reference:
+	var flag = false
+	var collision = get_last_slide_collision()
+	
+	if collision:
+		var collider = collision.get_collider()
+		var collision_normal = collision.get_normal()
+		
+		if collider.is_in_group("moving_platform"):
+			if collision_normal.is_equal_approx(Vector3.UP):
+				position.y += collision.get_depth()
+			else:
+				flag = true
+	
+	if flag or Input.is_action_just_released("strike") and ball_reference:
 		player_state = PlayerState.STRIKE
 		
 		ball_reference.shoot()
@@ -217,6 +234,7 @@ func _handle_strike() -> void:
 			if not $RayCast3D.is_colliding():
 				ball_reference = ball.instantiate()
 				ball_reference.camera_shake_request.connect(_on_ball_camera_shake_request)
+				ball_reference.force_quit_aiming.connect(_on_force_quit_aiming)
 				var ball_position = global_position
 				ball_position += Vector3(1.0 * player_direction, 1.0, 0.0)
 				ball_reference.set_global_transform(Transform3D(Basis(), ball_position))
@@ -260,5 +278,15 @@ func _on_ball_timer_timeout():
 		else:
 			player_state = PlayerState.FALL
 
+
 func _on_ball_camera_shake_request(direction):
 	camera_shake_request.emit(direction)
+
+
+func _on_force_quit_aiming():
+	player_state = PlayerState.STRIKE
+	
+	ball_reference.shoot()
+	ball_reference.tracking = false
+	
+	$BallTimer.start()

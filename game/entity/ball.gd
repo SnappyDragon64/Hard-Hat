@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 
 signal camera_shake_request(direction)
+signal force_quit_aiming()
 
 @export var speed: float = 16.0
 
@@ -13,7 +14,7 @@ signal camera_shake_request(direction)
 
 var init = true
 var tracking = false: set = _set_tracking
-var direction_vector := Vector3(0, 0, 0)
+var direction_vector := Vector3(1, 0, 0)
 var dead := false
 
 func _set_tracking(new_tracking):
@@ -51,6 +52,9 @@ func _physics_process(delta: float) -> void:
 		var collider = collision.get_collider()
 		
 		if collider.is_in_group("moving_platform"):
+			if tracking == true:
+				force_quit_aiming.emit()
+			
 			global_position += collision_depth * collision_normal * 100.0
 		
 		velocity = velocity.bounce(collision_normal)
