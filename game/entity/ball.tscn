@@ -93,8 +93,9 @@ visible = false
 cast_shadow = 0
 extra_cull_margin = 10.0
 amount = 800
-lifetime = 0.2
+lifetime = 0.16
 randomness = 1.0
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_8s5m3")
 draw_pass_1 = SubResource("SphereMesh_u107r")
 
