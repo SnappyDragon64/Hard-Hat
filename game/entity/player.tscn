@@ -343,7 +343,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_02npy")
 }],
-"loop": true,
+"loop": false,
 "name": &"strike",
 "speed": 12.0
 }]
