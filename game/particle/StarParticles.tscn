@@ -49,6 +49,7 @@ lifetime = 0.8
 preprocess = 0.4
 explosiveness = 1.0
 randomness = 1.0
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_obn2n")
 draw_pass_1 = SubResource("QuadMesh_qvat8")
 

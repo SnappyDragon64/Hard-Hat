@@ -38,6 +38,7 @@ amount = 16
 lifetime = 0.8
 explosiveness = 1.0
 randomness = 1.0
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_ivge7")
 draw_pass_1 = SubResource("BoxMesh_c7stt")
 

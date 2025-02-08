@@ -106,6 +106,7 @@ extra_cull_margin = 10.0
 amount = 800
 preprocess = 0.2
 randomness = 1.0
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_8s5m3")
 draw_pass_1 = SubResource("SphereMesh_u107r")
 
