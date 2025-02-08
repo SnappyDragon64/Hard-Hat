@@ -10,8 +10,9 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_05fog"]
-size = Vector3(0.48, 1.96, 1)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tfegu"]
+radius = 0.4
+height = 1.96
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ynmrm"]
 render_priority = 0
@@ -44,8 +45,8 @@ visible = false
 mesh = SubResource("CapsuleMesh_f3jdb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_05fog")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
+shape = SubResource("CapsuleShape3D_tfegu")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 process_callback = 0
@@ -58,6 +59,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="BallTimer" type="Timer" parent="."]
+process_callback = 0
 wait_time = 8.0
 one_shot = true
 
