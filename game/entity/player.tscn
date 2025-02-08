@@ -11,6 +11,8 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0fcsf"]
+radius = 0.48
+height = 1.96
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ynmrm"]
 render_priority = 0
