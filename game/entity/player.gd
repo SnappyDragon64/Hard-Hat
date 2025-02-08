@@ -81,6 +81,7 @@ func _physics_process(delta) -> void:
 		_check_strike_condition()
 	else:
 		strike_queued = false
+		$StrikeQueueTimer.stop()
 	
 	match player_state:
 		PlayerState.IDLE:
