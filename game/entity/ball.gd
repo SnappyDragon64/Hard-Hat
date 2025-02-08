@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 signal camera_shake_request(direction)
 
-@export var speed: float = 8.0
+@export var speed: float = 16.0
 
 @export var scaffolding_break_particles: PackedScene
 @export var timber_break_particles: PackedScene
