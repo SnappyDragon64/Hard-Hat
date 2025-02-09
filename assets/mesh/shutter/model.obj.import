@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bnykpvk5cwbav"
+path="res://.godot/imported/model.obj-abab7a0812ae56616a0dcf48057cfb4d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/model.obj-abab7a0812ae56616a0dcf48057cfb4d.mesh"]
+
+source_file="res://assets/mesh/shutter/model.obj"
+dest_files=["res://.godot/imported/model.obj-abab7a0812ae56616a0dcf48057cfb4d.mesh", "res://.godot/imported/model.obj-abab7a0812ae56616a0dcf48057cfb4d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

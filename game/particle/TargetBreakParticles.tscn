@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://7tvrm5a6riqk"]
+
+[ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_iere2"]
+
+[sub_resource type="Curve" id="Curve_rdcli"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kw46u"]
+curve = SubResource("Curve_rdcli")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8iqxp"]
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 3.2
+initial_velocity_max = 6.4
+scale_curve = SubResource("CurveTexture_kw46u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fnnn"]
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_c7stt"]
+material = SubResource("StandardMaterial3D_3fnnn")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_2m0d4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_b4h83"]
+curve = SubResource("Curve_2m0d4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lip8m"]
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 3.2
+initial_velocity_max = 6.4
+scale_curve = SubResource("CurveTexture_b4h83")
+color = Color(1, 0.25098, 0.25098, 1)
+
+[node name="TimberBreakParticles" type="Node3D"]
+script = ExtResource("1_iere2")
+
+[node name="GPUParticles3D1" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 0.8
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_8iqxp")
+draw_pass_1 = SubResource("BoxMesh_c7stt")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 0.8
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_lip8m")
+draw_pass_1 = SubResource("BoxMesh_c7stt")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
