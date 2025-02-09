@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df6th4gvqni3q"
-path="res://.godot/imported/star_particle.svg-0c9a7e45b58cffd5bd022409d5a8a63f.ctex"
+uid="uid://d06e4wetm5bxv"
+path="res://.godot/imported/ball_progress.svg-42746f4813278a4fc7942b5c736daf4c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/star_particle.svg"
-dest_files=["res://.godot/imported/star_particle.svg-0c9a7e45b58cffd5bd022409d5a8a63f.ctex"]
+source_file="res://assets/sprite/misc/ball_progress.svg"
+dest_files=["res://.godot/imported/ball_progress.svg-42746f4813278a4fc7942b5c736daf4c.ctex"]
 
 [params]
 

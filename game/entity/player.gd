@@ -42,16 +42,16 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.AIM:
 			platform_floor_layers = 4294967295
 			axis_lock_linear_y = false
-			$AnimationHolder/AnimatedSprite3D.play()
+			$SpriteHolder/PlayerSprite.play()
 	
 	match new_player_state:
 		PlayerState.IDLE:
-			$AnimationHolder/AnimatedSprite3D.animation = 'idle'
+			$SpriteHolder/PlayerSprite.animation = 'idle'
 		PlayerState.RUN:
-			$AnimationHolder/AnimatedSprite3D.animation = 'run'
+			$SpriteHolder/PlayerSprite.animation = 'run'
 		PlayerState.JUMP:
 			velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
-			$AnimationHolder/AnimatedSprite3D.animation = 'jump'
+			$SpriteHolder/PlayerSprite.animation = 'jump'
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.start()
 		PlayerState.JUMP_QUEUED:
@@ -60,12 +60,12 @@ func _set_player_state(new_player_state: PlayerState):
 			platform_floor_layers = 0
 			axis_lock_linear_y = true
 			velocity = Vector3.ZERO
-			$AnimationHolder/AnimatedSprite3D.animation = 'aim'
+			$SpriteHolder/PlayerSprite.animation = 'aim'
 		PlayerState.STRIKE:
 			$StrikeCooldown.start()
 			can_strike = false
 			velocity.y = STRIKE_BOOST
-			$AnimationHolder/AnimatedSprite3D.animation = 'strike'
+			$SpriteHolder/PlayerSprite.animation = 'strike'
 	
 	player_state = new_player_state
 
@@ -86,7 +86,7 @@ func _handle_flip(flip_flag: bool, animation_angle: float):
 		spin_tween.kill()
 		
 	spin_tween = get_tree().create_tween()
-	spin_tween.tween_property($AnimationHolder, "rotation", Vector3(0, animation_angle, 0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	spin_tween.tween_property($SpriteHolder, "rotation", Vector3(0, animation_angle, 0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func _process(_delta) -> void:

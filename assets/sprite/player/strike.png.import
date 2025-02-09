@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dom80q85ec4qo"
-path="res://.godot/imported/splash.png-e8b1f006c97d4ac3188f28c4deccde98.ctex"
+uid="uid://c6l3ddpur85wn"
+path="res://.godot/imported/strike.png-e76489baff722ea8816ff9f766c444c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/splash.png"
-dest_files=["res://.godot/imported/splash.png-e8b1f006c97d4ac3188f28c4deccde98.ctex"]
+source_file="res://assets/sprite/player/strike.png"
+dest_files=["res://.godot/imported/strike.png-e76489baff722ea8816ff9f766c444c1.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

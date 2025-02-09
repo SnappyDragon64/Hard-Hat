@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://07cmg7ywyheb"
-path="res://.godot/imported/Peak.png-7da0508afb955fc27aafc08bc91a2fa0.ctex"
+uid="uid://cj2rhv5rxek2o"
+path="res://.godot/imported/run.png-10c625a1f18fac0c423f270de7c23a5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/player/Peak.png"
-dest_files=["res://.godot/imported/Peak.png-7da0508afb955fc27aafc08bc91a2fa0.ctex"]
+source_file="res://assets/sprite/player/run.png"
+dest_files=["res://.godot/imported/run.png-10c625a1f18fac0c423f270de7c23a5e.ctex"]
 
 [params]
 

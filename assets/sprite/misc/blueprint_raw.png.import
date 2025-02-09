@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt7km2cc7opp6"
-path="res://.godot/imported/Fall.png-5adf66fd01f49f3b872df9a7a69111c9.ctex"
+uid="uid://c1auu3h6jaure"
+path="res://.godot/imported/blueprint_raw.png-4c628f3a6d929a74d69a7cafa60ed106.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/player/Fall.png"
-dest_files=["res://.godot/imported/Fall.png-5adf66fd01f49f3b872df9a7a69111c9.ctex"]
+source_file="res://assets/sprite/misc/blueprint_raw.png"
+dest_files=["res://.godot/imported/blueprint_raw.png-4c628f3a6d929a74d69a7cafa60ed106.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

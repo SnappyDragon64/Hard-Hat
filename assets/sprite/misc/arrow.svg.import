@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj2rhv5rxek2o"
-path="res://.godot/imported/Run.png-c4e029292bf4d51d76320ec1d5952145.ctex"
+uid="uid://bcfpj1le478cv"
+path="res://.godot/imported/arrow.svg-4fb34b8c7a6139184f0c73141719641c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/player/Run.png"
-dest_files=["res://.godot/imported/Run.png-c4e029292bf4d51d76320ec1d5952145.ctex"]
+source_file="res://assets/sprite/misc/arrow.svg"
+dest_files=["res://.godot/imported/arrow.svg-4fb34b8c7a6139184f0c73141719641c.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

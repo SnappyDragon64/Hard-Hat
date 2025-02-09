@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ds524qf26coc"
-path="res://.godot/imported/Idle.png-c79656c170dfc60e7202a398b25bce8f.ctex"
+uid="uid://dom80q85ec4qo"
+path="res://.godot/imported/splash.png-afde456ae9153bf7b5d1a38134f4f5f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/player/Idle.png"
-dest_files=["res://.godot/imported/Idle.png-c79656c170dfc60e7202a398b25bce8f.ctex"]
+source_file="res://assets/sprite/game/splash.png"
+dest_files=["res://.godot/imported/splash.png-afde456ae9153bf7b5d1a38134f4f5f5.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

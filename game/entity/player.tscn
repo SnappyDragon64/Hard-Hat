@@ -2,19 +2,19 @@
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
-[ext_resource type="Texture2D" uid="uid://diwwf1h2i8mxe" path="res://assets/sprite/test.png" id="2_tt3cq"]
+[ext_resource type="Texture2D" uid="uid://diwwf1h2i8mxe" path="res://assets/sprite/misc/test.png" id="2_tt3cq"]
 [ext_resource type="PackedScene" uid="uid://cdjcl5dow8yg3" path="res://game/entity/ball.tscn" id="2_vttbj"]
-[ext_resource type="Texture2D" uid="uid://c6l3ddpur85wn" path="res://assets/sprite/game/player/Strike.png" id="3_6ha0i"]
-[ext_resource type="Texture2D" uid="uid://dt7km2cc7opp6" path="res://assets/sprite/game/player/Fall.png" id="4_ooxdd"]
-[ext_resource type="Texture2D" uid="uid://cvn5n467aj2s5" path="res://assets/sprite/game/player/Aim.png" id="5_8beig"]
-[ext_resource type="Texture2D" uid="uid://c0wid1b6r3xqe" path="res://assets/sprite/ball_progress_under.svg" id="5_vlevg"]
-[ext_resource type="Texture2D" uid="uid://ds524qf26coc" path="res://assets/sprite/game/player/Idle.png" id="5_yuqne"]
-[ext_resource type="Texture2D" uid="uid://xjc0n88uwy7" path="res://assets/sprite/ball_progress_over.svg" id="6_c78mu"]
-[ext_resource type="Texture2D" uid="uid://d06e4wetm5bxv" path="res://assets/sprite/ball_progress.svg" id="6_fqw7o"]
-[ext_resource type="Texture2D" uid="uid://6nn6p3008lrs" path="res://assets/sprite/game/player/Jump.png" id="6_vjyn7"]
-[ext_resource type="Texture2D" uid="uid://07cmg7ywyheb" path="res://assets/sprite/game/player/Peak.png" id="7_k14sn"]
-[ext_resource type="Texture2D" uid="uid://cj2rhv5rxek2o" path="res://assets/sprite/game/player/Run.png" id="8_cfy5s"]
-[ext_resource type="Script" path="res://game/entity/animated_sprite_3d.gd" id="9_yaxoo"]
+[ext_resource type="Texture2D" uid="uid://c6l3ddpur85wn" path="res://assets/sprite/player/strike.png" id="3_6ha0i"]
+[ext_resource type="Texture2D" uid="uid://dt7km2cc7opp6" path="res://assets/sprite/player/fall.png" id="4_ooxdd"]
+[ext_resource type="Texture2D" uid="uid://cvn5n467aj2s5" path="res://assets/sprite/player/aim.png" id="5_8beig"]
+[ext_resource type="Texture2D" uid="uid://c0wid1b6r3xqe" path="res://assets/sprite/misc/ball_progress_under.svg" id="5_vlevg"]
+[ext_resource type="Texture2D" uid="uid://ds524qf26coc" path="res://assets/sprite/player/idle.png" id="5_yuqne"]
+[ext_resource type="Texture2D" uid="uid://xjc0n88uwy7" path="res://assets/sprite/misc/ball_progress_over.svg" id="6_c78mu"]
+[ext_resource type="Texture2D" uid="uid://d06e4wetm5bxv" path="res://assets/sprite/misc/ball_progress.svg" id="6_fqw7o"]
+[ext_resource type="Texture2D" uid="uid://6nn6p3008lrs" path="res://assets/sprite/player/jump.png" id="6_vjyn7"]
+[ext_resource type="Texture2D" uid="uid://07cmg7ywyheb" path="res://assets/sprite/player/peak.png" id="7_k14sn"]
+[ext_resource type="Texture2D" uid="uid://cj2rhv5rxek2o" path="res://assets/sprite/player/run.png" id="8_cfy5s"]
+[ext_resource type="Script" path="res://game/entity/player_sprite.gd" id="9_yaxoo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
 lightmap_size_hint = Vector2i(143, 72)
@@ -408,15 +408,29 @@ one_shot = true
 [node name="DeathTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="AnimationHolder" type="Node3D" parent="."]
+[node name="SpriteHolder" type="Node3D" parent="."]
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="AnimationHolder"]
+[node name="PlayerSprite" type="AnimatedSprite3D" parent="SpriteHolder"]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 1.4, 0)
 material_overlay = SubResource("ShaderMaterial_ccj0i")
 render_priority = 2
 sprite_frames = SubResource("SpriteFrames_pjm8h")
-animation = &"strike"
+animation = &"fall"
 script = ExtResource("9_yaxoo")
+idle_offset = Vector3(0.305, 1.315, 0)
+idle_sprite = ExtResource("5_yuqne")
+run_offset = Vector3(0.385, 1.435, 0)
+run_sprite = ExtResource("8_cfy5s")
+jump_offset = Vector3(0.615, 1.185, 0)
+jump_sprite = ExtResource("6_vjyn7")
+peak_offset = Vector3(0.295, 0.975, 0)
+peak_sprite = ExtResource("7_k14sn")
+fall_offset = Vector3(0.46, 1.095, 0)
+fall_sprite = ExtResource("4_ooxdd")
+aim_offset = Vector3(0, 1.4, 0)
+aim_sprite = ExtResource("5_8beig")
+strike_offset = Vector3(0, 1.4, 0)
+strike_sprite = ExtResource("3_6ha0i")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0, 1.42102, 0)
@@ -462,5 +476,5 @@ texture_progress = ExtResource("6_fqw7o")
 [connection signal="timeout" from="StrikeQueueTimer" to="." method="_on_strike_queue_timer_timeout"]
 [connection signal="timeout" from="StrikeCooldown" to="." method="_on_strike_cooldown_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
-[connection signal="animation_changed" from="AnimationHolder/AnimatedSprite3D" to="AnimationHolder/AnimatedSprite3D" method="_on_animation_changed"]
-[connection signal="animation_finished" from="AnimationHolder/AnimatedSprite3D" to="AnimationHolder/AnimatedSprite3D" method="_on_animation_finished"]
+[connection signal="animation_changed" from="SpriteHolder/PlayerSprite" to="SpriteHolder/PlayerSprite" method="_on_animation_changed"]
+[connection signal="animation_finished" from="SpriteHolder/PlayerSprite" to="SpriteHolder/PlayerSprite" method="_on_animation_finished"]

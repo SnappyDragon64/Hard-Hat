@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6l3ddpur85wn"
-path="res://.godot/imported/Strike.png-9f07c79ebbf6b267fcccc662cfb27064.ctex"
+uid="uid://ds524qf26coc"
+path="res://.godot/imported/idle.png-2a4800a7ca1b2eedc701e720392aa3b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/player/Strike.png"
-dest_files=["res://.godot/imported/Strike.png-9f07c79ebbf6b267fcccc662cfb27064.ctex"]
+source_file="res://assets/sprite/player/idle.png"
+dest_files=["res://.godot/imported/idle.png-2a4800a7ca1b2eedc701e720392aa3b3.ctex"]
 
 [params]
 

@@ -1,12 +1,12 @@
 [gd_scene load_steps=17 format=3 uid="uid://dfhqau5f5bs3v"]
 
-[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/game/background.png" id="1_5momw"]
+[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/misc/background.png" id="1_5momw"]
 [ext_resource type="Script" path="res://game/menu/bg/background_set.gd" id="1_r420n"]
 [ext_resource type="Shader" path="res://assets/shader/outline.gdshader" id="2_4ppwc"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="4_qa3vf"]
-[ext_resource type="Texture2D" uid="uid://n6m0awh3lxgj" path="res://assets/sprite/logo.png" id="4_trdpi"]
+[ext_resource type="Texture2D" uid="uid://n6m0awh3lxgj" path="res://assets/sprite/game/logo.png" id="4_trdpi"]
 [ext_resource type="PackedScene" uid="uid://vkch7qlinq81" path="res://game/menu/bg/title_screen.tscn" id="4_wubj8"]
-[ext_resource type="Texture2D" uid="uid://dbeuhqvosbnyy" path="res://assets/sprite/silhouette.png" id="6_m45cr"]
+[ext_resource type="Texture2D" uid="uid://dbeuhqvosbnyy" path="res://assets/sprite/misc/silhouette.png" id="6_m45cr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyu6n"]
 sky_top_color = Color(0.137936, 0.584432, 1, 1)

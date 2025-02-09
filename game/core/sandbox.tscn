@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game/core/sandbox.gd" id="1_m5c6q"]
 [ext_resource type="PackedScene" uid="uid://rjxa7edahnbb" path="res://game/entity/player.tscn" id="2_7cs4f"]
 [ext_resource type="Shader" path="res://assets/shader/outline.gdshader" id="3_065wr"]
-[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/game/background.png" id="4_pwykv"]
+[ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/misc/background.png" id="4_pwykv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyu6n"]
 sky_top_color = Color(0.137936, 0.584432, 1, 1)

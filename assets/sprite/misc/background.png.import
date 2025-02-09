@@ -2,30 +2,31 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbeuhqvosbnyy"
-path="res://.godot/imported/silhouette.png-f7e3fc8b35515c89cc145eb2ca3c844b.ctex"
+uid="uid://b42n0yh17ooj7"
+path.s3tc="res://.godot/imported/background.png-f69ab7c5774fb103960138e8e08a9e71.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/sprite/silhouette.png"
-dest_files=["res://.godot/imported/silhouette.png-f7e3fc8b35515c89cc145eb2ca3c844b.ctex"]
+source_file="res://assets/sprite/misc/background.png"
+dest_files=["res://.godot/imported/background.png-f69ab7c5774fb103960138e8e08a9e71.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
