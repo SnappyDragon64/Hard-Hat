@@ -113,6 +113,15 @@ func _physics_process(delta) -> void:
 		else:
 			strike_queued = false
 			$StrikeQueueTimer.stop()
+			
+		var collision = get_last_slide_collision()
+
+		if collision:
+			var collider = collision.get_collider()
+			var collision_normal = collision.get_normal()
+			
+			if collider.is_in_group("spikes") and collision_normal.y > 0.0:
+				kill()
 		
 		match player_state:
 			PlayerState.IDLE:

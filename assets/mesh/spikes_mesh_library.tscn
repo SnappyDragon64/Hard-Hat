@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://g31icu8044qk"]
+
+[ext_resource type="ArrayMesh" uid="uid://clxlgywf2ltju" path="res://assets/mesh/spikes/model.obj" id="1_kul0a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqq1q"]
+
+[node name="SpikesMeshLibrary" type="Node3D"]
+
+[node name="Spikes" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_kul0a")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Spikes"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spikes/StaticBody3D"]
+shape = SubResource("BoxShape3D_eqq1q")

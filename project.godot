@@ -30,6 +30,7 @@ window/stretch/aspect="keep_height"
 
 moving_platform=""
 breakable=""
+spikes=""
 
 [importer_defaults]
 

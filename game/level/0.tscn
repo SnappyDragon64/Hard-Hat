@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://game/level/0.gd" id="1_ub3gh"]
 [ext_resource type="PackedScene" uid="uid://b362tjulo6svc" path="res://game/props/moving_platform.tscn" id="2_y0122"]
 [ext_resource type="MeshLibrary" uid="uid://b4qrpng1yhcwd" path="res://assets/mesh/divider_mesh_library.tres" id="3_w0q81"]
+[ext_resource type="MeshLibrary" uid="uid://dmnrbines0xtj" path="res://assets/mesh/spikes_mesh_library.tres" id="4_uic25"]
 [ext_resource type="PackedScene" uid="uid://o8r0tjwg1jcj" path="res://game/props/shutter.tscn" id="5_r7742"]
 [ext_resource type="PackedScene" uid="uid://c46bojvx75v2" path="res://game/props/target.tscn" id="6_t10ai"]
-[ext_resource type="PackedScene" uid="uid://cqqllsptbq377" path="res://game/props/spikes.tscn" id="7_23lrs"]
 
 [sub_resource type="Curve3D" id="Curve3D_rw6sf"]
 _data = {
@@ -61,10 +61,17 @@ data = {
 "cells": PackedInt32Array(-65520, 0, 0, 16, 0, 0, 65552, 0, 0, 131088, 0, 0)
 }
 
+[node name="SpikesGridMap" type="GridMap" parent="." groups=["spikes"]]
+mesh_library = ExtResource("4_uic25")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(-196604, 0, 0, -262139, 0, 0, -327674, 0, 0)
+}
+
 [node name="Spawnpoints" type="Node3D" parent="."]
 
 [node name="0" type="Marker3D" parent="Spawnpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, -1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1, 0)
 
 [node name="CameraAnchors" type="Node3D" parent="."]
 
@@ -95,18 +102,6 @@ target_position = Vector3(0, 3, 0)
 
 [node name="Target" parent="." instance=ExtResource("6_t10ai")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 0)
-
-[node name="Spikes" parent="." instance=ExtResource("7_23lrs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -5, 0)
-
-[node name="Spikes2" parent="." instance=ExtResource("7_23lrs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -5, 0)
-
-[node name="Spikes3" parent="." instance=ExtResource("7_23lrs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -5, 0)
-
-[node name="Spikes4" parent="." instance=ExtResource("7_23lrs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -5, 0)
 
 [connection signal="hit" from="Target" to="Shutter" method="_on_target_hit"]
 [connection signal="hit" from="Target" to="Shutter2" method="_on_target_hit"]
