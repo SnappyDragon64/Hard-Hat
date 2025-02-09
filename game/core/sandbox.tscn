@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://btx2vr3g068xy"]
 
-[ext_resource type="Script" path="res://game/dev/sandbox.gd" id="1_m5c6q"]
+[ext_resource type="Script" path="res://game/core/sandbox.gd" id="1_m5c6q"]
 [ext_resource type="PackedScene" uid="uid://rjxa7edahnbb" path="res://game/entity/player.tscn" id="2_7cs4f"]
 [ext_resource type="Shader" path="res://assets/shader/outline.gdshader" id="3_065wr"]
 [ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/game/background.png" id="4_pwykv"]
