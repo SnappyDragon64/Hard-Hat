@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://7tvrm5a6riqk"]
 
-[ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_iere2"]
+[ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_lgmvy"]
 
 [sub_resource type="Curve" id="Curve_rdcli"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -48,7 +48,7 @@ scale_curve = SubResource("CurveTexture_b4h83")
 color = Color(1, 0.25098, 0.25098, 1)
 
 [node name="TimberBreakParticles" type="Node3D"]
-script = ExtResource("1_iere2")
+script = ExtResource("1_lgmvy")
 
 [node name="GPUParticles3D1" type="GPUParticles3D" parent="."]
 amount = 4

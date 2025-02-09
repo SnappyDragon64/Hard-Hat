@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dljghajwlcrd6"]
 
-[ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_2x36i"]
+[ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_nfuvx"]
 
 [sub_resource type="Curve" id="Curve_rdcli"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -31,7 +31,7 @@ material = SubResource("StandardMaterial3D_3fnnn")
 size = Vector3(0.1, 0.1, 0.1)
 
 [node name="TimberBreakParticles" type="Node3D"]
-script = ExtResource("1_2x36i")
+script = ExtResource("1_nfuvx")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 16
