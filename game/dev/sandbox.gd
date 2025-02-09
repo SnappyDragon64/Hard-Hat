@@ -126,6 +126,11 @@ func setup_player(level_instance):
 	player_instance.respawn.connect(load_level)
 	
 	$Level.call_deferred("add_child", player_instance)
+	
+	if level_instance.has_node("Ball"):
+		var ball = level_instance.get_node("Ball")
+		player_instance.ball_reference = ball
+	
 
 
 func get_level_path(id):
