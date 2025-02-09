@@ -2,7 +2,7 @@
 
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_px351"]
 [ext_resource type="Script" path="res://game/level/0.gd" id="1_ub3gh"]
-[ext_resource type="PackedScene" uid="uid://b362tjulo6svc" path="res://game/props/MovingPlatform.tscn" id="2_y0122"]
+[ext_resource type="PackedScene" uid="uid://b362tjulo6svc" path="res://game/props/moving_platform.tscn" id="2_y0122"]
 
 [sub_resource type="Curve3D" id="Curve3D_rw6sf"]
 _data = {
