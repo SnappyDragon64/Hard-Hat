@@ -17,14 +17,15 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
 @export var strike_queued := false
 
 var player_state: PlayerState = PlayerState.IDLE: set = _set_player_state
-var input_direction := 0.0
+var input_direction := 0.0: set = _set_input_direction
 var player_direction := 1.0
 var ball_reference: Ball
 var progress_sprite_tween: Tween
+var spin_tween: Tween
+var flipped := false
 
 
 func _set_player_state(new_player_state: PlayerState):
-
 	match player_state:
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
@@ -61,6 +62,25 @@ func _set_player_state(new_player_state: PlayerState):
 	player_state = new_player_state
 
 
+func _set_input_direction(new_input_direction: float):
+	input_direction = new_input_direction
+	
+	if flipped and input_direction > 0.0:
+		_handle_flip(false, 0.0)
+	elif not flipped and input_direction < 0.0:
+		_handle_flip(true, PI)
+
+
+func _handle_flip(flip_flag: bool, animation_angle: float):
+	flipped = flip_flag
+		
+	if spin_tween:
+		spin_tween.kill()
+		
+	spin_tween = get_tree().create_tween()
+	spin_tween.tween_property($AnimationHolder, "rotation", Vector3(0, animation_angle, 0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+
 func _process(_delta) -> void:
 	if ball_reference:
 		var remaining_time = $BallTimer.get_time_left()
@@ -75,7 +95,7 @@ func _physics_process(delta) -> void:
 	elif input_direction < 0.0:
 		player_direction = -1.0
 	
-	$AnimationHolder.rotation.y = 0 if player_direction > 0 else PI
+	#$AnimationHolder.rotation.y = 0 if player_direction > 0 else PI
 	
 	if strike_queued and Input.is_action_pressed("strike"):
 		_check_strike_condition()

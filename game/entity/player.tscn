@@ -375,6 +375,7 @@ GRAVITY = 4.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 transparency = 0.65
 mesh = SubResource("CapsuleMesh_f3jdb")
 
