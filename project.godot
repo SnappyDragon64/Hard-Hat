@@ -29,6 +29,7 @@ window/stretch/aspect="keep_height"
 [global_group]
 
 moving_platform=""
+breakable=""
 
 [importer_defaults]
 
