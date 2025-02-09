@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu73x4jrlgwqi"]
+
+[ext_resource type="ArrayMesh" uid="uid://qoxnfm5ome3" path="res://assets/mesh/divider/model.obj" id="1_yj4lk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qt6ws"]
+
+[node name="DividerMeshLibrary" type="Node3D"]
+
+[node name="Divider" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_yj4lk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Divider"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Divider/StaticBody3D"]
+shape = SubResource("BoxShape3D_qt6ws")

@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 			spawn_star_particles(collision_position, collision_normal)
 			camera_shake_request.emit(velocity)
 			
-			if collider is GridMap:
+			if collider is GridMap and collider.is_in_group("breakable"):
 				handle_brick_hit(collider, collision_normal, collision_position)
 	
 	if tracking:
