@@ -4,6 +4,7 @@ extends CharacterBody3D
 
 signal x_update(new_x)
 signal camera_shake_request(direction)
+signal respawn()
 
 enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
 
@@ -23,6 +24,13 @@ var ball_reference: Ball
 var progress_sprite_tween: Tween
 var spin_tween: Tween
 var flipped := false
+var scripted := false
+
+
+func kill():
+	scripted = true
+	velocity = Vector3(0.0, 10.0, 4.0)
+	$DeathTimer.start()
 
 
 func _set_player_state(new_player_state: PlayerState):
@@ -88,37 +96,41 @@ func _process(_delta) -> void:
 
 
 func _physics_process(delta) -> void:
-	input_direction = Input.get_axis("move_left", "move_right")
-	
-	if player_state != PlayerState.AIM:
-		if input_direction > 0.0:
-			player_direction = 1.0
-		elif input_direction < 0.0:
-			player_direction = -1.0
-	
-	if strike_queued and Input.is_action_pressed("strike"):
-		_check_strike_condition()
+	if scripted:
+		velocity.x = 0.0
+		_handle_gravity(delta)
 	else:
-		strike_queued = false
-		$StrikeQueueTimer.stop()
-	
-	match player_state:
-		PlayerState.IDLE:
-			_idle_physics_process(delta)
-		PlayerState.RUN:
-			_run_physics_process(delta)
-		PlayerState.JUMP:
-			_jump_physics_process(delta)
-		PlayerState.FALL:
-			_fall_physics_process(delta)
-		PlayerState.COYOTE_TIME:
-			_coyote_time_physics_process(delta)
-		PlayerState.JUMP_QUEUED:
-			_jump_queued_physics_process(delta)
-		PlayerState.AIM:
-			_aim_physics_process(delta)
-		PlayerState.STRIKE:
-			_strike_physics_process(delta)
+		input_direction = Input.get_axis("move_left", "move_right")
+		
+		if player_state != PlayerState.AIM:
+			if input_direction > 0.0:
+				player_direction = 1.0
+			elif input_direction < 0.0:
+				player_direction = -1.0
+		
+		if strike_queued and Input.is_action_pressed("strike"):
+			_check_strike_condition()
+		else:
+			strike_queued = false
+			$StrikeQueueTimer.stop()
+		
+		match player_state:
+			PlayerState.IDLE:
+				_idle_physics_process(delta)
+			PlayerState.RUN:
+				_run_physics_process(delta)
+			PlayerState.JUMP:
+				_jump_physics_process(delta)
+			PlayerState.FALL:
+				_fall_physics_process(delta)
+			PlayerState.COYOTE_TIME:
+				_coyote_time_physics_process(delta)
+			PlayerState.JUMP_QUEUED:
+				_jump_queued_physics_process(delta)
+			PlayerState.AIM:
+				_aim_physics_process(delta)
+			PlayerState.STRIKE:
+				_strike_physics_process(delta)
 	
 	move_and_slide()
 	x_update.emit(global_position.x)
@@ -368,3 +380,7 @@ func _on_force_quit_aiming():
 	_orient_with_respect_to_ball_direction()
 	
 	$BallTimer.start()
+
+
+func _on_death_timer_timeout():
+	respawn.emit()

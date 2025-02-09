@@ -10,6 +10,7 @@ enum GameState {DEFAULT, PAUSED, COUNTDOWN}
 @export var player: PackedScene
 
 var level_id: int = 0
+var current_spawnpoint: int = 0
 
 var game_state: GameState = GameState.DEFAULT
 
@@ -21,7 +22,7 @@ var shake_tween: Tween
 
 
 func _ready():
-	load_level(level_id)
+	load_level()
 
 
 func init(resume_signal, restart_signal, quit_signal):
@@ -40,7 +41,7 @@ func _on_restart():
 	game_state = GameState.DEFAULT
 	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
 	$Level.set_process_mode(PROCESS_MODE_INHERIT)
-	load_level(level_id)
+	load_level()
 
 
 func _on_quit():
@@ -90,13 +91,16 @@ func _on_camera_shake_request(direction):
 	shake_tween.tween_property($Tripod/Camera3D, "position", Vector3.ZERO, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
-func load_level(id):
+func load_level(id=null):
+	if id:
+		level_id = id
+	
 	$Tripod.global_position.x = 0
 	
 	for child in $Level.get_children():
 		child.queue_free()
 	
-	var level_path = get_level_path(id)
+	var level_path = get_level_path(level_id)
 	var level = load(level_path)
 	var level_instance = level.instantiate()
 	
@@ -112,13 +116,14 @@ func setup_player(level_instance):
 	var player_instance: Player = player.instantiate()
 	
 	var spawnpoints = level_instance.get_node("Spawnpoints")
-	var player_spawnpoint = spawnpoints.get_node("0")
+	var player_spawnpoint = spawnpoints.get_child(current_spawnpoint)
 	var player_spawn = player_spawnpoint.get_global_transform()
 	player_spawn.origin.z = 0.5
 	player_instance.set_global_transform(player_spawn)
 	
 	player_instance.x_update.connect(_on_player_x_update)
 	player_instance.camera_shake_request.connect(_on_camera_shake_request)
+	player_instance.respawn.connect(load_level)
 	
 	$Level.call_deferred("add_child", player_instance)
 

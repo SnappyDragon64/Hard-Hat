@@ -366,7 +366,6 @@ viewport_path = NodePath("SubViewport")
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 3
-axis_lock_linear_z = true
 script = ExtResource("1_vdi80")
 ball = ExtResource("2_vttbj")
 SPEED = 6.0
@@ -405,6 +404,9 @@ wait_time = 0.2
 [node name="StrikeCooldown" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="AnimationHolder" type="Node3D" parent="."]
 
@@ -459,5 +461,6 @@ texture_progress = ExtResource("6_fqw7o")
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
 [connection signal="timeout" from="StrikeQueueTimer" to="." method="_on_strike_queue_timer_timeout"]
 [connection signal="timeout" from="StrikeCooldown" to="." method="_on_strike_cooldown_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="animation_changed" from="AnimationHolder/AnimatedSprite3D" to="AnimationHolder/AnimatedSprite3D" method="_on_animation_changed"]
 [connection signal="animation_finished" from="AnimationHolder/AnimatedSprite3D" to="AnimationHolder/AnimatedSprite3D" method="_on_animation_finished"]
