@@ -17,8 +17,8 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
 @export var strike_queued := false
 
 var player_state: PlayerState = PlayerState.IDLE: set = _set_player_state
-var input_direction := 0.0: set = _set_input_direction
-var player_direction := 1.0
+var input_direction := 0.0
+var player_direction := 1.0: set = _set_player_direction
 var ball_reference: Ball
 var progress_sprite_tween: Tween
 var spin_tween: Tween
@@ -62,12 +62,12 @@ func _set_player_state(new_player_state: PlayerState):
 	player_state = new_player_state
 
 
-func _set_input_direction(new_input_direction: float):
-	input_direction = new_input_direction
+func _set_player_direction(new_player_direction: float):
+	player_direction = new_player_direction
 	
-	if flipped and input_direction > 0.0:
+	if flipped and player_direction == 1.0:
 		_handle_flip(false, 0.0)
-	elif not flipped and input_direction < 0.0:
+	elif not flipped and player_direction == -1.0:
 		_handle_flip(true, PI)
 
 
@@ -90,12 +90,11 @@ func _process(_delta) -> void:
 func _physics_process(delta) -> void:
 	input_direction = Input.get_axis("move_left", "move_right")
 	
-	if input_direction > 0.0:
-		player_direction = 1.0
-	elif input_direction < 0.0:
-		player_direction = -1.0
-	
-	#$AnimationHolder.rotation.y = 0 if player_direction > 0 else PI
+	if player_state != PlayerState.AIM:
+		if input_direction > 0.0:
+			player_direction = 1.0
+		elif input_direction < 0.0:
+			player_direction = -1.0
 	
 	if strike_queued and Input.is_action_pressed("strike"):
 		_check_strike_condition()
@@ -120,8 +119,6 @@ func _physics_process(delta) -> void:
 			_aim_physics_process(delta)
 		PlayerState.STRIKE:
 			_strike_physics_process(delta)
-	
-	#print_debug("Player State: ", PlayerState.keys()[player_state])
 	
 	move_and_slide()
 	x_update.emit(global_position.x)
@@ -211,6 +208,7 @@ func _aim_physics_process(_delta) -> void:
 		
 		ball_reference.shoot()
 		ball_reference.tracking = false
+		_orient_with_respect_to_ball_direction()
 		
 		$BallTimer.start()
 
@@ -282,6 +280,7 @@ func _handle_strike() -> void:
 				progress_sprite_tween = get_tree().create_tween()
 				progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
 
+
 func _check_strike_condition():
 	if ball_reference:
 		var ball_global_pos = ball_reference.get_global_position()
@@ -294,12 +293,31 @@ func _check_strike_condition():
 			$StrikeQueueTimer.stop()
 			player_state = PlayerState.AIM
 			ball_reference.start_tracking()
+			_orient_with_respect_to_ball()
 			
 			if progress_sprite_tween:
 				progress_sprite_tween.kill()
 			
 			progress_sprite_tween = get_tree().create_tween()
 			progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
+
+
+func _orient_with_respect_to_ball():
+	var relative_ball_pos = ball_reference.get_global_position() - global_position
+	
+	if relative_ball_pos.x < -1.0 and player_direction == 1.0:
+		player_direction = -1.0
+	elif relative_ball_pos.x > 1.0 and player_direction == -1.0:
+		player_direction = 1.0
+
+
+func _orient_with_respect_to_ball_direction():
+	var ball_direction = ball_reference.direction_vector
+	
+	if ball_direction.x < -0.16 and player_direction == 1.0:
+		player_direction = -1.0
+	elif ball_direction.x > 0.16 and player_direction == -1.0:
+		player_direction = 1.0
 
 
 func _on_coyote_timer_timeout():
@@ -347,5 +365,6 @@ func _on_force_quit_aiming():
 	
 	ball_reference.shoot()
 	ball_reference.tracking = false
+	_orient_with_respect_to_ball_direction()
 	
 	$BallTimer.start()
