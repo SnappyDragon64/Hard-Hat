@@ -1,12 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbkiy8o4vhyyv"]
+[gd_scene load_steps=4 format=3 uid="uid://cbkiy8o4vhyyv"]
 
-[ext_resource type="Script" path="res://game/level/1.gd" id="1_7aogf"]
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_saf0i"]
 [ext_resource type="MeshLibrary" uid="uid://b4qrpng1yhcwd" path="res://assets/mesh/divider_mesh_library.tres" id="2_3e86d"]
 [ext_resource type="PackedScene" uid="uid://cdjcl5dow8yg3" path="res://game/entity/ball.tscn" id="2_wve0c"]
 
 [node name="1" type="Node3D"]
-script = ExtResource("1_7aogf")
 
 [node name="GridMap" type="GridMap" parent="." groups=["breakable"]]
 mesh_library = ExtResource("1_saf0i")
