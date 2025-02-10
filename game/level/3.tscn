@@ -1,0 +1,368 @@
+[gd_scene load_steps=20 format=3 uid="uid://iad1uqsjwifj"]
+
+[ext_resource type="Script" path="res://game/level/3.gd" id="1_2oyop"]
+[ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_vpxkf"]
+[ext_resource type="MeshLibrary" uid="uid://b4qrpng1yhcwd" path="res://assets/mesh/divider_mesh_library.tres" id="2_nw2bi"]
+[ext_resource type="MeshLibrary" uid="uid://dmnrbines0xtj" path="res://assets/mesh/spikes_mesh_library.tres" id="3_f8u87"]
+[ext_resource type="PackedScene" uid="uid://b362tjulo6svc" path="res://game/props/moving_platform.tscn" id="4_vc7bw"]
+[ext_resource type="PackedScene" uid="uid://c0m5tvt5evb75" path="res://game/props/respawning_target.tscn" id="6_0lyg1"]
+[ext_resource type="PackedScene" uid="uid://cvhu1m0j111ts" path="res://game/props/retracting_shutter.tscn" id="7_wg8ed"]
+
+[sub_resource type="Curve3D" id="Curve3D_f23rw"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_8hinx"]
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_wyyhg"]
+resource_name = "move"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovingPlatform:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j7v1d"]
+_data = {
+"RESET": SubResource("Animation_8hinx"),
+"move": SubResource("Animation_wyyhg")
+}
+
+[sub_resource type="Curve3D" id="Curve3D_olrkl"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_g2ssr"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_qv8b7"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_7henf"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_ssx35"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+up_vector_enabled = false
+
+[sub_resource type="Curve3D" id="Curve3D_s6wg5"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+up_vector_enabled = false
+
+[sub_resource type="Curve3D" id="Curve3D_wbatu"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_hlr5s"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="3" type="Node3D"]
+script = ExtResource("1_2oyop")
+
+[node name="GridMap" type="GridMap" parent="." groups=["breakable"]]
+mesh_library = ExtResource("1_vpxkf")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(-393215, 0, 65542, -393214, 0, 65542, -393212, 0, 65542, -393211, 0, 65542, -393210, 0, 65542, -393209, 0, 65542, -393208, 0, 65542, 524287, 0, 65542, 524286, 0, 65542, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 0, 0, 589813, 0, 0, 589812, 0, 0, 589814, 0, 0, 589815, 0, 0, 655352, 0, 0, 655353, 0, 0, 655354, 0, 0, 655355, 0, 0, 589820, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 524317, 0, 0, 524316, 0, 0, 524318, 0, 0, 524319, 0, 0, 589856, 0, 0, 589857, 0, 0, 589858, 0, 0, 589859, 0, 0, -393204, 0, 196614, 458787, 0, 196614, -393203, 0, 196614, -393202, 0, 196614, -393201, 0, 196614, -393200, 0, 589830, -393199, 0, 589830, -393198, 0, 589830, -393197, 0, 589830, -393196, 0, 589830, -393195, 0, 589830, -393194, 0, 589830, -393193, 0, 589830, -393192, 0, 589830, -393191, 0, 589830, -393190, 0, 589830, 458774, 0, 589830, 458775, 0, 589830, 458776, 0, 589830, 458777, 0, 589830, 458778, 0, 589830, 458779, 0, 589830, 458780, 0, 589830, 458781, 0, 589830, 458782, 0, 589830, 458783, 0, 589830, 458784, 0, 589830, 458785, 0, 589830, 458786, 0, 589830, 524324, 0, 0, 524326, 0, 0, 524325, 0, 0, 524327, 0, 0, 589864, 0, 0, 589865, 0, 0, 589866, 0, 0, 589867, 0, 0, 524332, 0, 0, 524333, 0, 0, 524334, 0, 0, 524335, 0, 0, 589872, 0, 0, 589873, 0, 0, 589874, 0, 0, 589875, 0, 0, 524340, 0, 0, 524341, 0, 0, 524342, 0, 0, 524343, 0, 0, 589880, 0, 0, 589881, 0, 0, 589882, 0, 0, 589883, 0, 0, 524348, 0, 0, 524349, 0, 0, 524350, 0, 0, 524351, 0, 0, 589888, 0, 0, 589889, 0, 0, 589890, 0, 0, 589891, 0, 0, 524356, 0, 0, 524357, 0, 0, 524358, 0, 0, 524359, 0, 0, 589896, 0, 0, 589897, 0, 0, 589898, 0, 0, 589899, 0, 0, 524364, 0, 0, 524365, 0, 0, 524366, 0, 0, 524367, 0, 0, 589904, 0, 0, 589905, 0, 0, 589906, 0, 0, 589907, 0, 0, 458788, 0, 196614, 458789, 0, 196614, 458790, 0, 196614, 458791, 0, 196614, 458792, 0, 196614, 458793, 0, 196614, 458794, 0, 196614, 458795, 0, 196614, 458796, 0, 196614, 458797, 0, 196614, 458798, 0, 196614, 458799, 0, 196614, 458800, 0, 196614, 458801, 0, 196614, 458802, 0, 196614, 458803, 0, 196614, 458804, 0, 196614, 458805, 0, 196614, 458806, 0, 196614, 458807, 0, 196614, 458808, 0, 196614, 458809, 0, 196614, 458810, 0, 196614, 458811, 0, 196614, 458812, 0, 196614, 458813, 0, 196614, 458814, 0, 196614, 458815, 0, 196614, 458816, 0, 196614, 458817, 0, 196614, 458818, 0, 196614, 458819, 0, 196614, 458820, 0, 196614, 458821, 0, 196614, 458822, 0, 196614, 458823, 0, 196614, 458824, 0, 196614, 458825, 0, 196614, 458826, 0, 196614, 458827, 0, 196614, 458828, 0, 196614, 458829, 0, 196614, 458830, 0, 196614, 458831, 0, 196614, 458832, 0, 196614, 458833, 0, 196614, 458834, 0, 196614, -393180, 0, 196614, -393179, 0, 196614, -393178, 0, 196614, -393176, 0, 196614, -393175, 0, 196614, -393174, 0, 196614, -393173, 0, 196614, -393172, 0, 196614, -393171, 0, 196614, -393170, 0, 196614, -393169, 0, 196614, -393168, 0, 196614, -393167, 0, 196614, -393166, 0, 196614, -393165, 0, 196614, -393164, 0, 196614, -393163, 0, 196614, -393162, 0, 196614, -393161, 0, 196614, -393160, 0, 196614, -393159, 0, 196614, -393158, 0, 196614, -393157, 0, 196614, -393156, 0, 196614, -393155, 0, 196614, -393154, 0, 196614, -393153, 0, 196614, -393152, 0, 196614, -393151, 0, 196614, -393150, 0, 196614, -393149, 0, 196614, -393147, 0, 196614, -393146, 0, 196614, -393145, 0, 196614, -393144, 0, 196614, -393143, 0, 196614, -393142, 0, 196614, -393141, 0, 196614, -393140, 0, 196614, -393138, 0, 196614, -393137, 0, 196614, -393136, 0, 196614, -393135, 0, 196614, -393134, 0, 196614, -393181, 0, 196614, 720884, 0, 196609, 720885, 0, 196609, 720886, 0, 196609, 720887, 0, 196609, 720888, 0, 196609, 720889, 0, 196609, 720890, 0, 196609, 720891, 0, 196609, 720892, 0, 196609, 720893, 0, 196609, 720894, 0, 196609, 720895, 0, 196609, 655360, 0, 196609, 655361, 0, 196609, 655362, 0, 196609, 655363, 0, 196609, 655364, 0, 196609, 655365, 0, 196609, 655366, 0, 196609, 655367, 0, 196609, 655368, 0, 196609, 655369, 0, 196609, 655370, 0, 196609, 655371, 0, 196609, 720908, 0, 196609, 720909, 0, 196609, 720910, 0, 196609, 720911, 0, 196609, 720912, 0, 196609, 720913, 0, 196609, 720914, 0, 196609, 720915, 0, 196609, 720916, 0, 196609, 720917, 0, 196609, 720918, 0, 196609, 720919, 0, 196609, 720920, 0, 196609, 720921, 0, 196609, 720922, 0, 196609, 720923, 0, 196609, 720924, 0, 196609, 720925, 0, 196609, 720926, 0, 196609, 720927, 0, 196609, 720928, 0, 196609, 720929, 0, 196609, 720930, 0, 196609, 720931, 0, 196609, 655396, 0, 196609, 655397, 0, 196609, 655398, 0, 196609, 655399, 0, 196609, 655400, 0, 196609, 655401, 0, 196609, 655402, 0, 196609, 655403, 0, 196609, 655404, 0, 196609, 655405, 0, 196609, 655406, 0, 196609, 655407, 0, 196609, 655408, 0, 196609, 655409, 0, 196609, 655410, 0, 196609, 655411, 0, 196609, 655412, 0, 196609, 655413, 0, 196609, 655414, 0, 196609, 655415, 0, 196609, 655416, 0, 196609, 655417, 0, 196609, 655418, 0, 196609, 655419, 0, 196609, 720956, 0, 196609, 720957, 0, 196609, 720958, 0, 196609, 720959, 0, 196609, 720960, 0, 196609, 720961, 0, 196609, 720962, 0, 196609, 720963, 0, 196609, 720964, 0, 196609, 720965, 0, 196609, 720966, 0, 196609, 720967, 0, 196609, 720968, 0, 196609, 720969, 0, 196609, 720970, 0, 196609, 720971, 0, 196609, 720972, 0, 196609, 720973, 0, 196609, 720974, 0, 196609, 720975, 0, 196609, 720976, 0, 196609, 720977, 0, 196609, 720978, 0, 196609, 720979, 0, 196609, -393177, 0, 589830, -393139, 0, 196614, -131084, 0, 131078, -196620, 0, 131078, -262156, 0, 6, -327692, 0, 131078, -327691, 0, 65542, -327690, 0, 65542, -327689, 0, 65542, -327688, 0, 65542, -327687, 0, 65542, -327686, 0, 65542, -327685, 0, 65542, -327684, 0, 65542, -327683, 0, 65542, -327682, 0, 65542, -327681, 0, 65542, -393216, 0, 65542, -393207, 0, 65542, -393206, 0, 65542, -393205, 0, 196614, 458752, 0, 65542, 524285, 0, 65542, 458740, 0, 131078, 393204, 0, 131078, 327668, 0, 131078, 262132, 0, 131078, 196596, 0, 131078, 131060, 0, 131078, 65524, 0, 131078, -12, 0, 131078, -65548, 0, 131078, -393213, 0, 720902, 393227, 0, 655366, 327691, 0, 655366, 262155, 0, 655366, -196597, 0, 655366, -262133, 0, 655366, -327669, 0, 655366, -196549, 0, 6, -262085, 0, 6, -327621, 0, 6, 458764, 0, 196614, 458765, 0, 196614, 458766, 0, 589830, 458767, 0, 589830, 458768, 0, 589830, 458769, 0, 589830, 458770, 0, 589830, 458771, 0, 589830, 458773, 0, 589830, 458772, 0, 589830, 458763, 0, 196614, 458762, 0, 65542, 458761, 0, 65542, 458760, 0, 65542, 458759, 0, 65542, 458758, 0, 65542, 458757, 0, 65542, 458756, 0, 65542, 458755, 0, 65542, 458754, 0, 65542, 458753, 0, 65542, 589823, 0, 0, 589822, 0, 0, 589821, 0, 0, 524284, 0, 65542, 524283, 0, 65542, 524282, 0, 65542, 524281, 0, 65542, 524280, 0, 65542, 524279, 0, 65542, 524278, 0, 65542, 524277, 0, 65542, 524276, 0, 131078, -393189, 0, 589830, -393188, 0, 589830, -393187, 0, 589830, -393186, 0, 589830, -393185, 0, 589830, 262203, 0, 131078, 327739, 0, 131078, 393275, 0, 131078, 393251, 0, 131078, 327715, 0, 131078, 262179, 0, 131078, 196643, 0, 131078, -65501, 0, 131078, -131037, 0, 131078, 65525, 0, 65542, 65526, 0, 65542, 65527, 0, 65542, 65528, 0, 65542, 65529, 0, 65542, -65542, 0, 196614, -196613, 0, 196614, -7, 0, 6, -65543, 0, 196614, -131078, 0, 6, -196614, 0, 196614, -262149, 0, 6, 5, 0, 196614, 6, 0, 196614, 7, 0, 196614, 8, 0, 196614, 9, 0, 196614, 10, 0, 196614, 11, 0, 196614, 12, 0, 196614, 13, 0, 196614, -65525, 0, 131078, -131061, 0, 131078, 131070, 0, 131072, 65537, 0, 131072, 131073, 0, 131072, -65531, 0, 131078, -131067, 0, 131078, -196603, 0, 131078, -262139, 0, 131078, -327675, 0, 131078, -65529, 0, 3, -131065, 0, 3, -196601, 0, 3, -262137, 0, 3, -327673, 0, 3, -327674, 0, 3, -262138, 0, 3, -196602, 0, 3, -131066, 0, 3, -65530, 0, 3, -65528, 0, 3, -65527, 0, 3, -65526, 0, 3, -131062, 0, 3, -196598, 0, 3, -262134, 0, 3, -262135, 0, 3, -327671, 0, 3, -327672, 0, 3, -262136, 0, 3, -196600, 0, 3, -196599, 0, 3, -131063, 0, 3, -131064, 0, 3, -327670, 0, 3, 14, 0, 196614, 131107, 0, 131078, 65571, 0, 131078, 35, 0, 131078, 32, 0, 3, 33, 0, 3, 34, 0, 3, 262176, 0, 196614, 262177, 0, 196614, 262178, 0, 196614, -65505, 0, 6, -131041, 0, 6, -196577, 0, 6, -262113, 0, 6, -327649, 0, 6, -65522, 0, 131078, -131058, 0, 131078, -196594, 0, 131078, -262130, 0, 131078, -327666, 0, 131078, -131057, 0, 65542, -131056, 0, 65542, -131055, 0, 196614, -196591, 0, 131078, -262127, 0, 131078, -327663, 0, 131078, -262126, 0, 196614, -262125, 0, 196614, -262124, 0, 196614, -327660, 0, 131078, -458717, 0, 131078, -524253, 0, 131078, -589789, 0, 131078, -917469, 0, 131078, -983005, 0, 131078, -1245149, 0, 196614, -1048541, 0, 6, -1114077, 0, 6, -1179613, 0, 6, -1245150, 0, 196614, -1245151, 0, 196614, -1245152, 0, 196614, -1245153, 0, 196614, -1245154, 0, 196614, -1245155, 0, 196614, -1245156, 0, 196614, -1245157, 0, 196614, -1245158, 0, 196614, -1245159, 0, 196614, -1245160, 0, 196614, -1245161, 0, 196614, -1245162, 0, 196614, -1245163, 0, 196614, -1245164, 0, 196614, -1245165, 0, 196614, -1245166, 0, 196614, -1245167, 0, 196614, -1245168, 0, 196614, -1245169, 0, 196614, -1245170, 0, 196614, -1245171, 0, 196614, -1245172, 0, 196614, -1245173, 0, 196614, -458741, 0, 131078, -524277, 0, 131078, -589813, 0, 131078, -655349, 0, 131078, -720885, 0, 131078, -786421, 0, 131078, -851957, 0, 131078, -917493, 0, 131078, -1114101, 0, 131078, -1179637, 0, 131078, -1048565, 0, 131078, -983029, 0, 131078, 262175, 0, 6, 327711, 0, 6, 393247, 0, 6, 262174, 0, 6, 327710, 0, 6, 393246, 0, 6, -917472, 0, 65542, -917471, 0, 65542, -917470, 0, 65542, -917473, 0, 65542, -917474, 0, 65542, -917476, 0, 65542, -917477, 0, 65542, -917475, 0, 65542, -983013, 0, 6, -1048549, 0, 6, -1114085, 0, 6, -1179621, 0, 6, -720861, 0, 131078, -655325, 0, 131078, 393243, 0, 131078, 327707, 0, 131078, 262171, 0, 131078, 393233, 0, 131078, 327697, 0, 131078, 262161, 0, 131078, -393182, 0, 65542, -393183, 0, 65542, -393184, 0, 65542, -65477, 0, 6, -131013, 0, 6, -131036, 0, 196614, -131035, 0, 196614, -131034, 0, 196614, -131033, 0, 196614, -131032, 0, 196614, 59, 0, 131078, 65596, 0, 65542, 65595, 0, 6, 65583, 0, 65542, 65582, 0, 65542, -393148, 0, 65542, 262165, 0, 65542, 262166, 0, 65542, 262167, 0, 65542, 458835, 0, 65542, 458836, 0, 65542, 458837, 0, 65542, 458838, 0, 65542, 458839, 0, 65542, 458840, 0, 65542, 458841, 0, 65542, 458842, 0, 65542, 458843, 0, 65542, 458844, 0, 65542, 458845, 0, 65542, 458846, 0, 65542, 458847, 0, 65542, 458848, 0, 65542, 458849, 0, 65542, -393133, 0, 65542, -393132, 0, 65542, -393131, 0, 65542, -393130, 0, 65542, -393129, 0, 65542, -393128, 0, 65542, -393127, 0, 65542, -393126, 0, 65542, -393125, 0, 65542, -393124, 0, 65542, -393123, 0, 65542, -393122, 0, 65542, -393121, 0, 65542, -393120, 0, 65542, -393119, 0, 65542, -393118, 0, 65542, -393117, 0, 65542, -393116, 0, 65542, -393115, 0, 65542, 458850, 0, 65542, 458851, 0, 65542, 458852, 0, 65542, 458853, 0, 65542, 458854, 0, 6, 393318, 0, 6, 327782, 0, 6, 262246, 0, 6, 196710, 0, 6, 131174, 0, 6, 65638, 0, 6, 102, 0, 6, -65434, 0, 6, -130970, 0, 6, -196506, 0, 6, -262042, 0, 6, -327578, 0, 6, -393114, 0, 6, 65597, 0, 196614, 65598, 0, 196614, 62, 0, 131078, -65474, 0, 131078, -131010, 0, 131078, -196546, 0, 131078, -262082, 0, 131078, -327618, 0, 131078, 65601, 0, 65542, 65602, 0, 65542, 65603, 0, 65542)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="DividerGridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_nw2bi")
+cell_size = Vector3(1, 1, 1)
+collision_layer = 4
+collision_mask = 0
+data = {
+"cells": PackedInt32Array(196619, 0, 131072, 131083, 0, 131072, 65547, 0, 131072, -786397, 0, 0, -851933, 0, 0, -196573, 0, 0, -262109, 0, 0, -327645, 0, 0, 196667, 0, 0, 131131, 0, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="SpikesGridMap" type="GridMap" parent="." groups=["spikes"]]
+mesh_library = ExtResource("3_f8u87")
+cell_size = Vector3(1, 1, 1)
+
+[node name="Spawnpoints" type="Node3D" parent="."]
+
+[node name="0" type="Marker3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2.5, 0)
+
+[node name="CameraAnchors" type="Node3D" parent="."]
+
+[node name="Start" type="Marker3D" parent="CameraAnchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="End" type="Marker3D" parent="CameraAnchors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.2256, 0.0715017, 0)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+curve = SubResource("Curve3D_f23rw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.75
+
+[node name="MovingPlatform" parent="Path3D" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(-4.37114e-08, 0, -0.99999, 0, 0.99999, 0, 1, 0, -4.3711e-08, 0, 0, 0)
+
+[node name="RespawningTarget" parent="." instance=ExtResource("6_0lyg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 5, 0)
+
+[node name="RetractingShutter2" parent="RespawningTarget" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -2, 0)
+offset = Vector3(0, 3, 0)
+cooldown = 5.0
+
+[node name="RetractingShutter3" parent="RespawningTarget" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -3, 0)
+offset = Vector3(0, 3, 0)
+cooldown = 5.0
+
+[node name="RetractingShutter4" parent="RespawningTarget" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -4, 0)
+offset = Vector3(0, 3, 0)
+cooldown = 5.0
+
+[node name="RespawningTarget2" parent="." instance=ExtResource("6_0lyg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 5, 0)
+
+[node name="RetractingShutter2" parent="RespawningTarget2" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -2, 0)
+offset = Vector3(0, 3, 0)
+cooldown = 5.0
+
+[node name="RetractingShutter3" parent="RespawningTarget2" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -3, 0)
+offset = Vector3(0, 3, 0)
+cooldown = 5.0
+
+[node name="RetractingShutter4" parent="RespawningTarget2" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -4, 0)
+offset = Vector3(0, 3, 0)
+cooldown = 5.0
+
+[node name="Path3D2" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+curve = SubResource("Curve3D_olrkl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D2"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.5
+
+[node name="MovingPlatform" parent="Path3D2" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(-4.37114e-08, 0, -0.99999, 0, 0.99999, 0, 1, 0, -4.3711e-08, 0, 0, 0)
+
+[node name="Path3D3" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 0)
+curve = SubResource("Curve3D_g2ssr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D3"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.5
+
+[node name="MovingPlatform" parent="Path3D3" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(-4.37114e-08, 0, -0.99999, 0, 0.99999, 0, 1, 0, -4.3711e-08, 0, 0, 0)
+
+[node name="Path3D4" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 2, 1)
+curve = SubResource("Curve3D_qv8b7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D4"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.75
+
+[node name="MovingPlatform" parent="Path3D4" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(-4.37114e-08, 0.99999, -4.3711e-08, 0, -4.3711e-08, -0.99999, -1, -4.3711e-08, 1.91067e-15, 0, 0, 0)
+
+[node name="Path3D5" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 1)
+curve = SubResource("Curve3D_7henf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D5"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.75
+
+[node name="MovingPlatform" parent="Path3D5" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(-4.37114e-08, 0.99999, -4.3711e-08, 0, -4.3711e-08, -0.99999, -1, -4.3711e-08, 1.91067e-15, 0, 0, 0)
+
+[node name="RespawningTarget3" parent="." instance=ExtResource("6_0lyg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.5, 5, 0)
+respawn_time = 5.0
+
+[node name="RetractingShutter8" parent="RespawningTarget3" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -2, 0)
+offset = Vector3(8, -2, 0)
+cooldown = 4.0
+
+[node name="RetractingShutter5" parent="RespawningTarget3" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -3, 0)
+offset = Vector3(7, -1, 0)
+cooldown = 4.0
+
+[node name="RetractingShutter3" parent="RespawningTarget3" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -4, 0)
+offset = Vector3(6, 0, 0)
+cooldown = 4.0
+
+[node name="RetractingShutter4" parent="RespawningTarget3" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -5, 0)
+offset = Vector3(5, 1, 0)
+cooldown = 4.0
+
+[node name="RetractingShutter6" parent="RespawningTarget3" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -6, 0)
+offset = Vector3(4, 2, 0)
+cooldown = 4.0
+
+[node name="RespawningTarget4" parent="." instance=ExtResource("6_0lyg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.5, 0, 0)
+respawn_time = 5.0
+
+[node name="RetractingShutter7" parent="RespawningTarget4" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -2, 0)
+offset = Vector3(3, 3, 0)
+cooldown = 4.0
+
+[node name="RetractingShutter9" parent="RespawningTarget4" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -3, 0)
+offset = Vector3(2, 4, 0)
+cooldown = 4.0
+
+[node name="RetractingShutter10" parent="RespawningTarget4" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -4, 0)
+offset = Vector3(1, 5, 0)
+cooldown = 4.0
+
+[node name="RetractingShutter11" parent="RespawningTarget4" instance=ExtResource("7_wg8ed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -5, 0)
+offset = Vector3(0, 6, 0)
+cooldown = 4.0
+
+[node name="Path3D7" type="Path3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 49, 1, 0)
+curve = SubResource("Curve3D_ssx35")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D7"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.75
+
+[node name="MovingPlatform" parent="Path3D7" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(1, 0, 0, 0, 0.99999, 0, 0, 0, 0.99999, 0, 0, 0)
+
+[node name="Path3D8" type="Path3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 64, 1, 0)
+curve = SubResource("Curve3D_s6wg5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D8"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.75
+
+[node name="MovingPlatform" parent="Path3D8" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(1, 0, 0, 0, 0.99999, 0, 0, 0, 0.99999, 0, 0, 0)
+
+[node name="Path3D6" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 1, 0)
+curve = SubResource("Curve3D_wbatu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D6"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.5
+
+[node name="MovingPlatform" parent="Path3D6" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(-4.37114e-08, 0, -0.99999, 0, 0.99999, 0, 1, 0, -4.3711e-08, 0, 0, 0)
+
+[node name="Path3D9" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 1, 0)
+curve = SubResource("Curve3D_hlr5s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D9"]
+libraries = {
+"": SubResource("AnimationLibrary_j7v1d")
+}
+speed_scale = 0.5
+
+[node name="MovingPlatform" parent="Path3D9" instance=ExtResource("4_vc7bw")]
+transform = Transform3D(-4.37114e-08, 0, -0.99999, 0, 0.99999, 0, 1, 0, -4.3711e-08, 0, 0, 0)
+
+[connection signal="hit" from="RespawningTarget" to="RespawningTarget/RetractingShutter2" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget" to="RespawningTarget/RetractingShutter3" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget" to="RespawningTarget/RetractingShutter4" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget2" to="RespawningTarget2/RetractingShutter2" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget2" to="RespawningTarget2/RetractingShutter3" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget2" to="RespawningTarget2/RetractingShutter4" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget3" to="RespawningTarget3/RetractingShutter4" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget3" to="RespawningTarget3/RetractingShutter3" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget3" to="RespawningTarget3/RetractingShutter6" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget3" to="RespawningTarget3/RetractingShutter5" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget3" to="RespawningTarget3/RetractingShutter8" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget4" to="RespawningTarget4/RetractingShutter11" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget4" to="RespawningTarget4/RetractingShutter7" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget4" to="RespawningTarget4/RetractingShutter9" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget4" to="RespawningTarget4/RetractingShutter10" method="_on_target_hit"]
