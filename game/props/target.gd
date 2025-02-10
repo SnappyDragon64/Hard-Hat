@@ -1,6 +1,5 @@
 extends Node3D
 
-
 signal hit()
 
 @export var break_particles: PackedScene
