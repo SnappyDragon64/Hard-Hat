@@ -28,6 +28,10 @@ extends AnimatedSprite3D
 @export var strike_offset: Vector3
 @export var strike_sprite: Texture2D
 
+@export_group("Death")
+@export var death_offset: Vector3
+@export var death_sprite: Texture2D
+
 
 func _ready() -> void:
 	play("idle")
@@ -57,6 +61,8 @@ func _on_animation_changed() -> void:
 			set_offset_and_sprite(aim_offset, aim_sprite)
 		"strike":
 			set_offset_and_sprite(strike_offset, strike_sprite)
+		"death":
+			set_offset_and_sprite(death_offset, death_sprite)
 
 
 func set_offset_and_sprite(position_offset: Vector3, sprite: Texture2D):

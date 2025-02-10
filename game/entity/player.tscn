@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://rjxa7edahnbb"]
+[gd_scene load_steps=62 format=3 uid="uid://rjxa7edahnbb"]
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ds524qf26coc" path="res://assets/sprite/player/idle.png" id="5_yuqne"]
 [ext_resource type="Texture2D" uid="uid://xjc0n88uwy7" path="res://assets/sprite/misc/ball_progress_over.svg" id="6_c78mu"]
 [ext_resource type="Texture2D" uid="uid://d06e4wetm5bxv" path="res://assets/sprite/misc/ball_progress.svg" id="6_fqw7o"]
+[ext_resource type="Texture2D" uid="uid://c5653i8i2b3w8" path="res://assets/sprite/player/Death.png" id="6_t5n3v"]
 [ext_resource type="Texture2D" uid="uid://6nn6p3008lrs" path="res://assets/sprite/player/jump.png" id="6_vjyn7"]
 [ext_resource type="Texture2D" uid="uid://07cmg7ywyheb" path="res://assets/sprite/player/peak.png" id="7_k14sn"]
 [ext_resource type="Texture2D" uid="uid://cj2rhv5rxek2o" path="res://assets/sprite/player/run.png" id="8_cfy5s"]
@@ -208,6 +209,14 @@ animations = [{
 "loop": false,
 "name": &"aim",
 "speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_t5n3v")
+}],
+"loop": false,
+"name": &"death",
+"speed": 0.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -411,11 +420,11 @@ wait_time = 2.0
 [node name="SpriteHolder" type="Node3D" parent="."]
 
 [node name="PlayerSprite" type="AnimatedSprite3D" parent="SpriteHolder"]
-transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 1.4, 0)
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 material_overlay = SubResource("ShaderMaterial_ccj0i")
 render_priority = 2
 sprite_frames = SubResource("SpriteFrames_pjm8h")
-animation = &"fall"
+animation = &"death"
 script = ExtResource("9_yaxoo")
 idle_offset = Vector3(0.305, 1.315, 0)
 idle_sprite = ExtResource("5_yuqne")
@@ -431,6 +440,8 @@ aim_offset = Vector3(0, 1.4, 0)
 aim_sprite = ExtResource("5_8beig")
 strike_offset = Vector3(0, 1.4, 0)
 strike_sprite = ExtResource("3_6ha0i")
+death_offset = Vector3(0.035, 1.4, 0)
+death_sprite = ExtResource("6_t5n3v")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0, 1.42102, 0)

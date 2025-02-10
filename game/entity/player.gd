@@ -6,7 +6,7 @@ signal x_update(new_x)
 signal camera_shake_request(direction)
 signal respawn()
 
-enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE}
+enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, DEATH}
 
 @export var ball: PackedScene
 @export_group("Movement")
@@ -24,13 +24,6 @@ var ball_reference: Ball
 var progress_sprite_tween: Tween
 var spin_tween: Tween
 var flipped := false
-var scripted := false
-
-
-func kill():
-	scripted = true
-	velocity = Vector3(0.0, 10.0, 4.0)
-	$DeathTimer.start()
 
 
 func _set_player_state(new_player_state: PlayerState):
@@ -66,6 +59,11 @@ func _set_player_state(new_player_state: PlayerState):
 			can_strike = false
 			velocity.y = STRIKE_BOOST
 			$SpriteHolder/PlayerSprite.animation = 'strike'
+		PlayerState.DEATH:
+			$DeathTimer.start()
+			velocity = Vector3(0.0, 10.0, 4.0)
+			$CollisionShape3D.disabled = true
+			$SpriteHolder/PlayerSprite.animation = 'death'
 	
 	player_state = new_player_state
 
@@ -96,50 +94,49 @@ func _process(_delta) -> void:
 
 
 func _physics_process(delta) -> void:
-	if scripted:
-		velocity.x = 0.0
-		_handle_gravity(delta)
-	else:
-		input_direction = Input.get_axis("move_left", "move_right")
-		
-		if player_state != PlayerState.AIM:
-			if input_direction > 0.0:
-				player_direction = 1.0
-			elif input_direction < 0.0:
-				player_direction = -1.0
-		
-		if strike_queued and Input.is_action_pressed("strike"):
-			_check_strike_condition()
-		else:
-			strike_queued = false
-			$StrikeQueueTimer.stop()
-			
-		var collision = get_last_slide_collision()
 
-		if collision:
-			var collider = collision.get_collider()
-			var collision_normal = collision.get_normal()
-			
-			if collider.is_in_group("spikes") and collision_normal.y > 0.0:
-				kill()
+	input_direction = Input.get_axis("move_left", "move_right")
+	
+	if player_state != PlayerState.AIM:
+		if input_direction > 0.0:
+			player_direction = 1.0
+		elif input_direction < 0.0:
+			player_direction = -1.0
+	
+	if strike_queued and Input.is_action_pressed("strike"):
+		_check_strike_condition()
+	else:
+		strike_queued = false
+		$StrikeQueueTimer.stop()
 		
-		match player_state:
-			PlayerState.IDLE:
-				_idle_physics_process(delta)
-			PlayerState.RUN:
-				_run_physics_process(delta)
-			PlayerState.JUMP:
-				_jump_physics_process(delta)
-			PlayerState.FALL:
-				_fall_physics_process(delta)
-			PlayerState.COYOTE_TIME:
-				_coyote_time_physics_process(delta)
-			PlayerState.JUMP_QUEUED:
-				_jump_queued_physics_process(delta)
-			PlayerState.AIM:
-				_aim_physics_process(delta)
-			PlayerState.STRIKE:
-				_strike_physics_process(delta)
+	var collision = get_last_slide_collision()
+
+	if collision:
+		var collider = collision.get_collider()
+		var collision_normal = collision.get_normal()
+		
+		if collider.is_in_group("spikes") and collision_normal.y > 0.0:
+			_set_player_state(PlayerState.DEATH)
+	
+	match player_state:
+		PlayerState.IDLE:
+			_idle_physics_process(delta)
+		PlayerState.RUN:
+			_run_physics_process(delta)
+		PlayerState.JUMP:
+			_jump_physics_process(delta)
+		PlayerState.FALL:
+			_fall_physics_process(delta)
+		PlayerState.COYOTE_TIME:
+			_coyote_time_physics_process(delta)
+		PlayerState.JUMP_QUEUED:
+			_jump_queued_physics_process(delta)
+		PlayerState.AIM:
+			_aim_physics_process(delta)
+		PlayerState.STRIKE:
+			_strike_physics_process(delta)
+		PlayerState.DEATH:
+			_death_physics_process(delta)
 	
 	move_and_slide()
 	x_update.emit(global_position.x)
@@ -242,6 +239,11 @@ func _strike_physics_process(_delta) -> void:
 			player_state = PlayerState.IDLE
 	else:
 		player_state = PlayerState.FALL
+
+
+func _death_physics_process(delta) -> void:
+	velocity.x = 0.0
+	_handle_gravity(delta)
 
 
 func _handle_gravity(delta) -> void:
