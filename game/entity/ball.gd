@@ -110,16 +110,19 @@ func handle_brick_hit(gridmap: GridMap, collision_normal: Vector3, collision_pos
 			gridmap.set_cell_item(cell_position, GridMap.INVALID_CELL_ITEM)
 			spawn_break_particles(scaffolding_break_particles, gridmap, cell_position)
 		1: # Timber
-			gridmap.set_cell_item(cell_position, 2)
+			var orientation = gridmap.get_cell_item_orientation(cell_position)
+			gridmap.set_cell_item(cell_position, 2, orientation)
 			spawn_break_particles(timber_break_particles, gridmap, cell_position)
 		2: # Timber One Hit
 			gridmap.set_cell_item(cell_position, GridMap.INVALID_CELL_ITEM)
 			spawn_break_particles(timber_break_particles, gridmap, cell_position)
 		3: # Bricks
-			gridmap.set_cell_item(cell_position, 4)
+			var orientation = gridmap.get_cell_item_orientation(cell_position)
+			gridmap.set_cell_item(cell_position, 4, orientation)
 			spawn_break_particles(bricks_break_particles, gridmap, cell_position)
 		4: # Bricks One Hit
-			gridmap.set_cell_item(cell_position, 5)
+			var orientation = gridmap.get_cell_item_orientation(cell_position)
+			gridmap.set_cell_item(cell_position, 5, orientation)
 			spawn_break_particles(bricks_break_particles, gridmap, cell_position)
 		5: # Bricks Two Hits
 			gridmap.set_cell_item(cell_position, GridMap.INVALID_CELL_ITEM)
