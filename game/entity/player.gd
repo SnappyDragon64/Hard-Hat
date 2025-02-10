@@ -60,11 +60,11 @@ func _set_player_state(new_player_state: PlayerState):
 			velocity.y = STRIKE_BOOST
 			$SpriteHolder/PlayerSprite.animation = 'strike'
 		PlayerState.DEATH:
+			kill_ball()
 			$DeathTimer.start()
 			velocity = Vector3(0.0, 16.0, 4.0)
 			$CollisionShape3D.disabled = true
 			$SpriteHolder/PlayerSprite.animation = 'death'
-			_on_ball_timer_timeout()
 	
 	player_state = new_player_state
 
@@ -353,14 +353,7 @@ func _on_jump_queue_timer_timeout():
 
 
 func _on_ball_timer_timeout():
-	ball_reference.kill()
-	ball_reference = null
-	
-	if progress_sprite_tween:
-		progress_sprite_tween.kill()
-	
-	progress_sprite_tween = get_tree().create_tween()
-	progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1)
+	kill_ball()
 	
 	if player_state == PlayerState.AIM:
 		if is_on_floor():
@@ -370,6 +363,18 @@ func _on_ball_timer_timeout():
 				player_state = PlayerState.IDLE
 		else:
 			player_state = PlayerState.FALL
+
+
+func kill_ball():
+	if ball_reference:
+		ball_reference.kill()
+		ball_reference = null
+	
+	if progress_sprite_tween:
+		progress_sprite_tween.kill()
+	
+	progress_sprite_tween = get_tree().create_tween()
+	progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1)
 
 
 func _on_strike_cooldown_timeout() -> void:
