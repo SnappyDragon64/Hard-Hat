@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6nn6p3008lrs"
-path="res://.godot/imported/jump.png-5ee54cf95fb4705fd62d687837414262.ctex"
+uid="uid://df6th4gvqni3q"
+path="res://.godot/imported/star_particle.svg-9a39bf3954760028722725931fcc2e60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/player/jump.png"
-dest_files=["res://.godot/imported/jump.png-5ee54cf95fb4705fd62d687837414262.ctex"]
+source_file="res://assets/sprite/game/particle/star_particle.svg"
+dest_files=["res://.godot/imported/star_particle.svg-9a39bf3954760028722725931fcc2e60.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

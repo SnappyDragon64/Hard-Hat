@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://i2p75ghwy86o"]
 
-[ext_resource type="Texture2D" uid="uid://df6th4gvqni3q" path="res://assets/sprite/misc/star_particle.svg" id="1_2dbbe"]
+[ext_resource type="Texture2D" uid="uid://df6th4gvqni3q" path="res://assets/sprite/game/particle/star_particle.svg" id="1_2dbbe"]
 [ext_resource type="Script" path="res://game/particle/ephemeral_particles.gd" id="1_e1kpg"]
 
 [sub_resource type="Curve" id="Curve_qt3wm"]

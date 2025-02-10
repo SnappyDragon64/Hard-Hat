@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xjc0n88uwy7"
-path="res://.godot/imported/ball_progress_over.svg-22e7b4145a474b5cc96646407d788319.ctex"
+uid="uid://bcfpj1le478cv"
+path="res://.godot/imported/arrow.svg-99de73020ef7d34524e6980bcc65a419.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/misc/ball_progress_over.svg"
-dest_files=["res://.godot/imported/ball_progress_over.svg-22e7b4145a474b5cc96646407d788319.ctex"]
+source_file="res://assets/sprite/game/hud/arrow.svg"
+dest_files=["res://.godot/imported/arrow.svg-99de73020ef7d34524e6980bcc65a419.ctex"]
 
 [params]
 

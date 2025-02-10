@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d06e4wetm5bxv"
-path="res://.godot/imported/ball_progress.svg-42746f4813278a4fc7942b5c736daf4c.ctex"
+uid="uid://cj2rhv5rxek2o"
+path="res://.godot/imported/run.png-787a203313a147bbd1662e142ecd32ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/misc/ball_progress.svg"
-dest_files=["res://.godot/imported/ball_progress.svg-42746f4813278a4fc7942b5c736daf4c.ctex"]
+source_file="res://assets/sprite/game/player/run.png"
+dest_files=["res://.godot/imported/run.png-787a203313a147bbd1662e142ecd32ea.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

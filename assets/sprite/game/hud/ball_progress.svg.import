@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://07cmg7ywyheb"
-path="res://.godot/imported/peak.png-45788ab5df99b75dfb2c0e167244e3f1.ctex"
+uid="uid://d06e4wetm5bxv"
+path="res://.godot/imported/ball_progress.svg-53742a9c06eb620c4db698bb553d499c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/player/peak.png"
-dest_files=["res://.godot/imported/peak.png-45788ab5df99b75dfb2c0e167244e3f1.ctex"]
+source_file="res://assets/sprite/game/hud/ball_progress.svg"
+dest_files=["res://.godot/imported/ball_progress.svg-53742a9c06eb620c4db698bb553d499c.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
