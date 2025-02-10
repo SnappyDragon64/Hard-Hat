@@ -61,9 +61,10 @@ func _set_player_state(new_player_state: PlayerState):
 			$SpriteHolder/PlayerSprite.animation = 'strike'
 		PlayerState.DEATH:
 			$DeathTimer.start()
-			velocity = Vector3(0.0, 10.0, 4.0)
+			velocity = Vector3(0.0, 16.0, 4.0)
 			$CollisionShape3D.disabled = true
 			$SpriteHolder/PlayerSprite.animation = 'death'
+			_on_ball_timer_timeout()
 	
 	player_state = new_player_state
 
