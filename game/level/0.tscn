@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ds48d4tp0jgb8"]
+[gd_scene load_steps=14 format=3 uid="uid://ds48d4tp0jgb8"]
 
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_px351"]
 [ext_resource type="Script" path="res://game/level/0.gd" id="1_ub3gh"]
@@ -7,6 +7,8 @@
 [ext_resource type="MeshLibrary" uid="uid://dmnrbines0xtj" path="res://assets/mesh/spikes_mesh_library.tres" id="4_uic25"]
 [ext_resource type="PackedScene" uid="uid://o8r0tjwg1jcj" path="res://game/props/shutter.tscn" id="5_r7742"]
 [ext_resource type="PackedScene" uid="uid://c46bojvx75v2" path="res://game/props/target.tscn" id="6_t10ai"]
+[ext_resource type="PackedScene" uid="uid://c0m5tvt5evb75" path="res://game/props/respawning_target.tscn" id="8_skask"]
+[ext_resource type="PackedScene" uid="uid://cvhu1m0j111ts" path="res://game/props/retracting_shutter.tscn" id="9_pp4eq"]
 
 [sub_resource type="Curve3D" id="Curve3D_rw6sf"]
 _data = {
@@ -94,12 +96,27 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 
 [node name="Shutter" parent="." instance=ExtResource("5_r7742")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+offset = Vector3(0, 2, 0)
 
 [node name="Shutter2" parent="." instance=ExtResource("5_r7742")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+offset = Vector3(0, 2, 0)
 
 [node name="Target" parent="." instance=ExtResource("6_t10ai")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 0)
 
+[node name="RespawningTarget" parent="." instance=ExtResource("8_skask")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3, 0)
+
+[node name="RetractingShutter" parent="." instance=ExtResource("9_pp4eq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -1, 0)
+offset = Vector3(0, 2, 0)
+
+[node name="RetractingShutter2" parent="." instance=ExtResource("9_pp4eq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -1, 0)
+offset = Vector3(0, 2, 0)
+
 [connection signal="hit" from="Target" to="Shutter" method="_on_target_hit"]
 [connection signal="hit" from="Target" to="Shutter2" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget" to="RetractingShutter" method="_on_target_hit"]
+[connection signal="hit" from="RespawningTarget" to="RetractingShutter2" method="_on_target_hit"]

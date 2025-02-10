@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvhu1m0j111ts"]
+
+[ext_resource type="Script" path="res://game/props/retracting_shutter.gd" id="1_dehr5"]
+[ext_resource type="ArrayMesh" uid="uid://bnykpvk5cwbav" path="res://assets/mesh/shutter/model.obj" id="2_a1xj8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ihfft"]
+
+[node name="RetractingShutter" type="Node3D"]
+script = ExtResource("1_dehr5")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../AnimatableBody3D")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+shape = SubResource("BoxShape3D_ihfft")
+
+[node name="Model" type="MeshInstance3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+mesh = ExtResource("2_a1xj8")
+
+[node name="RetractTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="RetractTimer" to="." method="_on_retract_timer_timeout"]

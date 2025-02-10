@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c46bojvx75v2"]
+[gd_scene load_steps=14 format=3 uid="uid://c0m5tvt5evb75"]
 
-[ext_resource type="Script" path="res://game/props/target.gd" id="1_66y0h"]
-[ext_resource type="ArrayMesh" uid="uid://bji6xtyroifqh" path="res://assets/mesh/target/model.obj" id="1_pfc7u"]
-[ext_resource type="Texture2D" uid="uid://bc6mm5bsu03fe" path="res://assets/mesh/target/texture1.png" id="2_03mb3"]
-[ext_resource type="PackedScene" uid="uid://7tvrm5a6riqk" path="res://game/particle/target_break_particles.tscn" id="2_s6uj0"]
-[ext_resource type="Texture2D" uid="uid://dipmslvtbebxy" path="res://assets/mesh/target/texture2.png" id="3_13ctu"]
+[ext_resource type="Script" path="res://game/props/respawning_target.gd" id="1_ndeau"]
+[ext_resource type="PackedScene" uid="uid://7tvrm5a6riqk" path="res://game/particle/target_break_particles.tscn" id="2_usi0m"]
+[ext_resource type="ArrayMesh" uid="uid://bji6xtyroifqh" path="res://assets/mesh/target/model.obj" id="3_k306a"]
+[ext_resource type="Texture2D" uid="uid://bc6mm5bsu03fe" path="res://assets/mesh/target/texture1.png" id="4_ueo0u"]
+[ext_resource type="Texture2D" uid="uid://dipmslvtbebxy" path="res://assets/mesh/target/texture2.png" id="5_kxj7b"]
 
 [sub_resource type="Animation" id="Animation_rb3eh"]
 length = 0.001
@@ -37,32 +37,32 @@ _data = {
 resource_name = "m_27634035-53c9-78d8-8ffc-a902c2b900b6"
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("2_03mb3")
+albedo_texture = ExtResource("4_ueo0u")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r4xpf"]
 resource_name = "m_aaa902c3-e305-ae2a-d655-f3b09f39006d"
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("3_13ctu")
+albedo_texture = ExtResource("5_kxj7b")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3oc7u"]
 resource_name = "m_27634035-53c9-78d8-8ffc-a902c2b900b6"
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("2_03mb3")
+albedo_texture = ExtResource("4_ueo0u")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhjv2"]
 resource_name = "m_aaa902c3-e305-ae2a-d655-f3b09f39006d"
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("3_13ctu")
+albedo_texture = ExtResource("5_kxj7b")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_trmyt"]
 radius = 0.25
 
-[node name="Target" type="Node3D"]
-script = ExtResource("1_66y0h")
-break_particles = ExtResource("2_s6uj0")
+[node name="RespawningTarget" type="Node3D"]
+script = ExtResource("1_ndeau")
+break_particles = ExtResource("2_usi0m")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -72,7 +72,7 @@ speed_scale = 0.2
 
 [node name="Model" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
-mesh = ExtResource("1_pfc7u")
+mesh = ExtResource("3_k306a")
 surface_material_override/0 = SubResource("StandardMaterial3D_mp718")
 surface_material_override/1 = SubResource("StandardMaterial3D_r4xpf")
 surface_material_override/2 = SubResource("StandardMaterial3D_3oc7u")
@@ -86,4 +86,7 @@ collision_mask = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_trmyt")
 
+[node name="RespawnTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
