@@ -8,6 +8,9 @@ func _ready():
 	$Path3D4/AnimationPlayer.play("move")
 	$Path3D5/AnimationPlayer.play("move")
 	$Path3D7/AnimationPlayer.play("move")
+	$Path3D6/AnimationPlayer.play("move")
+	$Path3D8/AnimationPlayer.play("move")
+	$Path3D9/AnimationPlayer.play("move")
 
 func _on_target_hit() -> void:
 	pass # Replace with function body.
