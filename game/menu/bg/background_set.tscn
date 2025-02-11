@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://b42n0yh17ooj7" path="res://assets/sprite/game/background.png" id="1_5momw"]
 [ext_resource type="Script" path="res://game/menu/bg/background_set.gd" id="1_r420n"]
 [ext_resource type="Shader" path="res://assets/shader/outline.gdshader" id="2_4ppwc"]
+[ext_resource type="Texture2D" uid="uid://cm56ffvtnslho" path="res://assets/sprite/main_menu/play_silhouette.png" id="2_lp3r0"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="4_qa3vf"]
 [ext_resource type="Texture2D" uid="uid://n6m0awh3lxgj" path="res://assets/sprite/logo/logo.png" id="4_trdpi"]
 [ext_resource type="PackedScene" uid="uid://vkch7qlinq81" path="res://game/menu/bg/title_screen.tscn" id="4_wubj8"]
-[ext_resource type="Texture2D" uid="uid://dbeuhqvosbnyy" path="res://assets/sprite/misc/silhouette.png" id="6_m45cr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fyu6n"]
 sky_top_color = Color(0.137936, 0.584432, 1, 1)
@@ -80,13 +80,13 @@ shader_parameter/sprite_texture = ExtResource("4_trdpi")
 render_priority = 2
 shader = ExtResource("4_qa3vf")
 shader_parameter/line_color = Color(0, 0, 0, 1)
-shader_parameter/glowSize = 32.0
+shader_parameter/glowSize = 17.542
 shader_parameter/glowDensity = 16
 shader_parameter/glowRadialCoverage = 16
 shader_parameter/glowAngle = 0.0
 shader_parameter/glowSharpness = 5.0
-shader_parameter/alphaThreshold = 1.0
-shader_parameter/sprite_texture = ExtResource("6_m45cr")
+shader_parameter/alphaThreshold = 0.2
+shader_parameter/sprite_texture = ExtResource("2_lp3r0")
 
 [node name="BackgroundSet" type="Node3D"]
 script = ExtResource("1_r420n")
@@ -132,6 +132,6 @@ texture = ExtResource("4_trdpi")
 [node name="Silhouette" type="Sprite3D" parent="MainMenuProps"]
 transform = Transform3D(1.82709, 0, 0.813473, 0, 2, 0, -0.813473, 0, 1.82709, 5.18105, -0.4, -25.7389)
 material_override = SubResource("ShaderMaterial_epndh")
-pixel_size = 0.002
+pixel_size = 0.007
 render_priority = 2
-texture = ExtResource("6_m45cr")
+texture = ExtResource("2_lp3r0")

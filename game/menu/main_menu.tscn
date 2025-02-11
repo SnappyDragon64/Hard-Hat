@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn2m0dp8mxgou"]
+[gd_scene load_steps=10 format=3 uid="uid://dn2m0dp8mxgou"]
 
 [ext_resource type="Script" path="res://game/menu/main_menu.gd" id="1_dblhm"]
 [ext_resource type="PackedScene" uid="uid://dfhqau5f5bs3v" path="res://game/menu/bg/background_set.tscn" id="1_ljgr5"]
 [ext_resource type="Texture2D" uid="uid://1ioqlghc70eb" path="res://assets/sprite/main_menu/play.png" id="2_83i8v"]
+[ext_resource type="Texture2D" uid="uid://cm56ffvtnslho" path="res://assets/sprite/main_menu/play_silhouette.png" id="2_sg1wt"]
+[ext_resource type="Texture2D" uid="uid://bfe7wslahlu" path="res://assets/sprite/main_menu/config_silhouette.png" id="3_3y058"]
 [ext_resource type="Texture2D" uid="uid://gv85o3wdxvjq" path="res://assets/sprite/main_menu/config.png" id="3_bcc1u"]
+[ext_resource type="Texture2D" uid="uid://dv0lhe1aachwg" path="res://assets/sprite/main_menu/quit_silhouette.png" id="4_3s2al"]
 [ext_resource type="Texture2D" uid="uid://bs7d5hepdyeco" path="res://assets/sprite/main_menu/quit.png" id="4_qag82"]
 [ext_resource type="Texture2D" uid="uid://x6gxsxxy1bdi" path="res://assets/sprite/main_menu/bar.png" id="5_7tplr"]
 
@@ -15,6 +18,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dblhm")
+play_silhouette = ExtResource("2_sg1wt")
+config_silhouette = ExtResource("3_3y058")
+quit_silhouette = ExtResource("4_3s2al")
 
 [node name="BackgroundHolder" type="SubViewportContainer" parent="."]
 layout_mode = 1
