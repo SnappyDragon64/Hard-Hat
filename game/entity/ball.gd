@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 		var collision_normal = collision.get_normal()
 		var collider = collision.get_collider()
 		
-		if collider.is_in_group("moving_platform"):
+		if collider.is_in_group("beam"):
 			if tracking == true:
 				force_quit_aiming.emit()
 			

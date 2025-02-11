@@ -9,7 +9,7 @@ enum GameState {DEFAULT, PAUSED, COUNTDOWN}
 
 @export var player: PackedScene
 
-var level_id: int = 4
+@export var level_id: int = 1
 var current_spawnpoint: int = 0
 
 var game_state: GameState = GameState.DEFAULT
@@ -23,6 +23,17 @@ var shake_tween: Tween
 
 func _ready():
 	load_level()
+
+
+func _process(_delta):
+	if Input.is_action_just_pressed("1"):
+		load_level(1)
+	if Input.is_action_just_pressed("2"):
+		load_level(2)
+	if Input.is_action_just_pressed("3"):
+		load_level(3)
+	if Input.is_action_just_pressed("4"):
+		load_level(4)
 
 
 func init(resume_signal, restart_signal, quit_signal):

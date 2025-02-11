@@ -50,6 +50,7 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.JUMP_QUEUED:
 			$JumpQueueTimer.start()
 		PlayerState.AIM:
+			$BallTimer.start()
 			platform_floor_layers = 0
 			axis_lock_linear_y = true
 			velocity = Vector3.ZERO
@@ -217,7 +218,7 @@ func _aim_physics_process(_delta) -> void:
 		var collider = collision.get_collider()
 		var collision_normal = collision.get_normal()
 		
-		if collider.is_in_group("moving_platform"):
+		if collider.is_in_group("beam"):
 			if collision_normal.is_equal_approx(Vector3.UP):
 				position.y += collision.get_depth()
 			else:

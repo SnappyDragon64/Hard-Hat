@@ -60,7 +60,7 @@ material = SubResource("StandardMaterial3D_fxpgk")
 flip_faces = true
 top_radius = 50.0
 bottom_radius = 50.0
-height = 20.0
+height = 22.0
 cap_top = false
 cap_bottom = false
 
