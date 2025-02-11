@@ -4,6 +4,9 @@ extends Node3D
 signal quit()
 signal pause()
 signal unpause()
+signal reset_pause_menu()
+
+var transition_instance
 
 enum GameState {DEFAULT, PAUSED, COUNTDOWN}
 
@@ -19,10 +22,11 @@ var tripod_max_x := 9999.0
 var background_rotation_speed := 0.005
 
 var shake_tween: Tween
+var transition_flag := true
 
 
 func _ready():
-	load_level()
+	load_level(level_id, false)
 
 
 func _process(_delta):
@@ -56,11 +60,13 @@ func _on_restart():
 
 
 func _on_quit():
+	transition_instance.pop_in()
+	await transition_instance.popped_in
 	quit.emit()
 
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("pause"):
+	if not transition_flag and Input.is_action_just_pressed("pause"):
 		match game_state:
 			GameState.DEFAULT:
 				game_state = GameState.PAUSED
@@ -102,7 +108,12 @@ func _on_camera_shake_request(direction):
 	shake_tween.tween_property($Tripod/Camera3D, "position", Vector3.ZERO, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
-func load_level(id=null):
+func load_level(id=null, flag=true):
+	if flag:
+		transition_instance.pop_in()
+		await transition_instance.popped_in
+		reset_pause_menu.emit()
+	
 	if id:
 		level_id = id
 	
@@ -116,6 +127,7 @@ func load_level(id=null):
 	var level_instance = level.instantiate()
 	
 	$Level.call_deferred("add_child", level_instance)
+	await level_instance.ready
 	call_deferred("setup_player", level_instance)
 
 
@@ -142,6 +154,16 @@ func setup_player(level_instance):
 		var ball = level_instance.get_node("Ball")
 		player_instance.ball_reference = ball
 	
+	await player_instance.ready
+	$Tripod.set_process_mode(PROCESS_MODE_DISABLED)
+	$Level.set_process_mode(PROCESS_MODE_DISABLED)
+	transition_instance.start_wait()
+	await transition_instance.wait
+	transition_instance.pop_out()
+	await transition_instance.popped_out
+	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
+	$Level.set_process_mode(PROCESS_MODE_INHERIT)
+	transition_flag = false
 
 
 func get_level_path(id):

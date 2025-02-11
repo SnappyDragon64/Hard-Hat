@@ -14,9 +14,10 @@ var unpause_tween: Tween
 var highlight_tween: Tween
 
 
-func init(pause_signal, unpause_signal):
+func init(pause_signal, unpause_signal, reset_signal):
 	pause_signal.connect(_on_pause)
 	unpause_signal.connect(_on_unpause)
+	reset_signal.connect(_on_reset)
 
 
 func _on_pause():
@@ -64,6 +65,15 @@ func _on_unpause():
 	unpause_tween.tween_callback(_hide)
 
 
+func _on_reset():
+	%Restart.release_focus()
+	$Filter.set_color(Color(0.0, 0.17, 0.29, 0.0))
+	$PauseLeft.set_position(Vector2(-500, -500))
+	$PauseLeft.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
+	$Holder/PauseRight.set_position(Vector2(-200, -400))
+	$Holder/PauseRight.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
+
+
 func _hide():
 	$Filter.set_visible(false)
 	$PauseLeft.set_visible(false)
@@ -88,13 +98,6 @@ func _on_resume_pressed():
 
 
 func _on_restart_pressed():
-	%Restart.release_focus()
-	$Filter.set_color(Color(0.0, 0.17, 0.29, 0.0))
-	$PauseLeft.set_position(Vector2(-500, -500))
-	$PauseLeft.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
-	$Holder/PauseRight.set_position(Vector2(-200, -400))
-	$Holder/PauseRight.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
-	
 	restart_pressed.emit()
 
 
