@@ -1,10 +1,11 @@
-[gd_scene load_steps=62 format=3 uid="uid://rjxa7edahnbb"]
+[gd_scene load_steps=70 format=3 uid="uid://rjxa7edahnbb"]
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
 [ext_resource type="Texture2D" uid="uid://diwwf1h2i8mxe" path="res://assets/sprite/misc/test.png" id="2_tt3cq"]
 [ext_resource type="PackedScene" uid="uid://cdjcl5dow8yg3" path="res://game/entity/ball.tscn" id="2_vttbj"]
 [ext_resource type="Texture2D" uid="uid://c6l3ddpur85wn" path="res://assets/sprite/game/player/strike.png" id="3_6ha0i"]
+[ext_resource type="Texture2D" uid="uid://hanv0o3nq34s" path="res://assets/sprite/game/particle/step_particle.svg" id="3_nwivn"]
 [ext_resource type="Texture2D" uid="uid://dt7km2cc7opp6" path="res://assets/sprite/game/player/fall.png" id="4_ooxdd"]
 [ext_resource type="Texture2D" uid="uid://cvn5n467aj2s5" path="res://assets/sprite/game/player/aim.png" id="5_8beig"]
 [ext_resource type="Texture2D" uid="uid://c0wid1b6r3xqe" path="res://assets/sprite/game/hud/ball_progress_under.svg" id="5_vlevg"]
@@ -25,6 +26,44 @@ height = 6.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tfegu"]
 radius = 0.4
 height = 1.96
+
+[sub_resource type="Curve" id="Curve_7aram"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yu6xo"]
+curve = SubResource("Curve_7aram")
+
+[sub_resource type="Curve" id="Curve_e5sgt"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q43lt"]
+curve = SubResource("Curve_e5sgt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fm10d"]
+angle_curve = SubResource("CurveTexture_q43lt")
+direction = Vector3(-1, 0.8, 0)
+spread = 15.0
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_yu6xo")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbr6s"]
+render_priority = 2
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_nwivn")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_wubg0"]
+material = SubResource("StandardMaterial3D_dbr6s")
+size = Vector2(0.3, 0.1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ccj0i"]
 render_priority = 0
@@ -392,6 +431,16 @@ mesh = SubResource("CapsuleMesh_f3jdb")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
 shape = SubResource("CapsuleShape3D_tfegu")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 2
+lifetime = 0.3
+explosiveness = 0.75
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_fm10d")
+draw_pass_1 = SubResource("QuadMesh_wubg0")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 process_callback = 0
