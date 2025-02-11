@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://iad1uqsjwifj"]
+[gd_scene load_steps=24 format=3 uid="uid://iad1uqsjwifj"]
 
 [ext_resource type="Script" path="res://game/level/3.gd" id="1_2oyop"]
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_vpxkf"]
@@ -93,6 +93,22 @@ _data = {
 point_count = 2
 up_vector_enabled = false
 
+[sub_resource type="Curve3D" id="Curve3D_rvlv1"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_1lfhu"]
+bake_interval = 0.18
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [sub_resource type="Curve3D" id="Curve3D_wbatu"]
 bake_interval = 0.18
 _data = {
@@ -140,7 +156,7 @@ data = {
 [node name="Spawnpoints" type="Node3D" parent="."]
 
 [node name="0" type="Marker3D" parent="Spawnpoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.9942, 2.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 0)
 
 [node name="CameraAnchors" type="Node3D" parent="."]
 
@@ -315,7 +331,7 @@ libraries = {
 speed_scale = 0.75
 
 [node name="MovingPlatform" parent="Path3D7" instance=ExtResource("4_vc7bw")]
-transform = Transform3D(1, 0, 0, 0, 0.99999, 0, 0, 0, 0.99999, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999987, 0, 0, 0, 0.999987, 0, 0, 0)
 
 [node name="Path3D8" type="Path3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 64, 1, 0)
@@ -332,7 +348,7 @@ transform = Transform3D(1, 0, 0, 0, 0.99999, 0, 0, 0, 0.99999, 0, 0, 0)
 
 [node name="Path3D6" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69, 1, 0)
-curve = SubResource("Curve3D_wbatu")
+curve = SubResource("Curve3D_rvlv1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D6"]
 libraries = {
@@ -341,11 +357,11 @@ libraries = {
 speed_scale = 0.5
 
 [node name="MovingPlatform" parent="Path3D6" instance=ExtResource("4_vc7bw")]
-transform = Transform3D(-4.37114e-08, 0, 0.99999, 0, 0.99999, 0, -1, 0, -4.37109e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -0.99999, 0, 0.99999, 0, 1, 0, -4.37109e-08, 0, 0, 0)
 
 [node name="Path3D9" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 1, 0)
-curve = SubResource("Curve3D_hlr5s")
+curve = SubResource("Curve3D_1lfhu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D9"]
 libraries = {
@@ -354,7 +370,7 @@ libraries = {
 speed_scale = 0.5
 
 [node name="MovingPlatform" parent="Path3D9" instance=ExtResource("4_vc7bw")]
-transform = Transform3D(-4.37114e-08, 0, 0.99999, 0, 0.99999, 0, -1, 0, -4.3711e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -0.99999, 0, 0.99999, 0, 1, 0, -4.3711e-08, 0, 0, 0)
 
 [node name="Target" parent="." instance=ExtResource("8_2cn2p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.5, 4.5, 0)
