@@ -9,7 +9,7 @@ enum GameState {DEFAULT, PAUSED, COUNTDOWN}
 
 @export var player: PackedScene
 
-var level_id: int = 3
+var level_id: int = 4
 var current_spawnpoint: int = 0
 
 var game_state: GameState = GameState.DEFAULT

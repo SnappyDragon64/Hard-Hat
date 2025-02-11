@@ -1,7 +1,7 @@
 extends Node3D
 
 
-func _ready():
+func _ready() -> void:
 	$Path3D/AnimationPlayer.play("move")
 	$Path3D2/AnimationPlayer.play("move")
 	$Path3D3/AnimationPlayer.play("move")
