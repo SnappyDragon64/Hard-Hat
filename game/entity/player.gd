@@ -24,6 +24,7 @@ var ball_reference: Ball
 var progress_sprite_tween: Tween
 var spin_tween: Tween
 var flipped := false
+var y_when_aiming := 0.0
 
 
 func _set_player_state(new_player_state: PlayerState):
@@ -58,6 +59,7 @@ func _set_player_state(new_player_state: PlayerState):
 			axis_lock_linear_y = true
 			velocity = Vector3.ZERO
 			$SpriteHolder/PlayerSprite.animation = 'aim'
+			y_when_aiming = position.y
 		PlayerState.STRIKE:
 			$StrikeCooldown.start()
 			can_strike = false
@@ -219,6 +221,9 @@ func _aim_physics_process(_delta) -> void:
 	var flag = false
 	var collision = get_last_slide_collision()
 	
+	if position.y > y_when_aiming + 0.01 or position.y < y_when_aiming:
+		flag = true
+	
 	if collision:
 		var collider = collision.get_collider()
 		var collision_normal = collision.get_normal()
@@ -230,13 +235,7 @@ func _aim_physics_process(_delta) -> void:
 				flag = true
 	
 	if flag or Input.is_action_just_released("strike") and ball_reference:
-		player_state = PlayerState.STRIKE
-		
-		ball_reference.shoot()
-		ball_reference.tracking = false
-		_orient_with_respect_to_ball_direction()
-		
-		$BallTimer.start()
+		shoot_ball()
 
 
 func _strike_physics_process(_delta) -> void:
@@ -333,6 +332,16 @@ func _check_strike_condition():
 			progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
 
 
+func shoot_ball():
+	player_state = PlayerState.STRIKE
+	
+	ball_reference.shoot()
+	ball_reference.tracking = false
+	_orient_with_respect_to_ball_direction()
+	
+	$BallTimer.start()
+
+
 func _orient_with_respect_to_ball():
 	var relative_ball_pos = ball_reference.get_global_position() - global_position
 	
@@ -397,13 +406,7 @@ func _on_ball_camera_shake_request(direction):
 
 
 func _on_force_quit_aiming():
-	player_state = PlayerState.STRIKE
-	
-	ball_reference.shoot()
-	ball_reference.tracking = false
-	_orient_with_respect_to_ball_direction()
-	
-	$BallTimer.start()
+	shoot_ball()
 
 
 func _on_death_timer_timeout():
