@@ -75,6 +75,7 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.DEATH:
 			kill_ball()
 			$DeathTimer.start()
+			axis_lock_linear_x = true
 			axis_lock_linear_z = false
 			velocity = Vector3(0.0, 16.0, 4.0)
 			$CollisionShape3D.disabled = true
@@ -84,14 +85,15 @@ func _set_player_state(new_player_state: PlayerState):
 
 
 func _set_player_direction(new_player_direction: float):
-	player_direction = new_player_direction
-	
-	$StepParticles.process_material.direction.x = -player_direction
-	
-	if flipped and player_direction == 1.0:
-		_handle_flip(false, 0.0)
-	elif not flipped and player_direction == -1.0:
-		_handle_flip(true, PI)
+	if not player_state == PlayerState.DEATH:
+		player_direction = new_player_direction
+		
+		$StepParticles.process_material.direction.x = -player_direction
+		
+		if flipped and player_direction == 1.0:
+			_handle_flip(false, 0.0)
+		elif not flipped and player_direction == -1.0:
+			_handle_flip(true, PI)
 
 
 func _handle_flip(flip_flag: bool, animation_angle: float):
