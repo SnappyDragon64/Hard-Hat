@@ -12,6 +12,7 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, 
 @export_group("Movement")
 @export var SPEED := 5.0
 @export var JUMP_SPEED := 4.5
+@export var SPRING_FACTOR := 2.0
 @export var STRIKE_BOOST := 2.0
 @export var GRAVITY := 1.0
 @export var can_strike := true
@@ -25,6 +26,7 @@ var progress_sprite_tween: Tween
 var spin_tween: Tween
 var flipped := false
 var y_when_aiming := 0.0
+var is_on_spring := false
 
 
 func _set_player_state(new_player_state: PlayerState):
@@ -47,7 +49,11 @@ func _set_player_state(new_player_state: PlayerState):
 			$StepParticles.emitting = true
 			$SpriteHolder/PlayerSprite.animation = 'run'
 		PlayerState.JUMP:
-			velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
+			if is_on_spring:
+				is_on_spring = false
+				velocity.y = move_toward(JUMP_SPEED * SPRING_FACTOR, 0, 0.1)
+			else:
+				velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
 			$SpriteHolder/PlayerSprite.animation = 'jump'
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.start()
@@ -118,7 +124,7 @@ func _physics_process(delta) -> void:
 	else:
 		strike_queued = false
 		$StrikeQueueTimer.stop()
-		
+	
 	var collision = get_last_slide_collision()
 
 	if collision:
@@ -127,6 +133,11 @@ func _physics_process(delta) -> void:
 		
 		if collider.is_in_group("spikes") and collision_normal.y > 0.0:
 			_set_player_state(PlayerState.DEATH)
+		
+		if collider.is_in_group("spring") and collision_normal.is_equal_approx(Vector3.UP):
+			is_on_spring = true
+		elif is_on_floor():
+			is_on_spring = false
 	
 	match player_state:
 		PlayerState.IDLE:
@@ -381,6 +392,7 @@ func _orient_with_respect_to_ball_direction():
 
 
 func _on_coyote_timer_timeout():
+	is_on_spring = false
 	player_state = PlayerState.FALL
 
 

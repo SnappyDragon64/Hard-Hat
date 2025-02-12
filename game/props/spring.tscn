@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://bh1lxh20hrggw"]
+
+[ext_resource type="ArrayMesh" uid="uid://dhrcaa07qcy6h" path="res://assets/mesh/spring/model.obj" id="1_dtyp0"]
+[ext_resource type="Texture2D" uid="uid://dw48ae5iul1lw" path="res://assets/mesh/spring/texture1.png" id="2_aluni"]
+[ext_resource type="Texture2D" uid="uid://c75f3pi6bwq8f" path="res://assets/mesh/spring/texture3.png" id="3_o7xvr"]
+[ext_resource type="Texture2D" uid="uid://cjw74dlkdbpuq" path="res://assets/mesh/spring/texture2.png" id="4_yytbd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3rsxg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_361ra"]
+resource_name = "m_1b9f6224-92f3-829f-44f0-a38f3eb2834e"
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_aluni")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4cft"]
+resource_name = "m_aa17f8f2-6140-46f5-b087-f58213b3ff7e"
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_yytbd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nr27"]
+resource_name = "m_ffd2ecd0-8d43-1e89-0158-c68e91dde1ff"
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_o7xvr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tcd5"]
+resource_name = "m_ffd2ecd0-8d43-1e89-0158-c68e91dde1ff"
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_o7xvr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5k5bp"]
+resource_name = "m_ffd2ecd0-8d43-1e89-0158-c68e91dde1ff"
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_o7xvr")
+
+[node name="Spring" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["spring"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_3rsxg")
+
+[node name="Model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+mesh = ExtResource("1_dtyp0")
+surface_material_override/0 = SubResource("StandardMaterial3D_361ra")
+surface_material_override/1 = SubResource("StandardMaterial3D_v4cft")
+surface_material_override/2 = SubResource("StandardMaterial3D_1nr27")
+surface_material_override/3 = SubResource("StandardMaterial3D_4tcd5")
+surface_material_override/4 = SubResource("StandardMaterial3D_5k5bp")
