@@ -288,27 +288,47 @@ func _handle_strike() -> void:
 			_check_strike_condition()
 
 		else:
-			$RayCast3D.set_target_position(Vector3(1.25 * player_direction, 0.0, 0.0))
-			$RayCast3D.force_raycast_update()
+			var primary_raycast
+			var secondary_raycast
 			
-			if not $RayCast3D.is_colliding():
-				ball_reference = ball.instantiate()
-				ball_reference.camera_shake_request.connect(_on_ball_camera_shake_request)
-				ball_reference.force_quit_aiming.connect(_on_force_quit_aiming)
-				var ball_position = global_position
-				ball_position += Vector3(1.0 * player_direction, 1.0, 0.0)
-				ball_reference.set_global_transform(Transform3D(Basis(), ball_position))
-				call_deferred("add_sibling", ball_reference)
-				$BallTimer.start()
+			if player_direction == 1.0:
+				primary_raycast = $RayCast3DR
+				secondary_raycast = $RayCast3DL
+			else:
+				primary_raycast = $RayCast3DL
+				secondary_raycast = $RayCast3DR
+			
+			var flag = false
+			
+			if primary_raycast.is_colliding():
+				if not secondary_raycast.is_colliding():
+					primary_raycast = secondary_raycast
+					player_direction = -player_direction
+					flag = true
+			else:
+				flag = true
+			
+			var ball_offset = Vector3(0.0, 1.25, 0.0)
+			if flag:
+				ball_offset.x = 1.0 * player_direction
+			
+			ball_reference = ball.instantiate()
+			ball_reference.camera_shake_request.connect(_on_ball_camera_shake_request)
+			ball_reference.force_quit_aiming.connect(_on_force_quit_aiming)
+			var ball_position = global_position
+			ball_position += Vector3(1.0 * player_direction, 1.25, 0.0)
+			ball_reference.set_global_transform(Transform3D(Basis(), ball_position))
+			call_deferred("add_sibling", ball_reference)
+			$BallTimer.start()
 				
-				player_state = PlayerState.AIM
-				ball_reference.start_tracking()
+			player_state = PlayerState.AIM
+			ball_reference.start_tracking()
+			
+			if progress_sprite_tween:
+				progress_sprite_tween.kill()
 				
-				if progress_sprite_tween:
-					progress_sprite_tween.kill()
-				
-				progress_sprite_tween = get_tree().create_tween()
-				progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
+			progress_sprite_tween = get_tree().create_tween()
+			progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
 
 
 func _check_strike_condition():
