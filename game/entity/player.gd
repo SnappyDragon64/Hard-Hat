@@ -29,7 +29,7 @@ var flipped := false
 func _set_player_state(new_player_state: PlayerState):
 	match player_state:
 		PlayerState.RUN:
-			$GPUParticles3D.emitting = false
+			$StepParticles.emitting = false
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
 		PlayerState.JUMP_QUEUED:
@@ -43,7 +43,7 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.IDLE:
 			$SpriteHolder/PlayerSprite.animation = 'idle'
 		PlayerState.RUN:
-			$GPUParticles3D.emitting = true
+			$StepParticles.emitting = true
 			$SpriteHolder/PlayerSprite.animation = 'run'
 		PlayerState.JUMP:
 			velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
@@ -77,7 +77,7 @@ func _set_player_state(new_player_state: PlayerState):
 func _set_player_direction(new_player_direction: float):
 	player_direction = new_player_direction
 	
-	$GPUParticles3D.process_material.direction.x = -player_direction
+	$StepParticles.process_material.direction.x = -player_direction
 	
 	if flipped and player_direction == 1.0:
 		_handle_flip(false, 0.0)

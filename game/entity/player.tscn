@@ -432,7 +432,7 @@ mesh = SubResource("CapsuleMesh_f3jdb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
 shape = SubResource("CapsuleShape3D_tfegu")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="StepParticles" type="GPUParticles3D" parent="."]
 emitting = false
 amount = 2
 lifetime = 0.3
