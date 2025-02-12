@@ -106,7 +106,13 @@ mesh = SubResource("QuadMesh_m5ebi")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
 shadow_blur = 0.0
+directional_shadow_mode = 0
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 60.0
+directional_shadow_pancake_size = 0.0
 
 [node name="BackgroundCylinder" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
