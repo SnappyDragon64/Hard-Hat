@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://47tgexaq655w"]
+[gd_scene load_steps=18 format=3 uid="uid://47tgexaq655w"]
 
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_hpmnm"]
 [ext_resource type="Script" path="res://game/level/4.gd" id="1_vxd8j"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://o8r0tjwg1jcj" path="res://game/props/shutter.tscn" id="7_7c0ph"]
 [ext_resource type="PackedScene" uid="uid://c0m5tvt5evb75" path="res://game/props/respawning_target.tscn" id="8_wynlj"]
 [ext_resource type="PackedScene" uid="uid://cvhu1m0j111ts" path="res://game/props/retracting_shutter.tscn" id="9_xmn24"]
+[ext_resource type="Texture2D" uid="uid://ilx71ynw2ih5" path="res://assets/sprite/game/billboard/billboard_large.png" id="10_ghso8"]
+[ext_resource type="Texture2D" uid="uid://dguv56i11xtkv" path="res://assets/sprite/game/billboard/pogo.png" id="11_2xvgo"]
 
 [sub_resource type="Animation" id="Animation_bwoeu"]
 length = 0.001
@@ -226,6 +228,17 @@ cooldown = 4.0
 transform = Transform3D(0.999945, 0.0104718, 0, -0.0104718, 0.999945, 0, 0, 0, 1, 78, 4, 0)
 offset = Vector3(0, 3, 0)
 cooldown = 4.0
+
+[node name="PogoBillboard" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 47.5, 0.5, 0)
+shaded = true
+texture = ExtResource("10_ghso8")
+
+[node name="Sprite3D" type="Sprite3D" parent="PogoBillboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0.001)
+transparent = false
+shaded = true
+texture = ExtResource("11_2xvgo")
 
 [connection signal="hit" from="Target" to="Shutter4" method="_on_target_hit"]
 [connection signal="hit" from="Target" to="Shutter5" method="_on_target_hit"]

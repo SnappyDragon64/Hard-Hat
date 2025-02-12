@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cou27qtsmviv2"
-path="res://.godot/imported/aim.png-68f72d085935bc9d05bcc8c7c1b9918e.ctex"
+uid="uid://ilx71ynw2ih5"
+path="res://.godot/imported/billboard_large.png-35f985e427b0005943fa8dad3e7b18e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/billboard/aim.png"
-dest_files=["res://.godot/imported/aim.png-68f72d085935bc9d05bcc8c7c1b9918e.ctex"]
+source_file="res://assets/sprite/game/billboard/billboard_large.png"
+dest_files=["res://.godot/imported/billboard_large.png-35f985e427b0005943fa8dad3e7b18e5.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

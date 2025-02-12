@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbkiy8o4vhyyv"]
+[gd_scene load_steps=9 format=3 uid="uid://cbkiy8o4vhyyv"]
 
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_saf0i"]
 [ext_resource type="MeshLibrary" uid="uid://b4qrpng1yhcwd" path="res://assets/mesh/divider_mesh_library.tres" id="2_3e86d"]
 [ext_resource type="PackedScene" uid="uid://cdjcl5dow8yg3" path="res://game/entity/ball.tscn" id="2_wve0c"]
+[ext_resource type="Texture2D" uid="uid://c0vlr7oiuwpk3" path="res://assets/sprite/game/billboard/billboard_small.png" id="4_wsqqa"]
+[ext_resource type="Texture2D" uid="uid://dv68h58swggph" path="res://assets/sprite/game/billboard/move.png" id="5_b1r6f"]
+[ext_resource type="Texture2D" uid="uid://cou27qtsmviv2" path="res://assets/sprite/game/billboard/aim.png" id="5_vycf1"]
+[ext_resource type="Texture2D" uid="uid://ct5hsan5kt4ue" path="res://assets/sprite/game/billboard/jump.png" id="6_fhjhi"]
+[ext_resource type="Texture2D" uid="uid://cn44r1h5p4uct" path="res://assets/sprite/game/billboard/strike.png" id="7_uarlv"]
 
 [node name="1" type="Node3D"]
 
@@ -39,3 +44,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 1, 0)
 
 [node name="Ball" parent="." instance=ExtResource("2_wve0c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5, 0)
+
+[node name="MoveBillboard" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -5, 0.2, 0)
+shaded = true
+texture = ExtResource("4_wsqqa")
+
+[node name="Move" type="Sprite3D" parent="MoveBillboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.001)
+transparent = false
+shaded = true
+texture = ExtResource("5_b1r6f")
+
+[node name="JumpBillboard" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0.2, 0)
+shaded = true
+texture = ExtResource("4_wsqqa")
+
+[node name="Jump" type="Sprite3D" parent="JumpBillboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.001)
+transparent = false
+shaded = true
+texture = ExtResource("6_fhjhi")
+
+[node name="StrikeBillboard" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 23, 0.2, 0)
+shaded = true
+texture = ExtResource("4_wsqqa")
+
+[node name="Strike" type="Sprite3D" parent="StrikeBillboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.001)
+transparent = false
+shaded = true
+texture = ExtResource("7_uarlv")
+
+[node name="AimBillboard" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 28, 2.2, 0)
+shaded = true
+texture = ExtResource("4_wsqqa")
+
+[node name="Aim" type="Sprite3D" parent="AimBillboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.001)
+transparent = false
+shaded = true
+texture = ExtResource("5_vycf1")

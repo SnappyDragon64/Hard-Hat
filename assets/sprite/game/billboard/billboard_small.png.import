@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cou27qtsmviv2"
-path="res://.godot/imported/aim.png-68f72d085935bc9d05bcc8c7c1b9918e.ctex"
+uid="uid://c0vlr7oiuwpk3"
+path="res://.godot/imported/billboard_small.png-9a4c48b0a10f687bc0f95c967850ddce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/game/billboard/aim.png"
-dest_files=["res://.godot/imported/aim.png-68f72d085935bc9d05bcc8c7c1b9918e.ctex"]
+source_file="res://assets/sprite/game/billboard/billboard_small.png"
+dest_files=["res://.godot/imported/billboard_small.png-9a4c48b0a10f687bc0f95c967850ddce.ctex"]
 
 [params]
 
