@@ -57,6 +57,7 @@ func _set_player_state(new_player_state: PlayerState):
 			$SpriteHolder/PlayerSprite.animation = 'jump'
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.start()
+			$SpriteHolder/PlayerSprite.animation = 'peak'
 		PlayerState.JUMP_QUEUED:
 			$JumpQueueTimer.start()
 		PlayerState.AIM:
