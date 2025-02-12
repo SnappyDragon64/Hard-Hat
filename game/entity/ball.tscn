@@ -48,6 +48,7 @@ turbulence_noise_strength = 0.0
 turbulence_noise_scale = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjwfg"]
+render_priority = 2
 transparency = 1
 shading_mode = 0
 diffuse_mode = 3
