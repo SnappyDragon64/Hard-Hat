@@ -134,7 +134,7 @@ func _physics_process(delta) -> void:
 		var collider = collision.get_collider()
 		var collision_normal = collision.get_normal()
 		
-		if collider.is_in_group("spikes") and collision_normal.y > 0.0:
+		if collider.is_in_group("spikes") and not is_equal_approx(collision_normal.y, 0.0):
 			_set_player_state(PlayerState.DEATH)
 		
 		if collider.is_in_group("spring") and collision_normal.is_equal_approx(Vector3.UP):
