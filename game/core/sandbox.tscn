@@ -84,7 +84,7 @@ directional_shadow_pancake_size = 0.0
 metadata/_edit_group_ = true
 
 [node name="Tripod" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 31.5)
 
 [node name="Camera3D" type="Camera3D" parent="Tripod"]
 current = true

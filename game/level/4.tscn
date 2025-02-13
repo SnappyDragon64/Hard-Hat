@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://47tgexaq655w"]
+[gd_scene load_steps=20 format=3 uid="uid://47tgexaq655w"]
 
 [ext_resource type="MeshLibrary" uid="uid://d1vq4180vsu6v" path="res://assets/mesh/mesh_library.tres" id="1_hpmnm"]
 [ext_resource type="Script" path="res://game/level/4.gd" id="1_vxd8j"]
@@ -11,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://cvhu1m0j111ts" path="res://game/props/retracting_shutter.tscn" id="9_xmn24"]
 [ext_resource type="Texture2D" uid="uid://ilx71ynw2ih5" path="res://assets/sprite/game/billboard/billboard_large.png" id="10_ghso8"]
 [ext_resource type="Texture2D" uid="uid://dguv56i11xtkv" path="res://assets/sprite/game/billboard/pogo.png" id="11_2xvgo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_524i2"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6d6n5"]
+size = Vector3(1, 5, 1)
 
 [sub_resource type="Animation" id="Animation_bwoeu"]
 length = 0.001
@@ -85,18 +91,95 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Spawnpoints" type="Node3D" parent="."]
+[node name="Segments" type="Node3D" parent="."]
 
-[node name="0" type="Marker3D" parent="Spawnpoints"]
+[node name="0" type="Node3D" parent="Segments"]
+
+[node name="Spawnpoint" type="Node3D" parent="Segments/0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -1, 0)
 
-[node name="CameraAnchors" type="Node3D" parent="."]
+[node name="CameraAnchors" type="Node3D" parent="Segments/0"]
 
-[node name="Start" type="Marker3D" parent="CameraAnchors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Start" type="Marker3D" parent="Segments/0/CameraAnchors"]
 
-[node name="End" type="Marker3D" parent="CameraAnchors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 0, 0)
+[node name="End" type="Marker3D" parent="Segments/0/CameraAnchors"]
+
+[node name="Area3D" type="Area3D" parent="Segments/0"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="0" type="CollisionShape3D" parent="Segments/0/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 0)
+shape = SubResource("BoxShape3D_524i2")
+
+[node name="1" type="Node3D" parent="Segments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, 0, 0)
+
+[node name="Spawnpoint" type="Node3D" parent="Segments/1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, -1, 0)
+
+[node name="CameraAnchors" type="Node3D" parent="Segments/1"]
+
+[node name="Start" type="Marker3D" parent="Segments/1/CameraAnchors"]
+
+[node name="End" type="Marker3D" parent="Segments/1/CameraAnchors"]
+
+[node name="Area3D" type="Area3D" parent="Segments/1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="0" type="CollisionShape3D" parent="Segments/1/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, 0)
+shape = SubResource("BoxShape3D_6d6n5")
+
+[node name="1" type="CollisionShape3D" parent="Segments/1/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 5, 0)
+shape = SubResource("BoxShape3D_6d6n5")
+
+[node name="2" type="Node3D" parent="Segments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.5, 0, 0)
+
+[node name="Spawnpoint" type="Node3D" parent="Segments/2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 4, 0)
+
+[node name="CameraAnchors" type="Node3D" parent="Segments/2"]
+
+[node name="Start" type="Marker3D" parent="Segments/2/CameraAnchors"]
+
+[node name="End" type="Marker3D" parent="Segments/2/CameraAnchors"]
+
+[node name="Area3D" type="Area3D" parent="Segments/2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="0" type="CollisionShape3D" parent="Segments/2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 5, 0)
+shape = SubResource("BoxShape3D_6d6n5")
+
+[node name="1" type="CollisionShape3D" parent="Segments/2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3, 0)
+shape = SubResource("BoxShape3D_6d6n5")
+
+[node name="3" type="Node3D" parent="Segments"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, 0, 0)
+
+[node name="Spawnpoint" type="Node3D" parent="Segments/3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 2, 0)
+
+[node name="CameraAnchors" type="Node3D" parent="Segments/3"]
+
+[node name="Start" type="Marker3D" parent="Segments/3/CameraAnchors"]
+
+[node name="End" type="Marker3D" parent="Segments/3/CameraAnchors"]
+
+[node name="Area3D" type="Area3D" parent="Segments/3"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="0" type="CollisionShape3D" parent="Segments/3/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 3, 0)
+shape = SubResource("BoxShape3D_6d6n5")
 
 [node name="Target" parent="." instance=ExtResource("6_esnqy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 4, 0)
@@ -240,6 +323,10 @@ transparent = false
 shaded = true
 texture = ExtResource("11_2xvgo")
 
+[connection signal="body_entered" from="Segments/0/Area3D" to="." method="_on_0_area_3d_body_entered"]
+[connection signal="body_entered" from="Segments/1/Area3D" to="." method="_on_1_area_3d_body_entered"]
+[connection signal="body_entered" from="Segments/2/Area3D" to="." method="_on_2_area_3d_body_entered"]
+[connection signal="body_entered" from="Segments/3/Area3D" to="." method="_on_3_area_3d_body_entered"]
 [connection signal="hit" from="Target" to="Shutter4" method="_on_target_hit"]
 [connection signal="hit" from="Target" to="Shutter5" method="_on_target_hit"]
 [connection signal="hit" from="Target" to="Shutter6" method="_on_target_hit"]

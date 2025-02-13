@@ -300,7 +300,6 @@ func _handle_strike() -> void:
 			strike_queued = true
 			$StrikeQueueTimer.start()
 			_check_strike_condition()
-
 		else:
 			var primary_raycast
 			var secondary_raycast

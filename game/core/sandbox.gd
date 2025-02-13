@@ -1,3 +1,4 @@
+class_name Sandbox
 extends Node3D
 
 
@@ -13,7 +14,8 @@ enum GameState {DEFAULT, PAUSED, COUNTDOWN}
 @export var player: PackedScene
 
 @export var level_id: int = 1
-var current_spawnpoint: int = 0
+var current_segment: int = 0
+var ball_segment: int = 0
 
 var game_state: GameState = GameState.DEFAULT
 
@@ -92,9 +94,14 @@ func _on_unpause_timer_timeout():
 
 
 func _on_player_x_update(new_x):
-	var clamp_x = clampf(new_x, tripod_min_x, tripod_max_x)
-	$Tripod.global_position.x = clamp_x
-	%BackgroundCylinder.set_rotation(Vector3(0, clamp_x * background_rotation_speed, 0))
+	if new_x < tripod_min_x or new_x > tripod_max_x:
+		new_x = clampf(new_x, tripod_min_x, tripod_max_x)
+		new_x = move_toward($Tripod.global_position.x, new_x, 0.5)
+	else:
+		new_x = clampf(new_x, tripod_min_x, tripod_max_x)
+		
+	$Tripod.global_position.x = new_x
+	%BackgroundCylinder.set_rotation(Vector3(0, new_x * background_rotation_speed, 0))
 
 
 func _on_camera_shake_request(direction):
@@ -124,25 +131,23 @@ func load_level(id=null, flag=true):
 	
 	var level_path = get_level_path(level_id)
 	var level = load(level_path)
-	var level_instance = level.instantiate()
+	var level_instance: Level = level.instantiate()
+	level_instance.sandbox_reference = self
 	
 	$Level.call_deferred("add_child", level_instance)
 	await level_instance.ready
 	call_deferred("setup_player", level_instance)
 
 
-func setup_player(level_instance):
-	var camera_anchors = level_instance.get_node("CameraAnchors")
-	tripod_min_x = camera_anchors.get_node("Start").global_position.x
-	tripod_max_x = camera_anchors.get_node("End").global_position.x
+func setup_player(level_instance: Level):
+	var camera_anchors: Vector2 = level_instance.get_camera_anchors(current_segment)
+	set_tripod_values(camera_anchors.x, camera_anchors.y, true)
 	
 	var player_instance: Player = player.instantiate()
+	level_instance.player_reference = player_instance
 	
-	var spawnpoints = level_instance.get_node("Spawnpoints")
-	var player_spawnpoint = spawnpoints.get_child(current_spawnpoint)
-	var player_spawn = player_spawnpoint.get_global_transform()
-	player_spawn.origin.z = 0.5
-	player_instance.set_global_transform(player_spawn)
+	var spawnpoint = level_instance.get_spawnpoint(current_segment)
+	player_instance.set_global_transform(spawnpoint)
 	
 	player_instance.x_update.connect(_on_player_x_update)
 	player_instance.camera_shake_request.connect(_on_camera_shake_request)
@@ -150,9 +155,7 @@ func setup_player(level_instance):
 	
 	$Level.call_deferred("add_child", player_instance)
 	
-	if level_instance.has_node("Ball"):
-		var ball = level_instance.get_node("Ball")
-		player_instance.ball_reference = ball
+	player_instance.ball_reference = level_instance.get_node_or_null("Ball")
 	
 	await player_instance.ready
 	$Tripod.set_process_mode(PROCESS_MODE_DISABLED)
@@ -166,5 +169,26 @@ func setup_player(level_instance):
 	transition_flag = false
 
 
+func set_tripod_values(min_x, max_x, force_update=false):
+	tripod_min_x = min_x
+	tripod_max_x = max_x
+	
+	if force_update:
+		$Tripod.global_position.x = min_x
+
+
 func get_level_path(id):
 	return "res://game/level/%d.tscn" % id
+
+
+func switch_segment(level_instance: Level, player_instance: Player, segment_id, kill_ball):
+	if segment_id > current_segment:
+		current_segment = segment_id
+	
+	if kill_ball and segment_id != ball_segment:
+		player_instance.kill_ball()
+	
+	ball_segment = segment_id
+	
+	var camera_anchors: Vector2 = level_instance.get_camera_anchors(segment_id)
+	set_tripod_values(camera_anchors.x, camera_anchors.y)
