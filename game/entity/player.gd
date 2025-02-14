@@ -160,6 +160,8 @@ func _physics_process(delta) -> void:
 			_strike_physics_process(delta)
 		PlayerState.DEATH:
 			_death_physics_process(delta)
+		PlayerState.ELEVATOR:
+			_elevator_physics_process(delta)
 	
 	move_and_slide()
 	x_update.emit(global_position.x)
@@ -264,6 +266,10 @@ func _strike_physics_process(_delta) -> void:
 func _death_physics_process(delta) -> void:
 	velocity.x = 0.0
 	_handle_gravity(delta)
+	
+
+func _elevator_physics_process(_delta) -> void:
+	velocity = Vector3.ZERO
 
 
 func _handle_gravity(delta) -> void:
