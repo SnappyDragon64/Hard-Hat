@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c3todcida151g" path="res://assets/mesh/elevator/model.tscn" id="2_5wplv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7abcu"]
-size = Vector3(1, 2, 1)
+size = Vector3(0.2, 2, 1)
 
 [node name="Elevator" type="Node3D"]
 script = ExtResource("1_ibkxx")
