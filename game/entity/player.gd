@@ -50,7 +50,6 @@ func _set_player_state(new_player_state: PlayerState):
 			$SpriteHolder/PlayerSprite.animation = 'run'
 		PlayerState.JUMP:
 			if is_on_spring:
-				is_on_spring = false
 				velocity.y = move_toward(JUMP_SPEED * SPRING_FACTOR, 0, 0.1)
 			else:
 				velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
@@ -141,11 +140,6 @@ func _physics_process(delta) -> void:
 		
 		if collider.is_in_group("spikes") and not is_equal_approx(collision_normal.y, 0.0):
 			_set_player_state(PlayerState.DEATH)
-		
-		if collider.is_in_group("spring") and collision_normal.is_equal_approx(Vector3.UP):
-			is_on_spring = true
-		elif is_on_floor():
-			is_on_spring = false
 	
 	match player_state:
 		PlayerState.IDLE:
@@ -399,7 +393,6 @@ func _orient_with_respect_to_ball_direction():
 
 
 func _on_coyote_timer_timeout():
-	is_on_spring = false
 	player_state = PlayerState.FALL
 
 
