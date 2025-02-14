@@ -318,21 +318,21 @@ shape = SubResource("BoxShape3D_h40mk")
 
 [node name="RespawningTarget" parent="." instance=ExtResource("6_0lyg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 5, 0)
-respawn_time = 6.0
+respawn_time = 7.0
 
 [node name="RetractingShutter3" parent="RespawningTarget" instance=ExtResource("7_wg8ed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -3, 0)
 offset = Vector3(0, 1, 0)
-cooldown = 4.0
+cooldown = 5.0
 
 [node name="RespawningTarget2" parent="." instance=ExtResource("6_0lyg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 5, 0)
-respawn_time = 6.0
+respawn_time = 7.0
 
 [node name="RetractingShutter3" parent="RespawningTarget2" instance=ExtResource("7_wg8ed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -3, 0)
 offset = Vector3(0, 1, 0)
-cooldown = 4.0
+cooldown = 5.0
 
 [node name="RespawningTarget3" parent="." instance=ExtResource("6_0lyg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.5, 5, 0)
