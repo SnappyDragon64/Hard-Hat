@@ -241,6 +241,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, -5, 0)
 offset = Vector3(0, 3, 0)
 
 [connection signal="reached" from="Elevator" to="." method="_on_elevator_reached"]
+[connection signal="started" from="Elevator" to="." method="_on_elevator_started"]
 [connection signal="body_entered" from="Segments/0/Area3D" to="." method="_on_0_area_3d_body_entered"]
 [connection signal="body_entered" from="Segments/1/Area3D" to="." method="_on_1_area_3d_body_entered"]
 [connection signal="body_entered" from="Segments/2/Area3D" to="." method="_on_2_area_3d_body_entered"]

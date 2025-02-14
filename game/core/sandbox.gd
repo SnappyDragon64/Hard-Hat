@@ -6,6 +6,8 @@ signal quit()
 signal pause()
 signal unpause()
 signal reset_pause_menu()
+signal complete()
+signal splash(id: int)
 
 var transition_instance
 
@@ -28,7 +30,7 @@ var transition_flag := true
 
 
 func _ready():
-	load_level(level_id, false)
+	change_level(level_id, false, true)
 
 
 func _process(_delta):
@@ -115,13 +117,13 @@ func _on_camera_shake_request(direction):
 	shake_tween.tween_property($Tripod/Camera3D, "position", Vector3.ZERO, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
-func change_level(id):
+func change_level(id, flag=true, splash_flag=false):
 	current_segment = 0
 	ball_segment = 0
-	load_level(id)
+	load_level(id, flag, splash_flag)
 
 
-func load_level(id=null, flag=true):
+func load_level(id=null, flag=true, splash_flag=false):
 	if flag:
 		transition_instance.pop_in()
 		await transition_instance.popped_in
@@ -142,10 +144,10 @@ func load_level(id=null, flag=true):
 	
 	$Level.call_deferred("add_child", level_instance)
 	await level_instance.ready
-	call_deferred("setup_player", level_instance)
+	call_deferred("setup_player", level_instance, splash_flag)
 
 
-func setup_player(level_instance: Level):
+func setup_player(level_instance: Level, splash_flag=false):
 	var camera_anchors: Vector2 = level_instance.get_camera_anchors(current_segment)
 	set_tripod_values(camera_anchors.x, camera_anchors.y, true)
 	
@@ -173,6 +175,9 @@ func setup_player(level_instance: Level):
 	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
 	$Level.set_process_mode(PROCESS_MODE_INHERIT)
 	transition_flag = false
+	
+	if splash_flag:
+		splash.emit(level_id)
 
 
 func set_tripod_values(min_x, max_x, force_update=false):

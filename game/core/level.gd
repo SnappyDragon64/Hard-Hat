@@ -6,6 +6,10 @@ var sandbox_reference: Sandbox
 var player_reference: Player
 
 
+func _on_elevator_started():
+	sandbox_reference.complete.emit()
+
+
 func _on_body_entered_segment(body, segment_id: int, kill_ball=true):
 	if body is Player:
 		sandbox_reference.switch_segment(self, player_reference, segment_id, kill_ball)

@@ -1,6 +1,7 @@
 extends Node3D
 
 
+signal started()
 signal reached()
 
 var target_y := 10.0
@@ -12,6 +13,7 @@ var startup_delay := 0.5
 
 func _on_area_3d_body_entered(body):
 	if body is Player:
+		started.emit()
 		body.player_state = Player.PlayerState.ELEVATOR
 		$RemoteTransform3D.set_remote_node(body.get_path())
 		var new_position = position
