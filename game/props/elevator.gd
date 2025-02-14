@@ -4,9 +4,10 @@ extends Node3D
 signal reached()
 
 var target_y := 10.0
-var speed := 3.2
-var startup_adjustment = 1.5
-var startup_duration = 1.5
+var speed := 4.0
+var startup_adjustment := 1.25
+var startup_duration := 1.0
+var startup_delay := 0.5
 
 
 func _on_area_3d_body_entered(body):
@@ -22,7 +23,7 @@ func _on_area_3d_body_entered(body):
 		var duration = y_diff_adjusted / speed
 		
 		var tween = get_tree().create_tween()
-		tween.tween_property(self, "position", startup_adjusted_position, startup_duration).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN).set_delay(1.0)
+		tween.tween_property(self, "position", startup_adjusted_position, startup_duration).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN).set_delay(startup_delay)
 		tween.tween_property(self, "position", new_position, duration)
 		tween.tween_callback(_on_tween_finish)
 
