@@ -6,7 +6,7 @@ signal x_update(new_x)
 signal camera_shake_request(direction)
 signal respawn()
 
-enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, DEATH}
+enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, DEATH, ELEVATOR}
 
 @export var ball: PackedScene
 @export_group("Movement")
@@ -80,6 +80,12 @@ func _set_player_state(new_player_state: PlayerState):
 			velocity = Vector3(0.0, 16.0, 4.0)
 			$CollisionShape3D.disabled = true
 			$SpriteHolder/PlayerSprite.animation = 'death'
+		PlayerState.ELEVATOR:
+			kill_ball()
+			velocity = Vector3.ZERO
+			axis_lock_linear_x = true
+			axis_lock_linear_z = false
+			$SpriteHolder/PlayerSprite.animation = 'idle'
 	
 	player_state = new_player_state
 
@@ -113,7 +119,6 @@ func _process(_delta) -> void:
 
 
 func _physics_process(delta) -> void:
-
 	input_direction = Input.get_axis("move_left", "move_right")
 	
 	if player_state != PlayerState.AIM:

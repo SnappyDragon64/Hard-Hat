@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3todcida151g"]
+
+[ext_resource type="PackedScene" uid="uid://pl0is7ikhre8" path="res://assets/mesh/elevator/model.gltf" id="1_ywea4"]
+[ext_resource type="Texture2D" uid="uid://cf0ymtb72idh5" path="res://assets/mesh/elevator/model_0.png" id="2_nwlt7"]
+[ext_resource type="Texture2D" uid="uid://biaf6vxwfhkyt" path="res://assets/mesh/elevator/model_1.png" id="3_obu6v"]
+[ext_resource type="Texture2D" uid="uid://ccvtrydiskl84" path="res://assets/mesh/elevator/model_2.png" id="4_ire7m"]
+[ext_resource type="Texture2D" uid="uid://c2m8md80gls4" path="res://assets/mesh/elevator/model_3.png" id="5_3yhby"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxoil"]
+resource_name = "material_0"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_nwlt7")
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mnlpo"]
+resource_name = "material_1"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_obu6v")
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ntlv"]
+resource_name = "material_2"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_ire7m")
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0h67"]
+resource_name = "material_3"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("5_3yhby")
+texture_filter = 0
+texture_repeat = false
+
+[node name="Model" instance=ExtResource("1_ywea4")]
+
+[node name="cube" parent="Node" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fxoil")
+
+[node name="cube2" parent="Node" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fxoil")
+
+[node name="cube3" parent="Node" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fxoil")
+
+[node name="cube4" parent="Node" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube5" parent="Node" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube6" parent="Node" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube7" parent="Node" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube8" parent="Node" index="7"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube9" parent="Node" index="8"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube10" parent="Node" index="9"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube11" parent="Node" index="10"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mnlpo")
+
+[node name="cube12" parent="Node" index="11"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fxoil")
+
+[node name="cube13" parent="Node" index="12"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ntlv")
+
+[node name="cube14" parent="Node" index="13"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r0h67")
+
+[node name="cube15" parent="Node" index="14"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r0h67")
+
+[node name="cube16" parent="Node" index="15"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ntlv")
+
+[node name="cube17" parent="Node" index="16"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ntlv")
+
+[node name="cube18" parent="Node" index="17"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r0h67")
+
+[node name="cube19" parent="Node" index="18"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ntlv")
+
+[node name="cube20" parent="Node" index="19"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r0h67")
+
+[node name="cube21" parent="Node" index="20"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ntlv")
+
+[node name="cube22" parent="Node" index="21"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r0h67")
+
+[node name="cube23" parent="Node" index="22"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ntlv")
+
+[node name="cube24" parent="Node" index="23"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r0h67")

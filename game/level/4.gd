@@ -30,3 +30,7 @@ func _b_check_and_move_shutters():
 		$Shutter7._on_target_hit()
 		$Shutter8._on_target_hit()
 		$Shutter9._on_target_hit()
+
+
+func _on_elevator_reached():
+	sandbox_reference._on_quit()

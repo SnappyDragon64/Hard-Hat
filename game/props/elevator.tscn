@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3exind3c6l0b"]
+
+[ext_resource type="Script" path="res://game/props/elevator.gd" id="1_ibkxx"]
+[ext_resource type="PackedScene" uid="uid://c3todcida151g" path="res://assets/mesh/elevator/model.tscn" id="2_5wplv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7abcu"]
+size = Vector3(1, 2, 1)
+
+[node name="Elevator" type="Node3D"]
+script = ExtResource("1_ibkxx")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Model" parent="." instance=ExtResource("2_5wplv")]
+transform = Transform3D(1, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
+shape = SubResource("BoxShape3D_7abcu")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

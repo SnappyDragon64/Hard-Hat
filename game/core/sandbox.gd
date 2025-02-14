@@ -115,6 +115,12 @@ func _on_camera_shake_request(direction):
 	shake_tween.tween_property($Tripod/Camera3D, "position", Vector3.ZERO, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
+func change_level(id):
+	current_segment = 0
+	ball_segment = 0
+	load_level(id)
+
+
 func load_level(id=null, flag=true):
 	if flag:
 		transition_instance.pop_in()
