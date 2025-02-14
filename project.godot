@@ -25,6 +25,7 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
+mouse_cursor/custom_image="res://assets/sprite/misc/cursor.png"
 
 [global_group]
 
