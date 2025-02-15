@@ -30,13 +30,13 @@ mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("1_jne4f")
 
-[node name="ColorRectHolder" type="Control" parent="CenterContainer/TextureRect"]
+[node name="ColorRect" type="ColorRect" parent="CenterContainer/TextureRect"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_v2dum")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,19 +45,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.05, 1.05)
 mouse_filter = 2
-
-[node name="ColorRect" type="ColorRect" parent="CenterContainer/TextureRect/ColorRectHolder"]
-material = SubResource("ShaderMaterial_v2dum")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 color = Color(0.64, 0.309333, 0, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="CenterContainer/TextureRect/ColorRectHolder"]
+[node name="ColorRect2" type="ColorRect" parent="CenterContainer/TextureRect/ColorRect"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -67,3 +57,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.483333, 0, 1)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

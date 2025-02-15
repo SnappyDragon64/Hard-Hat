@@ -7,7 +7,8 @@ var player_reference: Player
 
 
 func _on_elevator_started():
-	sandbox_reference.complete.emit()
+	sandbox_reference.splash_instance.setup_level_complete_splash()
+	sandbox_reference.splash_instance.fade_in()
 
 
 func _on_body_entered_segment(body, segment_id: int, kill_ball=true):

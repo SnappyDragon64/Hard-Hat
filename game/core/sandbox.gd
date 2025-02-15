@@ -6,8 +6,7 @@ signal quit()
 signal pause()
 signal unpause()
 signal reset_pause_menu()
-signal complete()
-signal splash(id: int)
+
 
 var transition_instance
 
@@ -27,6 +26,8 @@ var background_rotation_speed := 0.005
 
 var shake_tween: Tween
 var transition_flag := true
+
+var splash_instance: Splash
 
 
 func _ready():
@@ -132,6 +133,12 @@ func load_level(id=null, flag=true, splash_flag=false):
 	if id:
 		level_id = id
 	
+	if splash_instance:
+		if splash_flag:
+			splash_instance.setup_level_splash(level_id)
+		else:
+			splash_instance.hide_splash()
+	
 	$Tripod.global_position.x = 0
 	
 	for child in $Level.get_children():
@@ -176,8 +183,8 @@ func setup_player(level_instance: Level, splash_flag=false):
 	$Level.set_process_mode(PROCESS_MODE_INHERIT)
 	transition_flag = false
 	
-	if splash_flag:
-		splash.emit(level_id)
+	if splash_instance:
+		splash_instance.queue_fade_out()
 
 
 func set_tripod_values(min_x, max_x, force_update=false):

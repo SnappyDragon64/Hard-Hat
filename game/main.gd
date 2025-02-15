@@ -31,7 +31,7 @@ func _on_init_sandbox():
 	
 	sandbox_instance.init(pause_menu_instance.resume_pressed, pause_menu_instance.restart_pressed, pause_menu_instance.quit_pressed)
 	pause_menu_instance.init(sandbox_instance.pause, sandbox_instance.unpause, sandbox_instance.reset_pause_menu)
-	splash_instance.init(sandbox_instance.complete, sandbox_instance.splash)
+	sandbox_instance.splash_instance = splash_instance
 	
 	$UI/MainMenu.queue_free()
 	call_deferred("add_child", sandbox_instance)
