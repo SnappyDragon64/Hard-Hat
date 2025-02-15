@@ -32,7 +32,6 @@ mouse_cursor/custom_image="res://assets/sprite/misc/cursor.png"
 breakable=""
 spikes=""
 beam=""
-spring=""
 
 [importer_defaults]
 
