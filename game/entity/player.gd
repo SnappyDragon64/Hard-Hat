@@ -12,7 +12,7 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, 
 @export_group("Movement")
 @export var SPEED := 5.0
 @export var JUMP_SPEED := 4.5
-@export var SPRING_FACTOR := 2.0
+@export var SPRING_FACTOR := 3.0
 @export var STRIKE_BOOST := 2.0
 @export var GRAVITY := 1.0
 @export var can_strike := true

@@ -382,7 +382,7 @@ script = ExtResource("1_vdi80")
 ball = ExtResource("2_vttbj")
 SPEED = 6.0
 JUMP_SPEED = 14.0
-SPRING_FACTOR = 1.5
+SPRING_FACTOR = 2.0
 STRIKE_BOOST = 8.0
 GRAVITY = 4.0
 

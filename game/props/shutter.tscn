@@ -11,7 +11,7 @@ script = ExtResource("1_8vi6v")
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
 remote_path = NodePath("../AnimatableBody3D")
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="." groups=["beam"]]
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
