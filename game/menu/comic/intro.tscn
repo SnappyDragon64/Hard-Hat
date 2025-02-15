@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://dm40hr0aknmyy"]
+
+[ext_resource type="Texture2D" uid="uid://bda7tfn7jgjnq" path="res://assets/sprite/comic/intro_1.png" id="1_gnhpl"]
+[ext_resource type="Script" path="res://game/menu/comic/intro.gd" id="1_h82ow"]
+[ext_resource type="Texture2D" uid="uid://c6dwr5pim4mde" path="res://assets/sprite/comic/intro_2.png" id="2_jy0bg"]
+[ext_resource type="Texture2D" uid="uid://cg1rrcfbfmv8h" path="res://assets/sprite/comic/intro_3.png" id="3_gj13j"]
+[ext_resource type="Texture2D" uid="uid://d22k4y0q0v2t4" path="res://assets/sprite/comic/intro_4.png" id="4_se21e"]
+[ext_resource type="Texture2D" uid="uid://dmfmifm66alle" path="res://assets/sprite/comic/intro_5.png" id="5_07s7g"]
+[ext_resource type="Texture2D" uid="uid://cjam33c3rja1r" path="res://assets/sprite/comic/intro_6.png" id="6_r6h3r"]
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h82ow")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel1" type="TextureRect" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("1_gnhpl")
+
+[node name="Panel2" type="TextureRect" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_jy0bg")
+
+[node name="Panel3" type="TextureRect" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_gj13j")
+
+[node name="Panel4" type="TextureRect" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("4_se21e")
+
+[node name="Panel5" type="TextureRect" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("5_07s7g")
+
+[node name="Panel6" type="TextureRect" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_r6h3r")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

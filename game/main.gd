@@ -6,17 +6,33 @@ extends Node3D
 @export var pause_menu: PackedScene
 @export var transition: PackedScene
 @export var splash: PackedScene
+@export var intro: PackedScene
 
 var transition_instance
 
 
 func _ready():
 	var main_menu_instance = main_menu.instantiate()
-	main_menu_instance.init_sandbox.connect(_on_init_sandbox)
+	main_menu_instance.play.connect(_on_play)
 	$UI.call_deferred("add_child", main_menu_instance)
 	
 	transition_instance = transition.instantiate()
 	$Transition.call_deferred("add_child", transition_instance)
+
+
+func _on_play():
+	transition_instance.pop_in()
+	await transition_instance.popped_in
+	var intro_instance = intro.instantiate()
+	intro_instance.finished.connect(_on_init_sandbox)
+	$UI/MainMenu.queue_free()
+	$GameUI.call_deferred("add_child", intro_instance)
+	await intro_instance.ready
+	transition_instance.start_wait()
+	await transition_instance.wait
+	transition_instance.pop_out()
+	await transition_instance.popped_out
+	intro_instance.load_next_panel()
 
 
 func _on_init_sandbox():
@@ -33,7 +49,7 @@ func _on_init_sandbox():
 	pause_menu_instance.init(sandbox_instance.pause, sandbox_instance.unpause, sandbox_instance.reset_pause_menu)
 	sandbox_instance.splash_instance = splash_instance
 	
-	$UI/MainMenu.queue_free()
+	$GameUI/Intro.queue_free()
 	call_deferred("add_child", sandbox_instance)
 	$GameUI.call_deferred("add_child", splash_instance)
 	$GameUI.call_deferred("add_child", pause_menu_instance)
@@ -45,7 +61,7 @@ func _on_quit_sandbox():
 	$Sandbox.queue_free()
 	
 	var main_menu_instance = main_menu.instantiate()
-	main_menu_instance.init_sandbox.connect(_on_init_sandbox)
+	main_menu_instance.play.connect(_on_play)
 	$UI.call_deferred("add_child", main_menu_instance)
 	
 	transition_instance.start_wait()

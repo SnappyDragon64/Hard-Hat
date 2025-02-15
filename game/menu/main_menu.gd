@@ -5,7 +5,7 @@ extends Control
 @export var config_silhouette: Texture2D
 @export var quit_silhouette: Texture2D
 
-signal init_sandbox()
+signal play()
 
 var title_screen_lock = false
 var title_screen_current_selection = 0
@@ -49,7 +49,7 @@ func _on_title_screen_quit_button_pressed():
 
 func title_screen_play():
 	$TitleScreenUI.set_visible(false)
-	init_sandbox.emit()
+	play.emit()
 
 
 func title_screen_config():

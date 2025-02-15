@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsthyeg64jidb"]
+[gd_scene load_steps=8 format=3 uid="uid://bsthyeg64jidb"]
 
 [ext_resource type="Script" path="res://game/main.gd" id="1_3mn24"]
 [ext_resource type="PackedScene" uid="uid://btx2vr3g068xy" path="res://game/core/sandbox.tscn" id="2_0yo7a"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bcirwvmld7mew" path="res://game/menu/pause_menu.tscn" id="4_2utbm"]
 [ext_resource type="PackedScene" uid="uid://6ybnsoagwp76" path="res://game/menu/transition.tscn" id="5_7bqwy"]
 [ext_resource type="PackedScene" uid="uid://cxqdrp1vkku0b" path="res://game/menu/splash.tscn" id="6_heoa3"]
+[ext_resource type="PackedScene" uid="uid://dm40hr0aknmyy" path="res://game/menu/comic/intro.tscn" id="7_4lui5"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_3mn24")
@@ -14,6 +15,7 @@ main_menu = ExtResource("2_e67h5")
 pause_menu = ExtResource("4_2utbm")
 transition = ExtResource("5_7bqwy")
 splash = ExtResource("6_heoa3")
+intro = ExtResource("7_4lui5")
 
 [node name="Transition" type="CanvasLayer" parent="."]
 layer = 3
