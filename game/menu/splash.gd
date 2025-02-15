@@ -15,14 +15,14 @@ func fade_in():
 	kill_if_tween()
 	tween = get_tree().create_tween().set_parallel()
 	tween.tween_property(%ColorRect, "rotation_degrees", -6.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_delay(0.1)
-	tween.tween_property(%TextureRect, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(%TextureRect, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func fade_out():
 	kill_if_tween()
 	tween = get_tree().create_tween().set_parallel()
 	tween.tween_property(%ColorRect, "rotation_degrees", 0.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(%TextureRect, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_delay(0.1)
+	tween.tween_property(%TextureRect, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT).set_delay(0.1)
 
 
 func setup_level_splash(id: int):
