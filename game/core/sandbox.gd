@@ -178,12 +178,13 @@ func setup_player(level_instance: Level, splash_flag=false):
 	transition_instance.start_wait()
 	await transition_instance.wait
 	transition_instance.pop_out()
-	await transition_instance.popped_out
 	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
 	$Level.set_process_mode(PROCESS_MODE_INHERIT)
+	
+	await transition_instance.popped_out
 	transition_flag = false
 	
-	if splash_instance:
+	if splash_instance and splash_flag:
 		splash_instance.queue_fade_out()
 
 

@@ -28,6 +28,7 @@ func pop_out():
 	var tween = get_tree().create_tween().set_parallel()
 	tween.tween_property($ColorRect, "color", Color(0.0, 0.0, 0.0, 0.0), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property($Control/TextureRect, "position", Vector2(-960.0, -1840.0), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.set_parallel(false)
 	tween.tween_callback(_pop_out_callback)
 
 
