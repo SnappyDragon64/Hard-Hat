@@ -16,6 +16,7 @@ remote_path = NodePath("../AnimatableBody3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
 shape = SubResource("BoxShape3D_yhqub")
 
-[node name="Model" type="MeshInstance3D" parent="."]
+[node name="Model" type="MeshInstance3D" parent="AnimatableBody3D"]
 transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
 mesh = ExtResource("1_klic6")
+skeleton = NodePath("../..")
