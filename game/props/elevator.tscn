@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3exind3c6l0b"]
+[gd_scene load_steps=5 format=3 uid="uid://b3exind3c6l0b"]
 
 [ext_resource type="Script" path="res://game/props/elevator.gd" id="1_ibkxx"]
 [ext_resource type="PackedScene" uid="uid://c3todcida151g" path="res://assets/mesh/elevator/model.tscn" id="2_5wplv"]
+[ext_resource type="AudioStream" uid="uid://ep6ctksweqrf" path="res://assets/audio/loop/loop_elevator.mp3" id="3_fnocr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7abcu"]
 size = Vector3(0.5, 2, 1)
@@ -22,5 +23,9 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
 shape = SubResource("BoxShape3D_7abcu")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_fnocr")
+unit_size = 20.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

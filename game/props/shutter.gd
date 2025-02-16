@@ -6,6 +6,7 @@ extends Node3D
 
 
 func _on_target_hit():
+	AudioManager.play_sound(AudioRegistry.SFX_DING, global_position)
 	$AnimatableBody3D.add_to_group("beam")
 	var tween = get_tree().create_tween()
 	tween.tween_property($RemoteTransform3D, "position", offset, duration)

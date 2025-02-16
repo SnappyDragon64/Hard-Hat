@@ -33,16 +33,19 @@ func _on_title_quit_button_mouse_entered():
 
 
 func _on_title_screen_play_button_pressed():
+	AudioManager.play_sound(AudioRegistry.SFX_CONFIRM)
 	%PlayButton.release_focus()
 	title_screen_handle_button_press(title_screen_play)
 
 
 func _on_title_screen_config_button_pressed():
+	AudioManager.play_sound(AudioRegistry.SFX_CONFIRM)
 	%ConfigButton.release_focus()
 	title_screen_handle_button_press(title_screen_config)
 
 
 func _on_title_screen_quit_button_pressed():
+	AudioManager.play_sound(AudioRegistry.SFX_CONFIRM)
 	%QuitButton.release_focus()
 	title_screen_handle_button_press(title_screen_quit)
 
@@ -78,8 +81,8 @@ func title_screen_handle_button_press(callable):
 		var bar_final_pos = Vector2(-600, bar_pos.y)
 		
 		var tween = get_tree().create_tween().set_parallel()
-		tween.tween_property($TitleScreenUI, "self_modulate", Color(1.0, 1.0, 1.0, 0.0), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		tween.tween_property(%Bar, "global_position", bar_final_pos, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tween.tween_property($TitleScreenUI, "self_modulate", Color(1.0, 1.0, 1.0, 0.0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_property(%Bar, "global_position", bar_final_pos, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 		tween.set_parallel(false)
 		tween.tween_callback(callable)
 		

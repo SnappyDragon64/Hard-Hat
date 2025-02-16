@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl76k4mjwcanl"]
+
+[ext_resource type="Script" path="res://game/audio/ephemeral_player_3d.gd" id="1_xbp14"]
+
+[node name="EphemeralPlayer3D" type="AudioStreamPlayer3D"]
+unit_size = 20.0
+script = ExtResource("1_xbp14")

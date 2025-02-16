@@ -22,10 +22,11 @@ func _input(event: InputEvent):
 
 
 func load_next_panel():
+	AudioManager.play_sound(AudioRegistry.SFX_COMIC_INTRO)
 	var panel = $CenterContainer.get_child(current_panel)
 	lock = true
 	var tween = get_tree().create_tween()
-	tween.tween_property(panel, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(panel, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(_unlock)
 
 

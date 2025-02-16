@@ -74,6 +74,8 @@ func _physics_process(_delta):
 	if not transition_flag and Input.is_action_just_pressed("pause"):
 		match game_state:
 			GameState.DEFAULT:
+				splash_instance.kill_if_tween()
+				splash_instance.hide_splash()
 				game_state = GameState.PAUSED
 				$Tripod.set_process_mode(PROCESS_MODE_DISABLED)
 				$Level.set_process_mode(PROCESS_MODE_DISABLED)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://rjxa7edahnbb"]
+[gd_scene load_steps=64 format=3 uid="uid://rjxa7edahnbb"]
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://07cmg7ywyheb" path="res://assets/sprite/game/player/peak.png" id="7_k14sn"]
 [ext_resource type="Texture2D" uid="uid://cj2rhv5rxek2o" path="res://assets/sprite/game/player/run.png" id="8_cfy5s"]
 [ext_resource type="Script" path="res://game/entity/player_sprite.gd" id="9_yaxoo"]
+[ext_resource type="AudioStream" uid="uid://deyx16p0fk53g" path="res://assets/audio/loop/loop_step.mp3" id="18_am1p2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
 lightmap_size_hint = Vector2i(143, 72)
@@ -491,6 +492,13 @@ fill_mode = 4
 texture_under = ExtResource("5_vlevg")
 texture_over = ExtResource("6_c78mu")
 texture_progress = ExtResource("6_fqw7o")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+current = true
+
+[node name="StepSoundPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("18_am1p2")
+unit_size = 20.0
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpQueueTimer" to="." method="_on_jump_queue_timer_timeout"]

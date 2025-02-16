@@ -64,6 +64,7 @@ func _physics_process(delta: float) -> void:
 			var collision_position = collision.get_position()
 			spawn_star_particles(collision_position, collision_normal)
 			camera_shake_request.emit(velocity)
+			AudioManager.play_sound(AudioRegistry.SFX_HIT, collision_position)
 			
 			if collider is GridMap and collider.is_in_group("breakable"):
 				handle_brick_hit(collider, collision_normal, collision_position)
@@ -81,6 +82,7 @@ func _physics_process(delta: float) -> void:
 
 func kill():
 	if not dead:
+		AudioManager.play_sound(AudioRegistry.SFX_FIZZLE)
 		dead = true
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "scale", Vector3(0.01, 0.01, 0.01), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -92,6 +94,7 @@ func start_tracking():
 
 
 func shoot():
+	AudioManager.play_sound(AudioRegistry.SFX_STRIKE, global_position)
 	velocity = direction_vector.normalized() * speed
 	update_squish()
 	$IdleParticles.set_visible(false)
@@ -109,6 +112,7 @@ func handle_brick_hit(gridmap: GridMap, collision_normal: Vector3, collision_pos
 		0: # Scaffolding
 			gridmap.set_cell_item(cell_position, GridMap.INVALID_CELL_ITEM)
 			spawn_break_particles(scaffolding_break_particles, gridmap, cell_position)
+			AudioManager.play_sound(AudioRegistry.SFX_BREAK, collision_position)
 		1: # Timber
 			var orientation = gridmap.get_cell_item_orientation(cell_position)
 			gridmap.set_cell_item(cell_position, 2, orientation)
@@ -116,6 +120,7 @@ func handle_brick_hit(gridmap: GridMap, collision_normal: Vector3, collision_pos
 		2: # Timber One Hit
 			gridmap.set_cell_item(cell_position, GridMap.INVALID_CELL_ITEM)
 			spawn_break_particles(timber_break_particles, gridmap, cell_position)
+			AudioManager.play_sound(AudioRegistry.SFX_BREAK, collision_position)
 		3: # Bricks
 			var orientation = gridmap.get_cell_item_orientation(cell_position)
 			gridmap.set_cell_item(cell_position, 4, orientation)
@@ -127,6 +132,7 @@ func handle_brick_hit(gridmap: GridMap, collision_normal: Vector3, collision_pos
 		5: # Bricks Two Hits
 			gridmap.set_cell_item(cell_position, GridMap.INVALID_CELL_ITEM)
 			spawn_break_particles(bricks_break_particles, gridmap, cell_position)
+			AudioManager.play_sound(AudioRegistry.SFX_BREAK, collision_position)
 		6: # Girder
 			pass
 

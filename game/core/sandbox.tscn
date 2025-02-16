@@ -102,7 +102,7 @@ mesh = SubResource("CylinderMesh_pptjh")
 [node name="Level" type="Node3D" parent="."]
 
 [node name="UnpauseTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.25
 one_shot = true
 
 [connection signal="timeout" from="UnpauseTimer" to="." method="_on_unpause_timer_timeout"]

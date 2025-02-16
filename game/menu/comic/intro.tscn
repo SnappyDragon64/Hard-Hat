@@ -74,6 +74,17 @@ size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("6_r6h3r")
 
+[node name="Control" type="Control" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/Control"]
+layout_mode = 0
+offset_left = -780.0
+offset_top = 480.0
+offset_right = -652.0
+offset_bottom = 608.0
+scale = Vector2(0.6, 0.6)
+
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
 layout_mode = 1

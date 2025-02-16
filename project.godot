@@ -17,6 +17,11 @@ boot_splash/image="res://assets/sprite/logo/splash.png"
 config/icon="res://assets/sprite/logo/icon.png"
 boot_splash/minimum_display_time=2000
 
+[autoload]
+
+AudioManager="*res://game/core/audio_manager.gd"
+AudioRegistry="*res://game/core/audio_registry.gd"
+
 [display]
 
 window/size/viewport_width=1920

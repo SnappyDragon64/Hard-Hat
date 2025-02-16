@@ -8,7 +8,7 @@ signal quit_pressed()
 @export var texture_one: CompressedTexture2D
 @export var texture_two: CompressedTexture2D
 @export var texture_three: CompressedTexture2D
-@export var duration := 0.1
+@export var duration := 0.2
 
 var unpause_tween: Tween
 var highlight_tween: Tween
@@ -37,7 +37,7 @@ func _on_pause():
 	highlight_quit.set_modulate(Color(1.0, 1.0, 1.0, 0.0))
 	highlight_quit.set_rotation_degrees(0.0)
 	
-	
+	AudioManager.play_sound(AudioRegistry.SFX_BLUEPRINTS)
 	$Filter.set_visible(true)
 	$PauseLeft.set_visible(true)
 	$Holder/PauseRight.set_visible(true)
@@ -50,6 +50,8 @@ func _on_pause():
 
 
 func _on_unpause():
+	AudioManager.play_sound(AudioRegistry.SFX_BLUEPRINTS)
+	AudioManager.play_sound(AudioRegistry.SFX_TICK)
 	$Countdown.set_texture(texture_three)
 	$Countdown.set_visible(true)
 	unpause_tween = get_tree().create_tween().set_parallel()
@@ -58,9 +60,9 @@ func _on_unpause():
 	unpause_tween.tween_property($PauseLeft, "modulate", Color(1.0, 1.0, 1.0, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	unpause_tween.tween_property($Holder/PauseRight, "position", Vector2(-200, -400), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	unpause_tween.tween_property($Holder/PauseRight, "modulate", Color(1.0, 1.0, 1.0, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	unpause_tween.tween_callback(_update_countdown_to_two).set_delay(1)
-	unpause_tween.tween_callback(_update_countdown_to_one).set_delay(2)
-	unpause_tween.tween_callback(_hide_countdown).set_delay(3)
+	unpause_tween.tween_callback(_update_countdown_to_two).set_delay(0.75)
+	unpause_tween.tween_callback(_update_countdown_to_one).set_delay(1.5)
+	unpause_tween.tween_callback(_hide_countdown).set_delay(2.25)
 	unpause_tween.set_parallel(false)
 	unpause_tween.tween_callback(_hide)
 
@@ -81,14 +83,17 @@ func _hide():
 
 
 func _update_countdown_to_two():
+	AudioManager.play_sound(AudioRegistry.SFX_TICK)
 	$Countdown.set_texture(texture_two)
 
 
 func _update_countdown_to_one():
+	AudioManager.play_sound(AudioRegistry.SFX_TICK)
 	$Countdown.set_texture(texture_one)
 
 
 func _hide_countdown():
+	AudioManager.play_sound(AudioRegistry.SFX_TICK)
 	$Countdown.set_visible(false)
 
 

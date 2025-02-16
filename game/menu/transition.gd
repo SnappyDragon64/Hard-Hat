@@ -9,7 +9,8 @@ var rng = RandomNumberGenerator.new()
 
 
 func pop_in():
-	var rot = rng.randf_range(-15.0, 15.0)
+	AudioManager.play_sound(AudioRegistry.SFX_TRANSIIION_POP_IN)
+	var rot = _get_random_rotation()
 	mouse_filter = MOUSE_FILTER_STOP
 	var tween = get_tree().create_tween().set_parallel()
 	tween.tween_property($ColorRect, "color", Color(0.0, 0.0, 0.0, 1.0), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -25,6 +26,7 @@ func _pop_in_callback():
 
 
 func pop_out():
+	AudioManager.play_sound(AudioRegistry.SFX_TRANSIIION_POP_OUT)
 	var tween = get_tree().create_tween().set_parallel()
 	tween.tween_property($ColorRect, "color", Color(0.0, 0.0, 0.0, 0.0), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property($Control/TextureRect, "position", Vector2(-960.0, -1840.0), 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -43,3 +45,9 @@ func start_wait():
 
 func _on_timer_timeout():
 	wait.emit()
+
+
+func _get_random_rotation():
+	var rot = rng.randf_range(5.0, 15.0)
+	var flag = rng.randi_range(0, 1)
+	return rot if flag == 1 else -rot

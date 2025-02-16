@@ -11,6 +11,7 @@ func _ready():
 
 
 func _on_area_3d_body_entered(_body):
+	AudioManager.play_sound(AudioRegistry.SFX_BREAK, global_position)
 	hit.emit()
 	$Area3D.set_deferred("monitoring", false)
 	$Model.set_visible(false)

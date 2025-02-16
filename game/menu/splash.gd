@@ -42,7 +42,6 @@ func setup_level_complete_splash():
 func setup(texture: Texture2D, color_rect_rotation_degrees: float):
 	%TextureRect.set_texture(texture)
 	var color_rect_pivot_offset = texture.get_size() / 2.0
-	print()
 	%ColorRect.set_pivot_offset(color_rect_pivot_offset)
 	%ColorRect.set_rotation_degrees(color_rect_rotation_degrees)
 

@@ -24,10 +24,21 @@ func _on_area_3d_body_entered(body):
 		var y_diff_adjusted = y_diff - startup_adjustment
 		var duration = y_diff_adjusted / speed
 		
-		var tween = get_tree().create_tween()
+		var tween = get_tree().create_tween().set_parallel()
+		tween.tween_callback(_play_sound).set_delay(startup_delay)
 		tween.tween_property(self, "position", startup_adjusted_position, startup_duration).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN).set_delay(startup_delay)
+		tween.set_parallel(false)
 		tween.tween_property(self, "position", new_position, duration)
 		tween.tween_callback(_on_tween_finish)
+
+
+func _play_sound():
+	var finished = AudioManager.play_sound(AudioRegistry.SFX_ELEVATOR, global_position)
+	finished.connect(_play_loop)
+
+
+func _play_loop():
+	$AudioStreamPlayer3D.play()
 
 
 func _on_tween_finish():

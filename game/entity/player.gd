@@ -32,6 +32,7 @@ var is_on_spring := false
 func _set_player_state(new_player_state: PlayerState):
 	match player_state:
 		PlayerState.RUN:
+			$StepSoundPlayer3D.stop()
 			$StepParticles.emitting = false
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
@@ -46,10 +47,12 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.IDLE:
 			$SpriteHolder/PlayerSprite.animation = 'idle'
 		PlayerState.RUN:
+			$StepSoundPlayer3D.play()
 			$StepParticles.emitting = true
 			$SpriteHolder/PlayerSprite.animation = 'run'
 		PlayerState.JUMP:
 			if is_on_spring:
+				AudioManager.play_sound(AudioRegistry.SFX_BOING, global_position)
 				velocity.y = move_toward(JUMP_SPEED * SPRING_FACTOR, 0, 0.1)
 			else:
 				velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
@@ -288,6 +291,8 @@ func _handle_jump() -> void:
 
 func _handle_land() -> void:
 	if is_on_floor():
+		AudioManager.play_sound(AudioRegistry.SFX_LAND)
+		
 		if input_direction:
 			player_state = PlayerState.RUN
 		else:
