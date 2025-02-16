@@ -29,6 +29,7 @@ func _set_tracking(new_tracking):
 		$IdleParticles.restart()
 		$ActiveParticles.set_visible(false)
 		$ActiveParticles.set_emitting(false)
+		$PointerAnchor/RayCast3D.set_enabled(true)
 
 
 func _process(_delta: float) -> void:
@@ -78,6 +79,18 @@ func _physics_process(delta: float) -> void:
 		var angle = direction_vector_2d.angle_to(Vector2.RIGHT)
 		var pointer_angle = Vector3(0.0, 0.0, angle)
 		$PointerAnchor.set_rotation(pointer_angle)
+		var mesh = $PointerAnchor/AssistMesh.get_mesh()
+		var raycast = $PointerAnchor/RayCast3D
+		raycast.force_raycast_update()
+		if raycast.is_colliding():
+			var collision_point = raycast.get_collision_point()
+			var offset: Vector3 = global_position - collision_point
+			var assist_len = offset.length()
+			mesh.size.y = assist_len
+			$PointerAnchor/AssistMesh.position.x = assist_len / 2.0
+		else:
+			mesh.size.y = 32.0
+			$PointerAnchor/AssistMesh.position.x = 16.0
 
 
 func kill():
@@ -101,6 +114,7 @@ func shoot():
 	$IdleParticles.set_emitting(false)
 	$ActiveParticles.set_visible(true)
 	$ActiveParticles.restart()
+	$PointerAnchor/RayCast3D.set_enabled(false)
 
 
 func handle_brick_hit(gridmap: GridMap, collision_normal: Vector3, collision_position: Vector3) -> void:
