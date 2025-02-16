@@ -4,7 +4,7 @@
 [ext_resource type="ArrayMesh" uid="uid://ceuhuymobi7ee" path="res://assets/mesh/beam/model.obj" id="2_8yvc5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pe1ym"]
-size = Vector3(1, 2, 1)
+size = Vector3(2, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b8jud"]
 size = Vector3(2, 1, 1)
