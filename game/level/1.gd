@@ -18,4 +18,5 @@ func _on_3_area_3d_body_entered(body):
 
 
 func _on_elevator_reached():
+	SaveManager.update("level_1_completed", true)
 	sandbox_reference.change_level(2, true, true)

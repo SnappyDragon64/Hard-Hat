@@ -21,6 +21,7 @@ boot_splash/minimum_display_time=2000
 
 AudioManager="*res://game/core/audio_manager.gd"
 AudioRegistry="*res://game/core/audio_registry.gd"
+SaveManager="*res://game/core/save_manager.gd"
 
 [display]
 

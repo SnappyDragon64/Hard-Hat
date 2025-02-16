@@ -35,6 +35,7 @@ func on_panel_load(_panel_id):
 
 
 func on_finish():
+	SaveManager.update("intro_viewed", true)
 	finished.emit()
 
 
