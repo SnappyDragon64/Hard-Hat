@@ -55,7 +55,6 @@ func hide_splash():
 
 
 func get_level_splash_texture_path(id: int):
-	print(id)
 	return "res://assets/sprite/game/splash/level_%d.png" % id
 
 
