@@ -42,6 +42,8 @@ func _set_player_state(new_player_state: PlayerState):
 			platform_floor_layers = 4294967295
 			axis_lock_linear_y = false
 			$SpriteHolder/PlayerSprite.play()
+		PlayerState.DEATH:
+			return
 	
 	match new_player_state:
 		PlayerState.IDLE:
