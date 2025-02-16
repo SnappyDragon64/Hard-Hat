@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dn2m0dp8mxgou"]
+[gd_scene load_steps=22 format=3 uid="uid://dn2m0dp8mxgou"]
 
 [ext_resource type="Script" path="res://game/menu/main_menu.gd" id="1_dblhm"]
 [ext_resource type="PackedScene" uid="uid://dfhqau5f5bs3v" path="res://game/menu/bg/background_set.tscn" id="1_ljgr5"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://dwofvn4pcoi1w" path="res://assets/sprite/level_select/intro comic.png" id="16_ll18o"]
 [ext_resource type="Texture2D" uid="uid://dvkvrang8i18o" path="res://assets/sprite/level_select/placeholder.png" id="17_hyqs2"]
 [ext_resource type="Texture2D" uid="uid://da5g5u2l833n1" path="res://assets/sprite/level_select/end_card.png" id="18_edpo7"]
+[ext_resource type="AudioStream" uid="uid://me8gbdyljc65" path="res://assets/audio/music/mus_title.mp3" id="20_1o7ea"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vs1l8"]
 shader = ExtResource("13_t63wx")
@@ -312,6 +313,10 @@ scale = Vector2(1.05, 1.05)
 pivot_offset = Vector2(175.5, 39)
 mouse_filter = 1
 color = Color(0.705882, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_1o7ea")
+volume_db = -20.0
 
 [connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_title_play_button_mouse_entered"]
 [connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_title_screen_play_button_pressed"]

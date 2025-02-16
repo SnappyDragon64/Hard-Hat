@@ -14,18 +14,20 @@ var transition_instance
 
 
 func _ready():
+	transition_instance = transition.instantiate()
+	$Transition.call_deferred("add_child", transition_instance)
 	var main_menu_instance = main_menu.instantiate()
 	main_menu_instance.play.connect(_on_play)
 	main_menu_instance.play_level.connect(_init_sandbox)
 	main_menu_instance.outro.connect(_on_outro_main_menu)
 	$UI.call_deferred("add_child", main_menu_instance)
-	
-	transition_instance = transition.instantiate()
-	$Transition.call_deferred("add_child", transition_instance)
+	await main_menu_instance.ready
+	main_menu_instance.fade_in_music()
 
 
 func _on_play():
 	if SaveManager.check("intro_viewed"):
+		attempt_fade_out_music()
 		transition_instance.pop_in()
 		await transition_instance.popped_in
 		var intro_instance = intro.instantiate()
@@ -39,6 +41,7 @@ func _on_play():
 		await transition_instance.popped_out
 		intro_instance.load_next_panel()
 	else:
+		attempt_fade_out_music()
 		transition_instance.pop_in()
 		await transition_instance.popped_in
 		var intro_instance = intro.instantiate()
@@ -66,11 +69,13 @@ func _intro_return_to_level_select():
 	main_menu_instance.back_to_level_select(4)
 	transition_instance.start_wait()
 	await transition_instance.wait
+	main_menu_instance.fade_in_music()
 	transition_instance.pop_out()
 	await transition_instance.popped_out
 
 
 func _init_sandbox(level_id := 1):
+	attempt_fade_out_music()
 	transition_instance.pop_in()
 	await transition_instance.popped_in
 	var sandbox_instance: Sandbox = sandbox.instantiate()
@@ -105,9 +110,9 @@ func _on_quit_sandbox():
 	main_menu_instance.outro.connect(_on_outro_main_menu)
 	$UI.call_deferred("add_child", main_menu_instance)
 	await main_menu_instance.ready
-	
 	transition_instance.start_wait()
 	await transition_instance.wait
+	main_menu_instance.fade_in_music()
 	transition_instance.pop_out()
 	await transition_instance.popped_out
 
@@ -136,6 +141,7 @@ func _on_outro_finished():
 
 
 func _on_outro_main_menu():
+	attempt_fade_out_music()
 	transition_instance.pop_in()
 	await transition_instance.popped_in
 	attempt_queue_free("UI/MainMenu")
@@ -164,8 +170,15 @@ func _on_outro_main_menu_finished():
 	main_menu_instance.back_to_level_select(5)
 	transition_instance.start_wait()
 	await transition_instance.wait
+	main_menu_instance.fade_in_music()
 	transition_instance.pop_out()
 	await transition_instance.popped_out
+
+
+func attempt_fade_out_music():
+	var main_menu_instance = get_node_or_null("UI/MainMenu")
+	if main_menu_instance:
+		main_menu_instance.fade_out_music()
 
 
 func attempt_queue_free(node_path):

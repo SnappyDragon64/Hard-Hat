@@ -9,8 +9,44 @@ signal play()
 signal play_level(level_id)
 signal outro()
 
-var title_screen_lock = false
-var title_screen_current_selection = 0
+var title_screen_lock := false
+var title_screen_current_selection: int = 0
+var audio_tween: Tween
+
+
+func fade_in_music():
+	$AudioStreamPlayer.set_volume_db(-60.0)
+	$AudioStreamPlayer.play(0.0)
+	
+	if audio_tween:
+		audio_tween.kill()
+	
+	audio_tween = get_tree().create_tween()
+	audio_tween.tween_property($AudioStreamPlayer, "volume_db", -20.0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+
+
+func fade_out_music():
+	if audio_tween:
+		audio_tween.kill()
+	
+	audio_tween = get_tree().create_tween()
+	audio_tween.tween_property($AudioStreamPlayer, "volume_db", -60.0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
+
+func fade_out_music_submenu():
+	if audio_tween:
+		audio_tween.kill()
+	
+	audio_tween = get_tree().create_tween()
+	audio_tween.tween_property($AudioStreamPlayer, "volume_db", -40.0, 0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
+
+func fade_in_music_submenu():
+	if audio_tween:
+		audio_tween.kill()
+	
+	audio_tween = get_tree().create_tween()
+	audio_tween.tween_property($AudioStreamPlayer, "volume_db", -20.0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 
 
 func _on_title_play_button_mouse_entered():
@@ -65,6 +101,7 @@ var highlight_tween: Tween
 
 
 func show_level_select():
+	fade_out_music_submenu()
 	level_select_active = true
 	
 	if pause_tween:
@@ -84,6 +121,7 @@ func _on_show_level_select():
 
 
 func hide_level_select():
+	fade_in_music_submenu()
 	level_select_active = false
 	
 	if pause_tween:

@@ -114,7 +114,7 @@ func _physics_process(_delta):
 					audio_tween.kill()
 				
 				audio_tween = get_tree().create_tween()
-				audio_tween.tween_property($AudioStreamPlayer, "volume_db", -50.0, 0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+				audio_tween.tween_property($AudioStreamPlayer, "volume_db", -40.0, 0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 			GameState.PAUSED:
 				game_state = GameState.COUNTDOWN
 				$UnpauseTimer.start()
