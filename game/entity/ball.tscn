@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cdjcl5dow8yg3"]
+[gd_scene load_steps=23 format=3 uid="uid://cdjcl5dow8yg3"]
 
 [ext_resource type="Script" path="res://game/entity/ball.gd" id="1_mgs0w"]
 [ext_resource type="PackedScene" uid="uid://bvw080d5hrglu" path="res://game/particle/scaffolding_break_particles.tscn" id="2_3n27a"]
@@ -59,7 +59,7 @@ turbulence_noise_strength = 0.0
 turbulence_noise_scale = 10.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjwfg"]
-render_priority = 2
+render_priority = 4
 transparency = 1
 shading_mode = 0
 diffuse_mode = 3
@@ -83,6 +83,18 @@ albedo_texture = ExtResource("6_w4y3a")
 
 [sub_resource type="QuadMesh" id="QuadMesh_tkkfh"]
 material = SubResource("StandardMaterial3D_j46pp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ugw0o"]
+render_priority = 3
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.313726)
+
+[sub_resource type="QuadMesh" id="QuadMesh_qyweh"]
+material = SubResource("StandardMaterial3D_ugw0o")
+size = Vector2(0.5, 32)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_c630y"]
 
 [node name="Ball" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
@@ -130,8 +142,17 @@ process_material = SubResource("ParticleProcessMaterial_8s5m3")
 draw_pass_1 = SubResource("SphereMesh_u107r")
 
 [node name="PointerAnchor" type="Node3D" parent="."]
-visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PointerAnchor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 mesh = SubResource("QuadMesh_tkkfh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PointerAnchor/MeshInstance3D"]
+transform = Transform3D(-4.33525e-06, -1, 0, 1, -4.33525e-06, 0, 0, 0, 1, 15, 0, 0)
+visible = false
+mesh = SubResource("QuadMesh_qyweh")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PointerAnchor/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+visible = false
+mesh = SubResource("ArrayMesh_c630y")

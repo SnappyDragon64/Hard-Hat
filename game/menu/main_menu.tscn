@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn2m0dp8mxgou"]
+[gd_scene load_steps=21 format=3 uid="uid://dn2m0dp8mxgou"]
 
 [ext_resource type="Script" path="res://game/menu/main_menu.gd" id="1_dblhm"]
 [ext_resource type="PackedScene" uid="uid://dfhqau5f5bs3v" path="res://game/menu/bg/background_set.tscn" id="1_ljgr5"]
@@ -9,6 +9,19 @@
 [ext_resource type="Texture2D" uid="uid://dv0lhe1aachwg" path="res://assets/sprite/main_menu/quit_silhouette.png" id="4_3s2al"]
 [ext_resource type="Texture2D" uid="uid://bs7d5hepdyeco" path="res://assets/sprite/main_menu/quit.png" id="4_qag82"]
 [ext_resource type="Texture2D" uid="uid://x6gxsxxy1bdi" path="res://assets/sprite/main_menu/bar.png" id="5_7tplr"]
+[ext_resource type="Texture2D" uid="uid://cxubbgxpu72ti" path="res://assets/sprite/level_select/background.png" id="10_7wjat"]
+[ext_resource type="Texture2D" uid="uid://btq2d5a0sj0dt" path="res://assets/sprite/level_select/level_select.png" id="11_uwkw3"]
+[ext_resource type="Texture2D" uid="uid://diw4jdk83ca8j" path="res://assets/sprite/level_select/1.png" id="12_4ig24"]
+[ext_resource type="Texture2D" uid="uid://i1whyrsbw5tg" path="res://assets/sprite/level_select/2.png" id="13_j6dwg"]
+[ext_resource type="Shader" path="res://assets/shader/add.gdshader" id="13_t63wx"]
+[ext_resource type="Texture2D" uid="uid://cqirdiho4ccb5" path="res://assets/sprite/level_select/3.png" id="14_c3dxb"]
+[ext_resource type="Texture2D" uid="uid://bjpm46huncqe1" path="res://assets/sprite/level_select/4.png" id="15_w101u"]
+[ext_resource type="Texture2D" uid="uid://dwofvn4pcoi1w" path="res://assets/sprite/level_select/intro comic.png" id="16_ll18o"]
+[ext_resource type="Texture2D" uid="uid://dvkvrang8i18o" path="res://assets/sprite/level_select/placeholder.png" id="17_hyqs2"]
+[ext_resource type="Texture2D" uid="uid://da5g5u2l833n1" path="res://assets/sprite/level_select/end_card.png" id="18_edpo7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vs1l8"]
+shader = ExtResource("13_t63wx")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -84,9 +97,237 @@ scale = Vector2(1, 56)
 texture = ExtResource("5_7tplr")
 centered = false
 
+[node name="LevelSelectHolder" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Filter" type="ColorRect" parent="LevelSelectHolder"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.168627, 0.290196, 0.6)
+
+[node name="LevelSelectUI" type="TextureRect" parent="LevelSelectHolder"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -1300.0
+offset_top = -540.0
+offset_right = 620.0
+offset_bottom = 540.0
+grow_vertical = 2
+texture = ExtResource("10_7wjat")
+
+[node name="LevelSelect" type="TextureRect" parent="LevelSelectHolder/LevelSelectUI"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 64.0
+offset_right = 841.0
+offset_bottom = 184.0
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("11_uwkw3")
+
+[node name="LevelButtonHolder" type="HBoxContainer" parent="LevelSelectHolder/LevelSelectUI"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_right = 724.0
+offset_bottom = 1.0
+grow_vertical = 2
+scale = Vector2(1.4, 1.4)
+theme_override_constants/separation = 0
+
+[node name="Padding1" type="Control" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Level1" type="TextureButton" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("12_4ig24")
+
+[node name="Highlight" type="ColorRect" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level1"]
+material = SubResource("ShaderMaterial_vs1l8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.10472
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(22.5, 50.5)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
+[node name="Padding2" type="Control" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Level2" type="TextureButton" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("13_j6dwg")
+
+[node name="Highlight" type="ColorRect" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level2"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_vs1l8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(30.5, 50.5)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
+[node name="Padding3" type="Control" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Level3" type="TextureButton" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("14_c3dxb")
+
+[node name="Highlight" type="ColorRect" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level3"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_vs1l8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(30.5, 50.5)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
+[node name="Padding4" type="Control" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Level4" type="TextureButton" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("15_w101u")
+
+[node name="Highlight" type="ColorRect" parent="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level4"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_vs1l8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(30.5, 50.5)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LevelSelectHolder/LevelSelectUI"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 260.0
+offset_right = 711.0
+offset_bottom = 338.0
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Padding1" type="Control" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="IntroComic" type="TextureButton" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("16_ll18o")
+
+[node name="Highlight" type="ColorRect" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2/IntroComic"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_vs1l8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(226.5, 39)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
+[node name="Padding2" type="Control" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="???" type="TextureButton" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2"]
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("17_hyqs2")
+
+[node name="Padding3" type="Control" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="EndCard" type="TextureButton" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("18_edpo7")
+
+[node name="Highlight" type="ColorRect" parent="LevelSelectHolder/LevelSelectUI/HBoxContainer2/EndCard"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_vs1l8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(175.5, 39)
+mouse_filter = 1
+color = Color(0.705882, 0, 0, 1)
+
 [connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_title_play_button_mouse_entered"]
 [connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_title_screen_play_button_pressed"]
 [connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="." method="_on_title_config_button_mouse_entered"]
 [connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/ConfigButton" to="." method="_on_title_screen_config_button_pressed"]
 [connection signal="mouse_entered" from="TitleScreenUI/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_title_quit_button_mouse_entered"]
 [connection signal="pressed" from="TitleScreenUI/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_title_screen_quit_button_pressed"]
+[connection signal="mouse_entered" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level1" to="." method="_on_level_1_mouse_entered"]
+[connection signal="pressed" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="mouse_entered" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level2" to="." method="_on_level_2_mouse_entered"]
+[connection signal="pressed" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="mouse_entered" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level3" to="." method="_on_level_3_mouse_entered"]
+[connection signal="pressed" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level3" to="." method="_on_level_3_pressed"]
+[connection signal="mouse_entered" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level4" to="." method="_on_level_4_mouse_entered"]
+[connection signal="pressed" from="LevelSelectHolder/LevelSelectUI/LevelButtonHolder/Level4" to="." method="_on_level_4_pressed"]
+[connection signal="mouse_entered" from="LevelSelectHolder/LevelSelectUI/HBoxContainer2/IntroComic" to="." method="_on_intro_comic_mouse_entered"]
+[connection signal="pressed" from="LevelSelectHolder/LevelSelectUI/HBoxContainer2/IntroComic" to="." method="_on_intro_comic_pressed"]
+[connection signal="mouse_entered" from="LevelSelectHolder/LevelSelectUI/HBoxContainer2/EndCard" to="." method="_on_end_card_mouse_entered"]
+[connection signal="pressed" from="LevelSelectHolder/LevelSelectUI/HBoxContainer2/EndCard" to="." method="_on_end_card_pressed"]

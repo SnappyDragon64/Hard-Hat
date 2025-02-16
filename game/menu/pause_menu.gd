@@ -138,6 +138,7 @@ func toggle_highlights(to_enable, to_disable_1, to_disable_2):
 	highlight_tween.tween_property(highlight_to_disable_1, "rotation_degrees", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	highlight_tween.tween_property(highlight_to_disable_2, "modulate", Color(1.0, 1.0, 1.0, 0.0), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	highlight_tween.tween_property(highlight_to_disable_2, "rotation_degrees", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	
+
+
 func get_button_highlight(button):
 	return button.get_node("Highlight")
