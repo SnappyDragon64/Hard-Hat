@@ -36,6 +36,10 @@ func _ready():
 	change_level(level_id, false, true)
 
 
+func disable_pause():
+	transition_flag = true
+
+
 func init(resume_signal, restart_signal, quit_signal):
 	resume_signal.connect(_on_resume)
 	restart_signal.connect(_on_restart)
@@ -52,7 +56,6 @@ func _on_resume():
 				
 		audio_tween = get_tree().create_tween()
 		audio_tween.tween_property($AudioStreamPlayer, "volume_db", -20.0, 2.25).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-
 
 
 func _on_restart():

@@ -7,6 +7,7 @@ var player_reference: Player
 
 
 func _on_elevator_started():
+	sandbox_reference.disable_pause()
 	sandbox_reference.splash_instance.setup_level_complete_splash()
 	sandbox_reference.splash_instance.fade_in()
 
