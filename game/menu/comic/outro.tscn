@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://rhp45d4nqcrm"]
+[gd_scene load_steps=4 format=3 uid="uid://rhp45d4nqcrm"]
 
 [ext_resource type="Texture2D" uid="uid://bcbhh4ldrnu5b" path="res://assets/sprite/comic/outro.png" id="1_0i6yc"]
 [ext_resource type="Script" path="res://game/menu/comic/outro.gd" id="1_l433t"]
+[ext_resource type="AudioStream" uid="uid://me8gbdyljc65" path="res://assets/audio/music/mus_title.mp3" id="3_1dais"]
 
 [node name="Outro" type="Control"]
 layout_mode = 3
@@ -39,3 +40,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1dais")
