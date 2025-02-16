@@ -13,21 +13,21 @@ var title_screen_current_selection = 0
 
 
 func _on_title_play_button_mouse_entered():
-	if title_screen_current_selection != 0:
+	if not title_screen_lock and title_screen_current_selection != 0:
 		title_screen_current_selection = 0
 		title_screen_move_bar(%PlayButton)
 		%BackgroundSet.twirl_silhouette(play_silhouette)
 
 
 func _on_title_config_button_mouse_entered():
-	if title_screen_current_selection != 1:
+	if not title_screen_lock and title_screen_current_selection != 1:
 		title_screen_current_selection = 1
 		title_screen_move_bar(%ConfigButton)
 		%BackgroundSet.twirl_silhouette(config_silhouette)
 
 
 func _on_title_quit_button_mouse_entered():
-	if title_screen_current_selection != 2:
+	if not title_screen_lock and title_screen_current_selection != 2:
 		title_screen_current_selection = 2
 		title_screen_move_bar(%QuitButton)
 		%BackgroundSet.twirl_silhouette(quit_silhouette)

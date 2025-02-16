@@ -25,6 +25,7 @@ var tripod_max_x := 9999.0
 var background_rotation_speed := 0.005
 
 var shake_tween: Tween
+var audio_tween: Tween
 var transition_flag := true
 
 var splash_instance: Splash
@@ -55,6 +56,13 @@ func _on_resume():
 	game_state = GameState.COUNTDOWN
 	$UnpauseTimer.start()
 	unpause.emit()
+	
+	if audio_tween:
+		audio_tween.kill()
+				
+		audio_tween = get_tree().create_tween()
+		audio_tween.tween_property($AudioStreamPlayer, "volume_db", -20.0, 2.25).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+
 
 
 func _on_restart():
@@ -80,10 +88,22 @@ func _physics_process(_delta):
 				$Tripod.set_process_mode(PROCESS_MODE_DISABLED)
 				$Level.set_process_mode(PROCESS_MODE_DISABLED)
 				pause.emit()
+				
+				if audio_tween:
+					audio_tween.kill()
+				
+				audio_tween = get_tree().create_tween()
+				audio_tween.tween_property($AudioStreamPlayer, "volume_db", -50.0, 0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 			GameState.PAUSED:
 				game_state = GameState.COUNTDOWN
 				$UnpauseTimer.start()
 				unpause.emit()
+				
+				if audio_tween:
+					audio_tween.kill()
+				
+				audio_tween = get_tree().create_tween()
+				audio_tween.tween_property($AudioStreamPlayer, "volume_db", -20.0, 2.25).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 			GameState.COUNTDOWN:
 				game_state = GameState.PAUSED
 				$UnpauseTimer.stop()
@@ -128,6 +148,13 @@ func change_level(id, flag=true, splash_flag=false):
 
 func load_level(id=null, flag=true, splash_flag=false):
 	if flag:
+		if audio_tween:
+			audio_tween.kill()
+	
+		audio_tween = get_tree().create_tween()
+		audio_tween.tween_property($AudioStreamPlayer, "volume_db", -60.0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		audio_tween.tween_callback(_on_audio_tween)
+	
 		transition_instance.pop_in()
 		await transition_instance.popped_in
 		reset_pause_menu.emit()
@@ -179,6 +206,16 @@ func setup_player(level_instance: Level, splash_flag=false):
 	$Level.set_process_mode(PROCESS_MODE_DISABLED)
 	transition_instance.start_wait()
 	await transition_instance.wait
+	
+	$AudioStreamPlayer.set_volume_db(-60.0)
+	$AudioStreamPlayer.play(0.0)
+	
+	if audio_tween:
+		audio_tween.kill()
+	
+	audio_tween = get_tree().create_tween()
+	audio_tween.tween_property($AudioStreamPlayer, "volume_db", -20.0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	
 	transition_instance.pop_out()
 	$Tripod.set_process_mode(PROCESS_MODE_INHERIT)
 	$Level.set_process_mode(PROCESS_MODE_INHERIT)
@@ -213,3 +250,7 @@ func switch_segment(level_instance: Level, player_instance: Player, segment_id, 
 	
 	var camera_anchors: Vector2 = level_instance.get_camera_anchors(segment_id)
 	set_tripod_values(camera_anchors.x, camera_anchors.y)
+
+
+func _on_audio_tween():
+	$AudioStreamPlayer.stop()
