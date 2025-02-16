@@ -99,11 +99,10 @@ func _init_sandbox(level_id := 1):
 
 
 func _on_quit_sandbox():
-	attempt_queue_free("GameUI/PauseMenu")
+	attempt_queue_free("GameUI/Outro")
 	attempt_queue_free("GameUI/PauseMenu")
 	attempt_queue_free("GameUI/Splash")
 	attempt_queue_free("Sandbox")
-	
 	var main_menu_instance = main_menu.instantiate()
 	main_menu_instance.play.connect(_on_play)
 	main_menu_instance.play_level.connect(_init_sandbox)
@@ -126,7 +125,6 @@ func _on_outro():
 	outro_instance.finished.connect(_on_outro_finished)
 	$GameUI.call_deferred("add_child", outro_instance)
 	await outro_instance.ready
-	
 	transition_instance.start_wait()
 	await transition_instance.wait
 	transition_instance.pop_out()

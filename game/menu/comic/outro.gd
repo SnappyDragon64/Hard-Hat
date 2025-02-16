@@ -5,12 +5,11 @@ signal finished()
 
 
 var lock := true
-var done := false
 
 
 func _input(_event):
 	if Input.is_action_just_pressed("continue") and not lock:
-		done = true
+		lock = true
 		on_finish()
 
 
