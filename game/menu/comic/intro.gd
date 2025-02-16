@@ -9,8 +9,8 @@ var lock := true
 var done := false
 
 
-func _input(event: InputEvent):
-	if event.is_pressed() and not lock:
+func _input(_event):
+	if Input.is_action_just_pressed("continue") and not lock:
 		current_panel += 1
 		
 		if current_panel < max_panels:

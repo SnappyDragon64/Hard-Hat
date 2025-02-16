@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm40hr0aknmyy"]
+[gd_scene load_steps=10 format=3 uid="uid://dm40hr0aknmyy"]
 
 [ext_resource type="Texture2D" uid="uid://bda7tfn7jgjnq" path="res://assets/sprite/comic/intro_1.png" id="1_gnhpl"]
 [ext_resource type="Script" path="res://game/menu/comic/intro.gd" id="1_h82ow"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://d22k4y0q0v2t4" path="res://assets/sprite/comic/intro_4.png" id="4_se21e"]
 [ext_resource type="Texture2D" uid="uid://dmfmifm66alle" path="res://assets/sprite/comic/intro_5.png" id="5_07s7g"]
 [ext_resource type="Texture2D" uid="uid://cjam33c3rja1r" path="res://assets/sprite/comic/intro_6.png" id="6_r6h3r"]
+[ext_resource type="Texture2D" uid="uid://b7ifml6ndno1f" path="res://assets/sprite/comic/text_left.png" id="8_iodkd"]
+[ext_resource type="Texture2D" uid="uid://cah281yn1f0i3" path="res://assets/sprite/comic/text_right.png" id="9_plor3"]
 
 [node name="Intro" type="Control"]
 layout_mode = 3
@@ -79,11 +81,19 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/Control"]
 layout_mode = 0
-offset_left = -780.0
-offset_top = 480.0
-offset_right = -652.0
-offset_bottom = 608.0
-scale = Vector2(0.6, 0.6)
+offset_left = -760.0
+offset_top = 470.0
+offset_right = -386.0
+offset_bottom = 527.0
+texture = ExtResource("8_iodkd")
+
+[node name="TextureRect2" type="TextureRect" parent="CenterContainer/Control"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 470.0
+offset_right = 760.0
+offset_bottom = 527.0
+texture = ExtResource("9_plor3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -94,3 +104,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+color = Color(0, 0, 0, 1)
