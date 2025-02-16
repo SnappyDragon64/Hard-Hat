@@ -36,17 +36,6 @@ func _ready():
 	change_level(level_id, false, true)
 
 
-func _process(_delta):
-	if Input.is_action_just_pressed("1"):
-		load_level(1)
-	if Input.is_action_just_pressed("2"):
-		load_level(2)
-	if Input.is_action_just_pressed("3"):
-		load_level(3)
-	if Input.is_action_just_pressed("4"):
-		load_level(4)
-
-
 func init(resume_signal, restart_signal, quit_signal):
 	resume_signal.connect(_on_resume)
 	restart_signal.connect(_on_restart)
