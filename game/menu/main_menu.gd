@@ -7,6 +7,7 @@ extends Control
 
 signal play()
 signal play_level(level_id)
+signal outro()
 
 var title_screen_lock = false
 var title_screen_current_selection = 0
@@ -293,4 +294,5 @@ func _on_intro_comic_pressed():
 
 
 func _on_end_card_pressed():
+	outro.emit()
 	%EndCard.release_focus()

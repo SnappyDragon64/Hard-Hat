@@ -34,4 +34,7 @@ func _b_check_and_move_shutters():
 
 func _on_elevator_reached():
 	SaveManager.update("level_4_completed", true)
-	sandbox_reference._on_quit()
+	if SaveManager.check("outro_viewed"):
+		sandbox_reference._on_quit()
+	else:
+		sandbox_reference._on_outro()

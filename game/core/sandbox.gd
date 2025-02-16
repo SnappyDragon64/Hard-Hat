@@ -6,6 +6,7 @@ signal quit()
 signal pause()
 signal unpause()
 signal reset_pause_menu()
+signal outro()
 
 
 var transition_instance
@@ -73,9 +74,29 @@ func _on_restart():
 
 
 func _on_quit():
+	if audio_tween:
+		audio_tween.kill()
+
+	audio_tween = get_tree().create_tween()
+	audio_tween.tween_property($AudioStreamPlayer, "volume_db", -60.0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	audio_tween.tween_callback(_on_audio_tween)
+
 	transition_instance.pop_in()
 	await transition_instance.popped_in
 	quit.emit()
+
+
+func _on_outro():
+	if audio_tween:
+		audio_tween.kill()
+
+	audio_tween = get_tree().create_tween()
+	audio_tween.tween_property($AudioStreamPlayer, "volume_db", -60.0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	audio_tween.tween_callback(_on_audio_tween)
+
+	transition_instance.pop_in()
+	await transition_instance.popped_in
+	outro.emit()
 
 
 func _physics_process(_delta):

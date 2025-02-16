@@ -7,6 +7,8 @@ extends Node3D
 @export var transition: PackedScene
 @export var splash: PackedScene
 @export var intro: PackedScene
+@export var outro: PackedScene
+
 
 var transition_instance
 
@@ -15,6 +17,7 @@ func _ready():
 	var main_menu_instance = main_menu.instantiate()
 	main_menu_instance.play.connect(_on_play)
 	main_menu_instance.play_level.connect(_init_sandbox)
+	main_menu_instance.outro.connect(_on_outro_main_menu)
 	$UI.call_deferred("add_child", main_menu_instance)
 	
 	transition_instance = transition.instantiate()
@@ -57,6 +60,7 @@ func _intro_return_to_level_select():
 	var main_menu_instance = main_menu.instantiate()
 	main_menu_instance.play.connect(_on_play)
 	main_menu_instance.play_level.connect(_init_sandbox)
+	main_menu_instance.outro.connect(_on_outro_main_menu)
 	$UI.call_deferred("add_child", main_menu_instance)
 	await main_menu_instance.ready
 	main_menu_instance.back_to_level_select(4)
@@ -75,6 +79,7 @@ func _init_sandbox(level_id := 1):
 	var splash_instance = splash.instantiate()
 	
 	sandbox_instance.quit.connect(_on_quit_sandbox)
+	sandbox_instance.outro.connect(_on_outro)
 	sandbox_instance.transition_instance = transition_instance
 	
 	sandbox_instance.init(pause_menu_instance.resume_pressed, pause_menu_instance.restart_pressed, pause_menu_instance.quit_pressed)
@@ -90,14 +95,73 @@ func _init_sandbox(level_id := 1):
 
 func _on_quit_sandbox():
 	attempt_queue_free("GameUI/PauseMenu")
+	attempt_queue_free("GameUI/PauseMenu")
 	attempt_queue_free("GameUI/Splash")
 	attempt_queue_free("Sandbox")
 	
 	var main_menu_instance = main_menu.instantiate()
 	main_menu_instance.play.connect(_on_play)
 	main_menu_instance.play_level.connect(_init_sandbox)
+	main_menu_instance.outro.connect(_on_outro_main_menu)
 	$UI.call_deferred("add_child", main_menu_instance)
+	await main_menu_instance.ready
 	
+	transition_instance.start_wait()
+	await transition_instance.wait
+	transition_instance.pop_out()
+	await transition_instance.popped_out
+
+
+func _on_outro():
+	attempt_queue_free("GameUI/PauseMenu")
+	attempt_queue_free("GameUI/Splash")
+	attempt_queue_free("Sandbox")
+	
+	var outro_instance = outro.instantiate()
+	outro_instance.finished.connect(_on_outro_finished)
+	$GameUI.call_deferred("add_child", outro_instance)
+	await outro_instance.ready
+	
+	transition_instance.start_wait()
+	await transition_instance.wait
+	transition_instance.pop_out()
+	await transition_instance.popped_out
+	outro_instance.play()
+
+
+func _on_outro_finished():
+	transition_instance.pop_in()
+	await transition_instance.popped_in
+	_on_quit_sandbox()
+
+
+func _on_outro_main_menu():
+	transition_instance.pop_in()
+	await transition_instance.popped_in
+	attempt_queue_free("UI/MainMenu")
+	var outro_instance = outro.instantiate()
+	outro_instance.finished.connect(_on_outro_main_menu_finished)
+	$GameUI.call_deferred("add_child", outro_instance)
+	await outro_instance.ready
+	
+	transition_instance.start_wait()
+	await transition_instance.wait
+	transition_instance.pop_out()
+	await transition_instance.popped_out
+	outro_instance.play()
+
+
+func _on_outro_main_menu_finished():
+	transition_instance.pop_in()
+	await transition_instance.popped_in
+	attempt_queue_free("GameUI/Outro")
+	var main_menu_instance = main_menu.instantiate()
+	main_menu_instance.play.connect(_on_play)
+	main_menu_instance.play_level.connect(_init_sandbox)
+	main_menu_instance.outro.connect(_on_outro_main_menu)
+	$UI.call_deferred("add_child", main_menu_instance)
+	await main_menu_instance.ready
+	main_menu_instance.back_to_level_select(5)
 	transition_instance.start_wait()
 	await transition_instance.wait
 	transition_instance.pop_out()

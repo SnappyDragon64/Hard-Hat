@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://rhp45d4nqcrm"]
+
+[ext_resource type="Texture2D" uid="uid://bcbhh4ldrnu5b" path="res://assets/sprite/comic/outro.png" id="1_0i6yc"]
+[ext_resource type="Script" path="res://game/menu/comic/outro.gd" id="1_l433t"]
+
+[node name="Outro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l433t")
+
+[node name="Container" type="CenterContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1000.0
+offset_bottom = -1000.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.0472
+pivot_offset = Vector2(960, 540)
+
+[node name="TextureRect" type="TextureRect" parent="Container"]
+layout_mode = 2
+texture = ExtResource("1_0i6yc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
