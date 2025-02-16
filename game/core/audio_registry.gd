@@ -15,3 +15,4 @@ var SFX_BLUEPRINTS: AudioStream = load("res://assets/audio/sfx/sfx_blueprints.mp
 var SFX_DING: AudioStream = load("res://assets/audio/sfx/sfx_ding.mp3")
 var SFX_BREAK: AudioStream = load("res://assets/audio/sfx/sfx_break.mp3")
 var SFX_STRIKE: AudioStream = load("res://assets/audio/sfx/sfx_strike.mp3")
+var SFX_DEATH: AudioStream = load("res://assets/audio/sfx/sfx_death.mp3")

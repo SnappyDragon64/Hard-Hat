@@ -75,6 +75,7 @@ func _set_player_state(new_player_state: PlayerState):
 			velocity.y = STRIKE_BOOST
 			$SpriteHolder/PlayerSprite.animation = 'strike'
 		PlayerState.DEATH:
+			AudioManager.play_sound(AudioRegistry.SFX_DEATH)
 			kill_ball()
 			$DeathTimer.start()
 			axis_lock_linear_x = true
