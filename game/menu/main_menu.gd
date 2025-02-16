@@ -313,24 +313,32 @@ func _on_level_1_pressed():
 
 func _on_level_2_pressed():
 	%Level2.release_focus()
-	play_level.emit(2)
+	
+	if level_2_unlocked:
+		play_level.emit(2)
 
 
 func _on_level_3_pressed():
 	%Level3.release_focus()
-	play_level.emit(3)
+	
+	if level_3_unlocked:
+		play_level.emit(3)
 
 
 func _on_level_4_pressed():
 	%Level4.release_focus()
-	play_level.emit(4)
+	
+	if level_4_unlocked:
+		play_level.emit(4)
 
 
 func _on_intro_comic_pressed():
-	play.emit()
 	%IntroComic.release_focus()
+	play.emit()
 
 
 func _on_end_card_pressed():
-	outro.emit()
 	%EndCard.release_focus()
+	
+	if end_card_unlocked:
+		outro.emit()
