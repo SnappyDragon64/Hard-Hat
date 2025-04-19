@@ -85,18 +85,20 @@ directional_shadow_pancake_size = 0.0
 metadata/_edit_group_ = true
 
 [node name="Tripod" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 31.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 42)
 
-[node name="Camera3D" type="Camera3D" parent="Tripod"]
+[node name="ShakeAnchor" type="Node3D" parent="Tripod"]
+
+[node name="Camera3D" type="Camera3D" parent="Tripod/ShakeAnchor"]
 current = true
 fov = 24.0
 size = 16.0
 
-[node name="OutlinePass" type="MeshInstance3D" parent="Tripod/Camera3D"]
+[node name="OutlinePass" type="MeshInstance3D" parent="Tripod/ShakeAnchor/Camera3D"]
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_m5ebi")
 
-[node name="BackgroundCylinder" type="MeshInstance3D" parent="Tripod/Camera3D"]
+[node name="BackgroundCylinder" type="MeshInstance3D" parent="Tripod/ShakeAnchor/Camera3D"]
 unique_name_in_owner = true
 mesh = SubResource("CylinderMesh_pptjh")
 

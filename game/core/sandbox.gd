@@ -33,7 +33,38 @@ var splash_instance: Splash
 
 
 func _ready():
+	#current_camera_angle -= 1
+	#adjust_camera_angle()
 	change_level(level_id, false, true)
+
+
+enum CAMERA_ANGLES {LEFT, MIDDLE, RIGHT}
+var current_camera_angle = CAMERA_ANGLES.MIDDLE
+
+func _input(event):
+	pass
+	#if Input.is_action_just_pressed("camera_left"):
+		#if current_camera_angle > CAMERA_ANGLES.LEFT:
+			#current_camera_angle -= 1
+			#adjust_camera_angle()
+	#
+	#if Input.is_action_just_pressed("camera_right"):
+		#if current_camera_angle < CAMERA_ANGLES.RIGHT:
+			#current_camera_angle += 1
+			#adjust_camera_angle()
+
+
+func adjust_camera_angle():
+	match current_camera_angle:
+		CAMERA_ANGLES.LEFT:
+			$Tripod/ShakeAnchor/Camera3D.position.x = -5.4
+			$Tripod/ShakeAnchor/Camera3D.rotation_degrees.y = -9.0
+		CAMERA_ANGLES.MIDDLE:
+			$Tripod/ShakeAnchor/Camera3D.position.x = 0.0
+			$Tripod/ShakeAnchor/Camera3D.rotation_degrees.y = 0.0
+		CAMERA_ANGLES.RIGHT:
+			$Tripod/ShakeAnchor/Camera3D.position.x = 5.4
+			$Tripod/ShakeAnchor/Camera3D.rotation_degrees.y = 9.0
 
 
 func disable_pause():
@@ -149,8 +180,8 @@ func _on_camera_shake_request(direction):
 		shake_tween.kill()
 	
 	shake_tween = get_tree().create_tween()
-	shake_tween.tween_property($Tripod/Camera3D, "position", direction, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	shake_tween.tween_property($Tripod/Camera3D, "position", Vector3.ZERO, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	shake_tween.tween_property($Tripod/ShakeAnchor, "position", direction, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	shake_tween.tween_property($Tripod/ShakeAnchor, "position", Vector3.ZERO, 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
 func change_level(id, flag=true, splash_flag=false):
