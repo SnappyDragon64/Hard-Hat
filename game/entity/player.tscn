@@ -404,11 +404,6 @@ process_callback = 0
 wait_time = 0.1
 one_shot = true
 
-[node name="JumpQueueTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 0.2
-one_shot = true
-
 [node name="BallTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 4.0
@@ -416,9 +411,6 @@ one_shot = true
 
 [node name="SlideCooldown" type="Timer" parent="."]
 wait_time = 0.4
-
-[node name="StrikeQueueTimer" type="Timer" parent="."]
-wait_time = 0.2
 
 [node name="StrikeCooldown" type="Timer" parent="."]
 wait_time = 0.16
@@ -504,10 +496,8 @@ stream = ExtResource("18_am1p2")
 unit_size = 20.0
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
-[connection signal="timeout" from="JumpQueueTimer" to="." method="_on_jump_queue_timer_timeout"]
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
 [connection signal="timeout" from="SlideCooldown" to="." method="_on_slide_cooldown_timeout"]
-[connection signal="timeout" from="StrikeQueueTimer" to="." method="_on_strike_queue_timer_timeout"]
 [connection signal="timeout" from="StrikeCooldown" to="." method="_on_strike_cooldown_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="animation_changed" from="SpriteHolder/PlayerSprite" to="SpriteHolder/PlayerSprite" method="_on_animation_changed"]

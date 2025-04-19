@@ -23,6 +23,7 @@ AudioManager="*res://game/core/audio_manager.gd"
 AudioRegistry="*res://game/core/audio_registry.gd"
 SaveManager="*res://game/core/save_manager.gd"
 InputManager="*res://game/core/input_manager.gd"
+InputBuffer="*res://game/core/input_buffer.gd"
 
 [display]
 

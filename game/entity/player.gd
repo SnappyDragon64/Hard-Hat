@@ -6,7 +6,7 @@ signal x_update(new_x)
 signal camera_shake_request(direction)
 signal respawn()
 
-enum PlayerState {IDLE, RUN, JUMP, FALL, SLIDE, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, DEATH, ELEVATOR}
+enum PlayerState {IDLE, RUN, JUMP, FALL, SLIDE, COYOTE_TIME, AIM, STRIKE, DEATH, ELEVATOR}
 
 @export var ball: PackedScene
 @export_group("Movement")
@@ -18,7 +18,6 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, SLIDE, COYOTE_TIME, JUMP_QUEUED, AIM, S
 @export var STRIKE_BOOST := 2.0
 @export var GRAVITY := 1.0
 @export var can_strike := true
-@export var strike_queued := false
 
 
 var player_state: PlayerState = PlayerState.IDLE: set = _set_player_state
@@ -39,8 +38,6 @@ func _set_player_state(new_player_state: PlayerState):
 			$StepParticles.emitting = false
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
-		PlayerState.JUMP_QUEUED:
-			$JumpQueueTimer.stop()
 		PlayerState.AIM:
 			platform_floor_layers = 4294967295
 			axis_lock_linear_y = false
@@ -65,8 +62,6 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.start()
 			$SpriteHolder/PlayerSprite.animation = 'peak'
-		PlayerState.JUMP_QUEUED:
-			$JumpQueueTimer.start()
 		PlayerState.AIM:
 			$BallTimer.start()
 			platform_floor_layers = 0
@@ -139,11 +134,8 @@ func _physics_process(delta) -> void:
 		elif input_direction < 0.0:
 			player_direction = -1.0
 	
-	if strike_queued and Input.is_action_pressed("strike"):
+	if InputBuffer.is_action_press_buffered("strike"):
 		_check_strike_condition()
-	else:
-		strike_queued = false
-		$StrikeQueueTimer.stop()
 	
 	var collision = get_last_slide_collision()
 
@@ -167,8 +159,6 @@ func _physics_process(delta) -> void:
 			_slide_physics_process(delta)
 		PlayerState.COYOTE_TIME:
 			_coyote_time_physics_process(delta)
-		PlayerState.JUMP_QUEUED:
-			_jump_queued_physics_process(delta)
 		PlayerState.AIM:
 			_aim_physics_process(delta)
 		PlayerState.STRIKE:
@@ -222,10 +212,6 @@ func _fall_physics_process(delta) -> void:
 	_handle_gravity(delta)
 	_handle_x_movement()
 	_handle_land()
-	
-	if Input.is_action_just_pressed("jump"):
-		player_state = PlayerState.JUMP_QUEUED
-	
 	_handle_strike()
 	_handle_slide()
 
@@ -242,20 +228,6 @@ func _coyote_time_physics_process(delta) -> void:
 	_handle_x_movement()
 	_handle_jump()
 	_handle_land()
-	_handle_strike()
-
-
-func _jump_queued_physics_process(delta) -> void:
-	_handle_gravity(delta)
-	_handle_x_movement()
-	_handle_land()
-	
-	if Input.is_action_pressed("jump"):
-		if is_on_floor():
-			player_state = PlayerState.JUMP
-	else:
-		player_state = PlayerState.FALL
-	
 	_handle_strike()
 
 
@@ -338,13 +310,13 @@ func _handle_x_movement() -> void:
 
 
 func _handle_slide() -> void:
-	if Input.is_action_just_pressed("slide") and is_on_floor():
+	if InputBuffer.is_action_press_buffered("slide") and is_on_floor():
 		player_state = PlayerState.SLIDE
 
 
 func _handle_jump() -> void:
-	if Input.is_action_just_pressed("jump"):
-		player_state = PlayerState.JUMP_QUEUED
+	if InputBuffer.is_action_press_buffered("jump"):
+		player_state = PlayerState.JUMP
 
 
 func _handle_land() -> void:
@@ -364,8 +336,6 @@ func _handle_coyote_time() -> void:
 func _handle_strike() -> void:
 	if Input.is_action_just_pressed("strike") and can_strike:
 		if ball_reference:
-			strike_queued = true
-			$StrikeQueueTimer.start()
 			_check_strike_condition()
 		else:
 			var primary_raycast
@@ -419,8 +389,6 @@ func _check_strike_condition():
 		var distance_squared = adjusted_pos.distance_squared_to(ball_global_pos)
 		
 		if distance_squared <= 6.0:
-			strike_queued = false
-			$StrikeQueueTimer.stop()
 			player_state = PlayerState.AIM
 			ball_reference.start_tracking()
 			_orient_with_respect_to_ball()
