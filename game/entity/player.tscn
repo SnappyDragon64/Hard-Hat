@@ -381,7 +381,7 @@ collision_mask = 3
 axis_lock_linear_z = true
 script = ExtResource("1_vdi80")
 ball = ExtResource("2_vttbj")
-SPEED = 6.0
+SLIDE_SPEED = 20.0
 JUMP_SPEED = 14.0
 SPRING_FACTOR = 2.0
 STRIKE_BOOST = 8.0
@@ -413,6 +413,9 @@ one_shot = true
 process_callback = 0
 wait_time = 4.0
 one_shot = true
+
+[node name="SlideCooldown" type="Timer" parent="."]
+wait_time = 0.4
 
 [node name="StrikeQueueTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -503,6 +506,7 @@ unit_size = 20.0
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpQueueTimer" to="." method="_on_jump_queue_timer_timeout"]
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
+[connection signal="timeout" from="SlideCooldown" to="." method="_on_slide_cooldown_timeout"]
 [connection signal="timeout" from="StrikeQueueTimer" to="." method="_on_strike_queue_timer_timeout"]
 [connection signal="timeout" from="StrikeCooldown" to="." method="_on_strike_cooldown_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

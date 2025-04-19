@@ -6,17 +6,21 @@ signal x_update(new_x)
 signal camera_shake_request(direction)
 signal respawn()
 
-enum PlayerState {IDLE, RUN, JUMP, FALL, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, DEATH, ELEVATOR}
+enum PlayerState {IDLE, RUN, JUMP, FALL, SLIDE, COYOTE_TIME, JUMP_QUEUED, AIM, STRIKE, DEATH, ELEVATOR}
 
 @export var ball: PackedScene
 @export_group("Movement")
-@export var SPEED := 5.0
+@export var SPEED := 10.0
+
+@export var SLIDE_SPEED := 15.0
 @export var JUMP_SPEED := 4.5
 @export var SPRING_FACTOR := 3.0
 @export var STRIKE_BOOST := 2.0
 @export var GRAVITY := 1.0
 @export var can_strike := true
 @export var strike_queued := false
+@export var can_slide := true
+
 
 var player_state: PlayerState = PlayerState.IDLE: set = _set_player_state
 var input_direction := 0.0
@@ -71,6 +75,11 @@ func _set_player_state(new_player_state: PlayerState):
 			velocity = Vector3.ZERO
 			$SpriteHolder/PlayerSprite.animation = 'aim'
 			y_when_aiming = position.y
+		PlayerState.SLIDE:
+			$SlideCooldown.start()
+			can_slide = false
+			velocity.x = SLIDE_SPEED * player_direction
+			$SpriteHolder/PlayerSprite.animation = 'fall'
 		PlayerState.STRIKE:
 			$StrikeCooldown.start()
 			can_strike = false
@@ -156,6 +165,8 @@ func _physics_process(delta) -> void:
 			_jump_physics_process(delta)
 		PlayerState.FALL:
 			_fall_physics_process(delta)
+		PlayerState.SLIDE:
+			_slide_physics_process(delta)
 		PlayerState.COYOTE_TIME:
 			_coyote_time_physics_process(delta)
 		PlayerState.JUMP_QUEUED:
@@ -176,9 +187,11 @@ func _physics_process(delta) -> void:
 func _idle_physics_process(_delta) -> void:
 	if input_direction:
 		player_state = PlayerState.RUN
-		
+	
+	_handle_x_movement()
 	_handle_jump()
 	_handle_coyote_time()
+	_handle_slide()
 	_handle_strike()
 
 
@@ -189,6 +202,7 @@ func _run_physics_process(_delta) -> void:
 	_handle_x_movement()
 	_handle_jump()
 	_handle_coyote_time()
+	_handle_slide()
 	_handle_strike()
 
 
@@ -203,6 +217,7 @@ func _jump_physics_process(delta) -> void:
 		player_state = PlayerState.FALL
 	
 	_handle_strike()
+	_handle_slide()
 
 
 func _fall_physics_process(delta) -> void:
@@ -214,6 +229,14 @@ func _fall_physics_process(delta) -> void:
 		player_state = PlayerState.JUMP_QUEUED
 	
 	_handle_strike()
+	_handle_slide()
+
+
+func _slide_physics_process(delta) -> void:
+	velocity.x = move_toward(velocity.x, 0, 1)
+	
+	_handle_jump()
+	_handle_gravity(delta)
 
 
 func _coyote_time_physics_process(delta) -> void:
@@ -283,19 +306,39 @@ func _handle_gravity(delta) -> void:
 
 
 func _handle_x_movement() -> void:
-	var input_dir = Input.get_axis("move_left", "move_right")
-	velocity.x = input_dir * SPEED
+	if is_on_floor():
+		if input_direction:
+			if (player_direction * velocity.x > 0): # Same direction
+				velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.5)
+			else:
+				velocity.x = move_toward(velocity.x, player_direction * SPEED, 3)
+		else:
+			velocity.x = move_toward(velocity.x, 0, 2)
+	else:
+		if (velocity.x > SPEED * 0.75):
+			velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.05)
+		if input_direction:
+			if (player_direction * velocity.x > 0): # Same direction
+				velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.5)
+			else:
+				velocity.x = move_toward(velocity.x, player_direction * SPEED, 3)
+		else:
+			velocity.x = move_toward(velocity.x, 0, 2)
+
+
+func _handle_slide() -> void:
+	if Input.is_action_just_pressed("slide") and can_slide:
+		player_state = PlayerState.SLIDE
 
 
 func _handle_jump() -> void:
 	if Input.is_action_just_pressed("jump"):
-		player_state = PlayerState.JUMP
+		player_state = PlayerState.JUMP_QUEUED
 
 
 func _handle_land() -> void:
 	if is_on_floor():
 		AudioManager.play_sound(AudioRegistry.SFX_LAND)
-		
 		if input_direction:
 			player_state = PlayerState.RUN
 		else:
@@ -457,3 +500,12 @@ func _on_force_quit_aiming():
 
 func _on_death_timer_timeout():
 	respawn.emit()
+
+
+func _on_slide_cooldown_timeout() -> void:
+	can_slide = true
+	if player_state == PlayerState.SLIDE:
+		if input_direction:
+			player_state = PlayerState.RUN
+		else:
+			player_state = PlayerState.IDLE
