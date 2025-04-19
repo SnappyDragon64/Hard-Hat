@@ -19,7 +19,6 @@ enum PlayerState {IDLE, RUN, JUMP, FALL, SLIDE, COYOTE_TIME, JUMP_QUEUED, AIM, S
 @export var GRAVITY := 1.0
 @export var can_strike := true
 @export var strike_queued := false
-@export var can_slide := true
 
 
 var player_state: PlayerState = PlayerState.IDLE: set = _set_player_state
@@ -77,7 +76,6 @@ func _set_player_state(new_player_state: PlayerState):
 			y_when_aiming = position.y
 		PlayerState.SLIDE:
 			$SlideCooldown.start()
-			can_slide = false
 			velocity.x = SLIDE_SPEED * player_direction
 			$SpriteHolder/PlayerSprite.animation = 'fall'
 		PlayerState.STRIKE:
@@ -233,8 +231,8 @@ func _fall_physics_process(delta) -> void:
 
 
 func _slide_physics_process(delta) -> void:
-	velocity.x = move_toward(velocity.x, 0, 1)
-	
+	#velocity.x = move_toward(velocity.x, 0, 1)
+	_handle_x_movement()
 	_handle_jump()
 	_handle_gravity(delta)
 
@@ -306,28 +304,41 @@ func _handle_gravity(delta) -> void:
 
 
 func _handle_x_movement() -> void:
-	if is_on_floor():
+	if player_state == PlayerState.IDLE or player_state == PlayerState.RUN or player_state == PlayerState.SLIDE:
 		if input_direction:
-			if (player_direction * velocity.x > 0): # Same direction
-				velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.5)
+			if abs(velocity.x) > SPEED:
+				if (player_direction * velocity.x > 0): # Same direction
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 1)
+				else:
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 3)
 			else:
-				velocity.x = move_toward(velocity.x, player_direction * SPEED, 3)
+				if (player_direction * velocity.x > 0): # Same direction
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.5)
+				else:
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 3)
 		else:
-			velocity.x = move_toward(velocity.x, 0, 2)
+			if abs(velocity.x) > SPEED:
+				velocity.x = move_toward(velocity.x, 0, 1)
+			else:
+				velocity.x = move_toward(velocity.x, 0, 2)
 	else:
-		if (velocity.x > SPEED * 0.75):
-			velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.05)
 		if input_direction:
-			if (player_direction * velocity.x > 0): # Same direction
-				velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.5)
+			if abs(velocity.x) > SPEED:
+				if (player_direction * velocity.x > 0): # Same direction
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.05)
+				else:
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 2)
 			else:
-				velocity.x = move_toward(velocity.x, player_direction * SPEED, 3)
+				if (player_direction * velocity.x > 0): # Same direction
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 0.5)
+				else:
+					velocity.x = move_toward(velocity.x, player_direction * SPEED, 3)
 		else:
-			velocity.x = move_toward(velocity.x, 0, 2)
+			velocity.x = move_toward(velocity.x, 0, 1)
 
 
 func _handle_slide() -> void:
-	if Input.is_action_just_pressed("slide") and can_slide:
+	if Input.is_action_just_pressed("slide") and is_on_floor():
 		player_state = PlayerState.SLIDE
 
 
@@ -503,7 +514,6 @@ func _on_death_timer_timeout():
 
 
 func _on_slide_cooldown_timeout() -> void:
-	can_slide = true
 	if player_state == PlayerState.SLIDE:
 		if input_direction:
 			player_state = PlayerState.RUN
