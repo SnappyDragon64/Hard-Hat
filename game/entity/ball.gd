@@ -106,6 +106,7 @@ func _physics_process(delta: float) -> void:
 
 func kill():
 	if not dead:
+		$CollisionShape3D.disabled = true
 		AudioManager.play_sound(AudioRegistry.SFX_FIZZLE)
 		dead = true
 		var tween = get_tree().create_tween()
