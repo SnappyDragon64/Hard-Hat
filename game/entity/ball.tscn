@@ -79,7 +79,7 @@ gradient = SubResource("Gradient_1boc8")
 fill_to = Vector2(0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ugw0o"]
-render_priority = 3
+render_priority = 20
 transparency = 1
 shading_mode = 0
 albedo_color = Color(1, 1, 1, 0.501961)
@@ -143,6 +143,6 @@ target_position = Vector3(32, 0, 0)
 collision_mask = 5
 
 [node name="AssistMesh" type="MeshInstance3D" parent="PointerAnchor"]
-transform = Transform3D(-4.33525e-06, -1, 0, 1, -4.33525e-06, 0, 0, 0, 1, 16, 0, 0)
+transform = Transform3D(-4.33525e-06, -1, 0, 1, -4.33525e-06, 0, 0, 0, 1, 16, 0, 0.1)
 mesh = SubResource("QuadMesh_qyweh")
 skeleton = NodePath("")

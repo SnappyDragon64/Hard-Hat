@@ -71,14 +71,25 @@ func _physics_process(delta: float) -> void:
 				handle_brick_hit(collider, collision_normal, collision_position)
 	
 	if tracking:
-		var camera: Camera3D = get_viewport().get_camera_3d()
-		var ball_screen_pos = camera.unproject_position(global_position)
-		var cursor_position = get_viewport().get_mouse_position()
-		var direction_vector_2d = (cursor_position - ball_screen_pos).normalized()
-		direction_vector = Vector3(direction_vector_2d.x, -direction_vector_2d.y, 0)
-		var angle = direction_vector_2d.angle_to(Vector2.RIGHT)
-		var pointer_angle = Vector3(0.0, 0.0, angle)
-		$PointerAnchor.set_rotation(pointer_angle)
+		if InputManager.controller_mode:
+			var controller_direction = Input.get_vector('aim_left', 'aim_right', 'aim_down', 'aim_up')
+			
+			if not controller_direction.is_zero_approx():
+				var direction_vector_2d = controller_direction.normalized()
+				direction_vector = Vector3(direction_vector_2d.x, direction_vector_2d.y, 0)
+				var angle = controller_direction.angle()
+				var pointer_angle = Vector3(0.0, 0.0, angle)
+				$PointerAnchor.set_rotation(pointer_angle)
+		else:
+			var camera: Camera3D = get_viewport().get_camera_3d()
+			var ball_screen_pos = camera.unproject_position(global_position)
+			var cursor_position = get_viewport().get_mouse_position()
+			var direction_vector_2d = (cursor_position - ball_screen_pos).normalized()
+			direction_vector = Vector3(direction_vector_2d.x, -direction_vector_2d.y, 0)
+			var angle = direction_vector_2d.angle_to(Vector2.RIGHT)
+			var pointer_angle = Vector3(0.0, 0.0, angle)
+			$PointerAnchor.set_rotation(pointer_angle)
+		
 		var mesh = $PointerAnchor/AssistMesh.get_mesh()
 		var raycast = $PointerAnchor/RayCast3D
 		raycast.force_raycast_update()
