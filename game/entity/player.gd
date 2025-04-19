@@ -48,10 +48,14 @@ func _set_player_state(new_player_state: PlayerState):
 	match new_player_state:
 		PlayerState.IDLE:
 			$SpriteHolder/PlayerSprite.animation = 'idle'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 		PlayerState.RUN:
 			$StepSoundPlayer3D.play()
 			$StepParticles.emitting = true
 			$SpriteHolder/PlayerSprite.animation = 'run'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 		PlayerState.JUMP:
 			if is_on_spring:
 				AudioManager.play_sound(AudioRegistry.SFX_BOING, global_position)
@@ -59,25 +63,35 @@ func _set_player_state(new_player_state: PlayerState):
 			else:
 				velocity.y = move_toward(JUMP_SPEED, 0, 0.1)
 			$SpriteHolder/PlayerSprite.animation = 'jump'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.start()
 			$SpriteHolder/PlayerSprite.animation = 'peak'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 		PlayerState.AIM:
 			$BallTimer.start()
 			platform_floor_layers = 0
 			axis_lock_linear_y = true
 			velocity = Vector3.ZERO
 			$SpriteHolder/PlayerSprite.animation = 'aim'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 			y_when_aiming = position.y
 		PlayerState.SLIDE:
 			$SlideCooldown.start()
 			velocity.x = SLIDE_SPEED * player_direction
-			$SpriteHolder/PlayerSprite.animation = 'fall'
+			$SpriteHolder/PlayerSprite.animation = 'slide'
+			$BaseCollisionShape3D.disabled = true
+			$SlideCollisionShape3D.disabled = false
 		PlayerState.STRIKE:
 			$StrikeCooldown.start()
 			can_strike = false
 			velocity.y = STRIKE_BOOST
 			$SpriteHolder/PlayerSprite.animation = 'strike'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 		PlayerState.DEATH:
 			AudioManager.play_sound(AudioRegistry.SFX_DEATH)
 			kill_ball()
@@ -85,7 +99,8 @@ func _set_player_state(new_player_state: PlayerState):
 			axis_lock_linear_x = true
 			axis_lock_linear_z = false
 			velocity = Vector3(0.0, 16.0, 4.0)
-			$CollisionShape3D.disabled = true
+			$BaseCollisionShape3D.disabled = true
+			$SlideCollisionShape3D.disabled = true
 			$SpriteHolder/PlayerSprite.animation = 'death'
 		PlayerState.ELEVATOR:
 			kill_ball()
@@ -93,6 +108,8 @@ func _set_player_state(new_player_state: PlayerState):
 			axis_lock_linear_x = true
 			axis_lock_linear_z = false
 			$SpriteHolder/PlayerSprite.animation = 'idle'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 	
 	player_state = new_player_state
 

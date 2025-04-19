@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://rjxa7edahnbb"]
+[gd_scene load_steps=66 format=3 uid="uid://rjxa7edahnbb"]
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://07cmg7ywyheb" path="res://assets/sprite/game/player/peak.png" id="7_k14sn"]
 [ext_resource type="Texture2D" uid="uid://cj2rhv5rxek2o" path="res://assets/sprite/game/player/run.png" id="8_cfy5s"]
 [ext_resource type="Script" path="res://game/entity/player_sprite.gd" id="9_yaxoo"]
+[ext_resource type="Texture2D" uid="uid://bnfbp3x12sxhp" path="res://assets/sprite/game/player/Slide.png" id="12_epdv7"]
 [ext_resource type="AudioStream" uid="uid://deyx16p0fk53g" path="res://assets/audio/loop/loop_step.mp3" id="18_am1p2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
@@ -25,6 +26,10 @@ radius = 3.0
 height = 6.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tfegu"]
+radius = 0.4
+height = 1.96
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_68e72"]
 radius = 0.4
 height = 1.96
 
@@ -343,6 +348,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("12_epdv7")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_3vcwu")
 }, {
 "duration": 1.0,
@@ -393,9 +406,13 @@ visible = false
 transparency = 0.65
 mesh = SubResource("CapsuleMesh_f3jdb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BaseCollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
 shape = SubResource("CapsuleShape3D_tfegu")
+
+[node name="SlideCollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CapsuleShape3D_68e72")
 
 [node name="StepParticles" parent="." instance=ExtResource("3_g22sk")]
 
@@ -426,7 +443,7 @@ transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 material_overlay = SubResource("ShaderMaterial_ccj0i")
 render_priority = 2
 sprite_frames = SubResource("SpriteFrames_pjm8h")
-animation = &"death"
+animation = &"slide"
 script = ExtResource("9_yaxoo")
 idle_offset = Vector3(0.305, 1.315, 0)
 idle_sprite = ExtResource("5_yuqne")
@@ -438,6 +455,8 @@ peak_offset = Vector3(0.295, 0.975, 0)
 peak_sprite = ExtResource("7_k14sn")
 fall_offset = Vector3(0.46, 1.095, 0)
 fall_sprite = ExtResource("4_ooxdd")
+slide_offset = Vector3(0, 1, 0)
+slide_sprite = ExtResource("12_epdv7")
 aim_offset = Vector3(0, 1.4, 0)
 aim_sprite = ExtResource("5_8beig")
 strike_offset = Vector3(0, 1.4, 0)
@@ -490,6 +509,8 @@ texture_progress = ExtResource("6_fqw7o")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 current = true
+
+[node name="Node3D" type="Node3D" parent="."]
 
 [node name="StepSoundPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("18_am1p2")
