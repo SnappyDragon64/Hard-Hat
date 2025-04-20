@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://rjxa7edahnbb"]
+[gd_scene load_steps=73 format=3 uid="uid://rjxa7edahnbb"]
 
 [ext_resource type="Script" path="res://game/entity/player.gd" id="1_vdi80"]
 [ext_resource type="Shader" path="res://assets/shader/sprite3d_outline.gdshader" id="2_gu5be"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cj2rhv5rxek2o" path="res://assets/sprite/game/player/run.png" id="8_cfy5s"]
 [ext_resource type="Script" path="res://game/entity/player_sprite.gd" id="9_yaxoo"]
 [ext_resource type="Texture2D" uid="uid://bnfbp3x12sxhp" path="res://assets/sprite/game/player/Slide.png" id="12_epdv7"]
+[ext_resource type="Texture2D" uid="uid://ca4ksq4axpg5i" path="res://assets/sprite/game/player/wallslide.png" id="14_3cvqs"]
 [ext_resource type="AudioStream" uid="uid://deyx16p0fk53g" path="res://assets/audio/loop/loop_step.mp3" id="18_am1p2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3jdb"]
@@ -201,6 +202,30 @@ region = Rect2(0, 500, 525, 500)
 atlas = ExtResource("3_6ha0i")
 region = Rect2(525, 500, 525, 500)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2v3jw"]
+atlas = ExtResource("14_3cvqs")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apg4o"]
+atlas = ExtResource("14_3cvqs")
+region = Rect2(500, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqu3i"]
+atlas = ExtResource("14_3cvqs")
+region = Rect2(1000, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oseuq"]
+atlas = ExtResource("14_3cvqs")
+region = Rect2(0, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbkuv"]
+atlas = ExtResource("14_3cvqs")
+region = Rect2(500, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8utl"]
+atlas = ExtResource("14_3cvqs")
+region = Rect2(1000, 500, 500, 500)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_pjm8h"]
 animations = [{
 "frames": [{
@@ -370,6 +395,29 @@ animations = [{
 "loop": false,
 "name": &"strike",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2v3jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apg4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqu3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oseuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbkuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8utl")
+}],
+"loop": true,
+"name": &"wallslide",
+"speed": 5.0
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ynmrm"]
@@ -408,6 +456,7 @@ mesh = SubResource("CapsuleMesh_f3jdb")
 
 [node name="BaseCollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_tfegu")
 
 [node name="SlideCollisionShape3D" type="CollisionShape3D" parent="."]
@@ -436,6 +485,15 @@ one_shot = true
 [node name="DeathTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="RaycastHolder" type="Node3D" parent="."]
+
+[node name="SlideRaycast" type="RayCast3D" parent="RaycastHolder"]
+target_position = Vector3(0, 1, 0)
+
+[node name="WallRaycast" type="RayCast3D" parent="RaycastHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09272, 0)
+target_position = Vector3(0.45, 0, 0)
+
 [node name="SpriteHolder" type="Node3D" parent="."]
 
 [node name="PlayerSprite" type="AnimatedSprite3D" parent="SpriteHolder"]
@@ -443,7 +501,7 @@ transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 material_overlay = SubResource("ShaderMaterial_ccj0i")
 render_priority = 2
 sprite_frames = SubResource("SpriteFrames_pjm8h")
-animation = &"slide"
+animation = &"wallslide"
 script = ExtResource("9_yaxoo")
 idle_offset = Vector3(0.305, 1.315, 0)
 idle_sprite = ExtResource("5_yuqne")
@@ -457,6 +515,8 @@ fall_offset = Vector3(0.46, 1.095, 0)
 fall_sprite = ExtResource("4_ooxdd")
 slide_offset = Vector3(0, 1, 0)
 slide_sprite = ExtResource("12_epdv7")
+wallslide_offset = Vector3(0, 1, 0)
+wallslide_sprite = ExtResource("14_3cvqs")
 aim_offset = Vector3(0, 1.4, 0)
 aim_sprite = ExtResource("5_8beig")
 strike_offset = Vector3(0, 1.4, 0)

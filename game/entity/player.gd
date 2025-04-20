@@ -6,7 +6,7 @@ signal x_update(new_x)
 signal camera_shake_request(direction)
 signal respawn()
 
-enum PlayerState {IDLE, RUN, JUMP, FALL, SLIDE, COYOTE_TIME, AIM, STRIKE, DEATH, ELEVATOR}
+enum PlayerState {IDLE, RUN, JUMP, FALL, SLIDE, WALLSLIDE, COYOTE_TIME, AIM, STRIKE, DEATH, ELEVATOR}
 
 @export var ball: PackedScene
 @export_group("Movement")
@@ -36,6 +36,9 @@ func _set_player_state(new_player_state: PlayerState):
 		PlayerState.RUN:
 			$StepSoundPlayer3D.stop()
 			$StepParticles.emitting = false
+		PlayerState.WALLSLIDE:
+			if new_player_state == PlayerState.JUMP:
+				velocity.x = - player_direction * 15
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
 		PlayerState.AIM:
@@ -85,6 +88,14 @@ func _set_player_state(new_player_state: PlayerState):
 			$SpriteHolder/PlayerSprite.animation = 'slide'
 			$BaseCollisionShape3D.disabled = true
 			$SlideCollisionShape3D.disabled = false
+		PlayerState.WALLSLIDE:
+			$SpriteHolder/PlayerSprite.animation = 'wallslide'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
+		PlayerState.FALL:
+			$SpriteHolder/PlayerSprite.animation = 'peak'
+			$BaseCollisionShape3D.disabled = false
+			$SlideCollisionShape3D.disabled = true
 		PlayerState.STRIKE:
 			$StrikeCooldown.start()
 			can_strike = false
@@ -134,6 +145,11 @@ func _handle_flip(flip_flag: bool, animation_angle: float):
 		
 	spin_tween = get_tree().create_tween()
 	spin_tween.tween_property($SpriteHolder, "rotation", Vector3(0, animation_angle, 0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
+	if flipped:
+		$RaycastHolder.rotation.y = PI
+	else:
+		$RaycastHolder.rotation.y = 0
 
 
 func _process(_delta) -> void:
@@ -174,6 +190,8 @@ func _physics_process(delta) -> void:
 			_fall_physics_process(delta)
 		PlayerState.SLIDE:
 			_slide_physics_process(delta)
+		PlayerState.WALLSLIDE:
+			_wallslide_physics_process(delta)
 		PlayerState.COYOTE_TIME:
 			_coyote_time_physics_process(delta)
 		PlayerState.AIM:
@@ -223,6 +241,7 @@ func _jump_physics_process(delta) -> void:
 	
 	_handle_strike()
 	_handle_slide()
+	_handle_wall()
 
 
 func _fall_physics_process(delta) -> void:
@@ -231,14 +250,28 @@ func _fall_physics_process(delta) -> void:
 	_handle_land()
 	_handle_strike()
 	_handle_slide()
+	_handle_wall()
 
 
 func _slide_physics_process(delta) -> void:
 	#velocity.x = move_toward(velocity.x, 0, 1)
-	_handle_x_movement()
-	_handle_jump()
+	if !$RaycastHolder/SlideRaycast.is_colliding():
+		_handle_x_movement()
+		_handle_jump()
+	else:
+		velocity.x = player_direction * SPEED
 	_handle_gravity(delta)
+	
 
+func _wallslide_physics_process(delta) -> void:
+	velocity.y = move_toward(velocity.y, -2, 1)
+	
+	if !$RaycastHolder/WallRaycast.is_colliding():
+		player_state = PlayerState.FALL
+		
+	_handle_jump()
+	_handle_land()
+	_handle_slide()
 
 func _coyote_time_physics_process(delta) -> void:
 	_handle_gravity(delta)
@@ -398,6 +431,11 @@ func _handle_strike() -> void:
 			progress_sprite_tween.tween_property($ProgressSprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
 
 
+func _handle_wall() -> void:
+	if $RaycastHolder/WallRaycast.is_colliding() and !is_on_floor():
+		player_state = PlayerState.WALLSLIDE
+
+
 func _check_strike_condition():
 	if ball_reference:
 		var ball_global_pos = ball_reference.get_global_position()
@@ -500,7 +538,10 @@ func _on_death_timer_timeout():
 
 func _on_slide_cooldown_timeout() -> void:
 	if player_state == PlayerState.SLIDE:
-		if input_direction:
-			player_state = PlayerState.RUN
+		if $RaycastHolder/SlideRaycast.is_colliding():
+			$SlideCooldown.start()
 		else:
-			player_state = PlayerState.IDLE
+			if input_direction:
+				player_state = PlayerState.RUN
+			else:
+				player_state = PlayerState.IDLE

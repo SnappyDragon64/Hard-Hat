@@ -24,6 +24,10 @@ extends AnimatedSprite3D
 @export var slide_offset: Vector3
 @export var slide_sprite: Texture2D
 
+@export_group("WallSlide")
+@export var wallslide_offset: Vector3
+@export var wallslide_sprite: Texture2D
+
 @export_group("Aim")
 @export var aim_offset: Vector3
 @export var aim_sprite: Texture2D
@@ -63,6 +67,8 @@ func _on_animation_changed() -> void:
 			set_offset_and_sprite(fall_offset, fall_sprite)
 		"slide":
 			set_offset_and_sprite(slide_offset, slide_sprite)
+		"wallslide":
+			set_offset_and_sprite(wallslide_offset, wallslide_sprite)
 		"aim":
 			set_offset_and_sprite(aim_offset, aim_sprite)
 		"strike":
