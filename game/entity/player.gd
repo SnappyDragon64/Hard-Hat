@@ -29,6 +29,7 @@ var spin_tween: Tween
 var flipped := false
 var y_when_aiming := 0.0
 var is_on_spring := false
+var skip_flip := false
 
 
 func _set_player_state(new_player_state: PlayerState):
@@ -38,7 +39,9 @@ func _set_player_state(new_player_state: PlayerState):
 			$StepParticles.emitting = false
 		PlayerState.WALLSLIDE:
 			if new_player_state == PlayerState.JUMP:
-				velocity.x = - player_direction * 15
+				velocity.x = -player_direction * 15
+				skip_flip = true
+				player_direction *= -1
 		PlayerState.COYOTE_TIME:
 			$CoyoteTimer.stop()
 		PlayerState.AIM:
@@ -139,13 +142,17 @@ func _set_player_direction(new_player_direction: float):
 
 func _handle_flip(flip_flag: bool, animation_angle: float):
 	flipped = flip_flag
-		
-	if spin_tween:
-		spin_tween.kill()
-		
-	spin_tween = get_tree().create_tween()
-	spin_tween.tween_property($SpriteHolder, "rotation", Vector3(0, animation_angle, 0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
+	if skip_flip:
+		skip_flip = false
+		$SpriteHolder.rotation.y = animation_angle
+	else:
+		if spin_tween:
+			spin_tween.kill()
+			
+		spin_tween = get_tree().create_tween()
+		spin_tween.tween_property($SpriteHolder, "rotation", Vector3(0, animation_angle, 0), 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		
 	if flipped:
 		$RaycastHolder.rotation.y = PI
 	else:
