@@ -269,7 +269,7 @@ func _slide_physics_process(delta) -> void:
 func _wallslide_physics_process(delta) -> void:
 	velocity.y = move_toward(velocity.y, -2, 1)
 	
-	if !$RaycastHolder/WallRaycast.is_colliding():
+	if !($RaycastHolder/WallRaycastUp.is_colliding() and $RaycastHolder/WallRaycastDown.is_colliding()):
 		player_state = PlayerState.FALL
 		
 	_handle_jump()
@@ -437,7 +437,7 @@ func _handle_strike() -> void:
 
 
 func _handle_wall() -> void:
-	if $RaycastHolder/WallRaycast.is_colliding() and !is_on_floor():
+	if $RaycastHolder/WallRaycastUp.is_colliding() and $RaycastHolder/WallRaycastDown.is_colliding() and !is_on_floor():
 		player_state = PlayerState.WALLSLIDE
 
 

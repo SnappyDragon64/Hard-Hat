@@ -490,8 +490,11 @@ wait_time = 2.0
 [node name="SlideRaycast" type="RayCast3D" parent="RaycastHolder"]
 target_position = Vector3(0, 1, 0)
 
-[node name="WallRaycast" type="RayCast3D" parent="RaycastHolder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09272, 0)
+[node name="WallRaycastUp" type="RayCast3D" parent="RaycastHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0.45, 0, 0)
+
+[node name="WallRaycastDown" type="RayCast3D" parent="RaycastHolder"]
 target_position = Vector3(0.45, 0, 0)
 
 [node name="SpriteHolder" type="Node3D" parent="."]
