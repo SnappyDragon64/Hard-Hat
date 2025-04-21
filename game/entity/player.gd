@@ -212,9 +212,8 @@ func _idle_physics_process(_delta) -> void:
 		player_state = PlayerState.RUN
 	
 	_handle_x_movement()
-	_handle_jump()
+	_handle_jump_and_slide()
 	_handle_coyote_time()
-	_handle_slide()
 	_handle_strike()
 
 
@@ -223,9 +222,8 @@ func _run_physics_process(_delta) -> void:
 		player_state = PlayerState.IDLE
 		
 	_handle_x_movement()
-	_handle_jump()
+	_handle_jump_and_slide()
 	_handle_coyote_time()
-	_handle_slide()
 	_handle_strike()
 
 
@@ -240,7 +238,6 @@ func _jump_physics_process(delta) -> void:
 		player_state = PlayerState.FALL
 	
 	_handle_strike()
-	_handle_slide()
 	_handle_wall()
 
 
@@ -249,7 +246,6 @@ func _fall_physics_process(delta) -> void:
 	_handle_x_movement()
 	_handle_land()
 	_handle_strike()
-	_handle_slide()
 	_handle_wall()
 
 
@@ -271,7 +267,7 @@ func _wallslide_physics_process(delta) -> void:
 		
 	_handle_jump()
 	_handle_land()
-	_handle_slide()
+
 
 func _coyote_time_physics_process(delta) -> void:
 	_handle_gravity(delta)
@@ -359,8 +355,10 @@ func _handle_x_movement() -> void:
 			velocity.x = move_toward(velocity.x, 0, 1)
 
 
-func _handle_slide() -> void:
-	if InputBuffer.is_action_press_buffered("slide") and is_on_floor():
+func _handle_jump_and_slide() -> void:
+	if InputBuffer.is_action_press_buffered("jump"):
+		player_state = PlayerState.JUMP
+	elif InputBuffer.is_action_press_buffered("slide") and is_on_floor():
 		player_state = PlayerState.SLIDE
 
 
